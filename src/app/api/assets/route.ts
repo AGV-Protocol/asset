@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb } from '@/lib/firebase-admin';
+import { Query, CollectionReference } from 'firebase-admin/firestore';
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     
-    let query = adminDb.collection('asset_submissions');
+    let query: CollectionReference | Query = adminDb.collection('asset_submissions');
     
     if (status) {
       query = query.where('status', '==', status);

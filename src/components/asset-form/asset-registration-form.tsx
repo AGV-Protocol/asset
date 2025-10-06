@@ -7,7 +7,6 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import { YesNoToggle } from "@/components/ui/yes-no-toggle";
 import { StepIndicator } from "./step-indicator";
 import { OptionSelector } from "./option-selector";
@@ -73,11 +72,16 @@ const solarDataSchema = z.object({
   tariffPpaContractId: z.string().min(1, "Tariff/PPA contract ID is required"),
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const computeDataSchema = z.object({
+  type: z.literal("Compute Data"),
+});
+
 type FormData = {
   basicData: z.infer<typeof basicDataSchema>;
   financialData: z.infer<typeof financialDataSchema>;
   operationsCompliance: z.infer<typeof operationsComplianceSchema>;
-  tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema>;
+  tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema> | z.infer<typeof computeDataSchema>;
 };
 
 const steps = ["Basic Data", "Financial & Revenue", "Operations & Compliance", "Tier Data"];
@@ -185,7 +189,7 @@ export function AssetRegistrationForm() {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        await response.json();
         toast.success('Asset registration submitted successfully!');
         // Reset form or redirect
         window.location.reload();
