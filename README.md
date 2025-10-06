@@ -1,36 +1,170 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Real World Assets - Asset Onboarding Platform
 
-## Getting Started
+A Next.js application for asset registration and management, built for AGV Protocol's real-world asset tokenization platform.
 
-First, run the development server:
+## Features
 
+- **Multi-step Asset Registration Form**: Comprehensive form with 4 sections covering basic data, financial information, operations & compliance, and tier-specific data
+- **Dynamic Form Sections**: Different forms based on selected tier (Orchard Data, Solar Data, Compute Data)
+- **Review System**: Complete review of all submitted data before final submission
+- **Admin Dashboard**: Management interface for reviewing and approving asset submissions
+- **Firestore Integration**: Secure data storage and retrieval
+- **Responsive Design**: Mobile-friendly interface with glass morphism effects
+
+## Form Sections
+
+### 1. Basic Data
+- Project information (name, land parcel ID)
+- Location details (county, city, province, GPS coordinates)
+- Land type selection (Orchard, Farmland, Facility Agriculture)
+- Ownership information (lease contract, duration, owner)
+
+### 2. Financial & Revenue Data
+- Investment costs and cash flow breakdown
+- Revenue streams (orchard products, solar electricity)
+- Subsidies and green certificate income
+- IRR/ROI calculations
+
+### 3. Operations & Compliance
+- Company information and business licenses
+- EPC/O&M contractor details
+- Government filing and approval documents
+- Operating entity selection
+- Tier selection (Orchard, Solar, or Compute Data)
+
+### 4. Tier-Specific Data
+
+#### Orchard Data
+- Planting area and tree information
+- Age, variety, and density details
+- Yield information and monitoring systems
+- IoT device integration
+
+#### Solar Data
+- Installed capacity and PV module details
+- Grid connection and power generation data
+- Tariff and PPA contract information
+
+## Admin Features
+
+- View all asset submissions
+- Filter by status (pending, approved, rejected)
+- Search by project name, land parcel ID, or company
+- Approve or reject submissions
+- View detailed submission information
+- Delete submissions
+
+## Setup Instructions
+
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
+
+2. **Environment Configuration**
+   Create a `.env.local` file with your Firebase configuration:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key_here
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+
+   FIREBASE_PROJECT_ID=your_project_id
+   FIREBASE_CLIENT_EMAIL=your_service_account_email
+   FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nyour_private_key_here\n-----END PRIVATE KEY-----\n"
+   ```
+
+3. **Firebase Setup**
+   - Create a Firebase project
+   - Enable Firestore Database
+   - Create a service account and download the private key
+   - Update the environment variables
+
+4. **Add Images**
+   Place the following images in the `public` folder:
+   - `logo.png` - Main logo for header
+   - `footer-logo.png` - Logo for footer
+   - `background.jpg` - Background image for the main page
+
+5. **Run the Application**
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   ```
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── api/
+│   │   └── assets/
+│   │       ├── route.ts
+│   │       └── [id]/
+│   │           └── route.ts
+│   ├── admin/
+│   │   ├── page.tsx
+│   │   └── assets/
+│   │       └── [id]/
+│   │           └── page.tsx
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── asset-form/
+│   │   ├── asset-registration-form.tsx
+│   │   ├── footer.tsx
+│   │   ├── form-section.tsx
+│   │   ├── header.tsx
+│   │   ├── option-selector.tsx
+│   │   └── step-indicator.tsx
+│   └── ui/
+│       ├── button.tsx
+│       ├── input.tsx
+│       ├── progress.tsx
+│       ├── select.tsx
+│       └── switch.tsx
+└── lib/
+    ├── firebase.ts
+    ├── firebase-admin.ts
+    └── utils.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js 15** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **React Hook Form** - Form management
+- **Zod** - Schema validation
+- **Firebase** - Database and authentication
+- **Radix UI** - Accessible UI components
+- **Lucide React** - Icons
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## API Endpoints
 
-## Learn More
+- `POST /api/assets` - Submit new asset registration
+- `GET /api/assets` - Get all asset submissions (with optional status filter)
+- `GET /api/assets/[id]` - Get specific asset submission
+- `PUT /api/assets/[id]` - Update asset submission
+- `DELETE /api/assets/[id]` - Delete asset submission
 
-To learn more about Next.js, take a look at the following resources:
+## Styling
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The application uses a consistent design system with:
+- Primary color: `#3399FF` (AGV Protocol blue)
+- Glass morphism effects for form containers
+- Responsive grid layouts
+- Consistent spacing and typography
+- Background images for visual appeal
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Future Enhancements
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- User authentication and role-based access
+- File upload for documents
+- Email notifications
+- Advanced filtering and sorting
+- Export functionality
+- Audit trail
+- Integration with blockchain networks
