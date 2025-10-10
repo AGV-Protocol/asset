@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "close": "Close",
+    "confirm": "Confirm",
+    "required": "Required",
+    "optional": "Optional",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation": {
+    "home": "Home",
+    "assets": "Assets",
+    "register": "Register Asset",
+    "admin": "Admin"
+  },
+  "header": {
+    "title": "Real World Assets",
+    "subtitle": "AGV Protocol",
+    "nav": {
+      "home": "Home",
+      "register": "Register Asset",
+      "assets": "Assets"
+    }
+  },
+  "hero": {
+    "title": "Real World Assets",
+    "subtitle": "Asset Registration and Management Platform",
+    "description": "Register, manage, and track real-world assets on the blockchain with AGV Protocol",
+    "registerButton": "Register Asset",
+    "learnMore": "Learn More"
+  },
+  "assetForm": {
+    "title": "Asset Registration",
+    "subtitle": "Register your real-world asset on the blockchain",
+    "steps": {
+      "basicInfo": "Basic Information",
+      "assetDetails": "Asset Details",
+      "verification": "Verification",
+      "review": "Review & Submit"
+    },
+    "basicInfo": {
+      "title": "Basic Information",
+      "assetName": "Asset Name",
+      "assetNamePlaceholder": "Enter asset name",
+      "assetType": "Asset Type",
+      "assetTypePlaceholder": "Select asset type",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe your asset",
+      "location": "Location",
+      "locationPlaceholder": "Enter asset location"
+    },
+    "assetDetails": {
+      "title": "Asset Details",
+      "value": "Asset Value",
+      "valuePlaceholder": "Enter asset value",
+      "currency": "Currency",
+      "currencyPlaceholder": "Select currency",
+      "ownership": "Ownership Percentage",
+      "ownershipPlaceholder": "Enter ownership percentage",
+      "documents": "Supporting Documents",
+      "documentsPlaceholder": "Upload relevant documents"
+    },
+    "verification": {
+      "title": "Verification",
+      "identityVerification": "Identity Verification",
+      "assetVerification": "Asset Verification",
+      "legalCompliance": "Legal Compliance",
+      "termsAgreement": "Terms Agreement",
+      "termsText": "I agree to the terms and conditions for asset registration"
+    },
+    "review": {
+      "title": "Review & Submit",
+      "reviewInfo": "Please review your information before submitting",
+      "submitButton": "Submit Registration",
+      "editButton": "Edit Information"
+    }
+  },
+  "footer": {
+    "companyName": "AGV Protocol",
+    "tagline": "Real World Assets Platform",
+    "description": "The leading platform for registering and managing real-world assets on the blockchain.",
+    "sections": {
+      "platform": {
+        "title": "Platform",
+        "assetRegistration": "Asset Registration",
+        "assetManagement": "Asset Management",
+        "verification": "Verification",
+        "compliance": "Compliance"
+      },
+      "resources": {
+        "title": "Resources",
+        "documentation": "Documentation",
+        "api": "API",
+        "guides": "Guides",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "cookiePolicy": "Cookie Policy"
+      }
+    },
+    "copyright": "© 2025 AGV Protocol. All rights reserved"
+  },
+  "assetTypes": {
+    "realEstate": "Real Estate",
+    "vehicles": "Vehicles",
+    "machinery": "Machinery",
+    "intellectualProperty": "Intellectual Property",
+    "artwork": "Artwork",
+    "preciousMetals": "Precious Metals",
+    "commodities": "Commodities",
+    "other": "Other"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "gbp": "GBP",
+    "jpy": "JPY",
+    "cny": "CNY",
+    "krw": "KRW",
+    "btc": "BTC",
+    "eth": "ETH"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "invalidNumber": "Please enter a valid number",
+    "invalidPercentage": "Please enter a valid percentage (0-100)",
+    "fileTooLarge": "File size must be less than 10MB",
+    "invalidFileType": "Please upload a valid file type"
+  },
+  "messages": {
+    "registrationSuccess": "Asset registration submitted successfully!",
+    "registrationError": "Failed to submit asset registration. Please try again.",
+    "loadingAssets": "Loading assets...",
+    "noAssetsFound": "No assets found",
+    "assetDeleted": "Asset deleted successfully",
+    "assetUpdated": "Asset updated successfully"
+  }
+}

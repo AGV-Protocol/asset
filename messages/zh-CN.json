@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "close": "关闭",
+    "confirm": "确认",
+    "required": "必填",
+    "optional": "可选",
+    "yes": "是",
+    "no": "否"
+  },
+  "navigation": {
+    "home": "首页",
+    "assets": "资产",
+    "register": "注册资产",
+    "admin": "管理"
+  },
+  "header": {
+    "title": "实物资产",
+    "subtitle": "AGV协议",
+    "nav": {
+      "home": "首页",
+      "register": "注册资产",
+      "assets": "资产"
+    }
+  },
+  "hero": {
+    "title": "实物资产",
+    "subtitle": "资产注册和管理平台",
+    "description": "通过AGV协议在区块链上注册、管理和跟踪实物资产",
+    "registerButton": "注册资产",
+    "learnMore": "了解更多"
+  },
+  "assetForm": {
+    "title": "资产注册",
+    "subtitle": "在区块链上注册您的实物资产",
+    "steps": {
+      "basicInfo": "基本信息",
+      "assetDetails": "资产详情",
+      "verification": "验证",
+      "review": "审核并提交"
+    },
+    "basicInfo": {
+      "title": "基本信息",
+      "assetName": "资产名称",
+      "assetNamePlaceholder": "输入资产名称",
+      "assetType": "资产类型",
+      "assetTypePlaceholder": "选择资产类型",
+      "description": "描述",
+      "descriptionPlaceholder": "描述您的资产",
+      "location": "位置",
+      "locationPlaceholder": "输入资产位置"
+    },
+    "assetDetails": {
+      "title": "资产详情",
+      "value": "资产价值",
+      "valuePlaceholder": "输入资产价值",
+      "currency": "货币",
+      "currencyPlaceholder": "选择货币",
+      "ownership": "所有权百分比",
+      "ownershipPlaceholder": "输入所有权百分比",
+      "documents": "支持文件",
+      "documentsPlaceholder": "上传相关文件"
+    },
+    "verification": {
+      "title": "验证",
+      "identityVerification": "身份验证",
+      "assetVerification": "资产验证",
+      "legalCompliance": "法律合规",
+      "termsAgreement": "条款协议",
+      "termsText": "我同意资产注册的条款和条件"
+    },
+    "review": {
+      "title": "审核并提交",
+      "reviewInfo": "提交前请审核您的信息",
+      "submitButton": "提交注册",
+      "editButton": "编辑信息"
+    }
+  },
+  "footer": {
+    "companyName": "AGV协议",
+    "tagline": "实物资产平台",
+    "description": "在区块链上注册和管理实物资产的领先平台。",
+    "sections": {
+      "platform": {
+        "title": "平台",
+        "assetRegistration": "资产注册",
+        "assetManagement": "资产管理",
+        "verification": "验证",
+        "compliance": "合规"
+      },
+      "resources": {
+        "title": "资源",
+        "documentation": "文档",
+        "api": "API",
+        "guides": "指南",
+        "support": "支持"
+      },
+      "legal": {
+        "title": "法律",
+        "privacyPolicy": "隐私政策",
+        "termsOfService": "服务条款",
+        "cookiePolicy": "Cookie政策"
+      }
+    },
+    "copyright": "© 2025 AGV协议。保留所有权利"
+  },
+  "assetTypes": {
+    "realEstate": "房地产",
+    "vehicles": "车辆",
+    "machinery": "机械",
+    "intellectualProperty": "知识产权",
+    "artwork": "艺术品",
+    "preciousMetals": "贵金属",
+    "commodities": "商品",
+    "other": "其他"
+  },
+  "currencies": {
+    "usd": "美元",
+    "eur": "欧元",
+    "gbp": "英镑",
+    "jpy": "日元",
+    "cny": "人民币",
+    "krw": "韩元",
+    "btc": "比特币",
+    "eth": "以太坊"
+  },
+  "validation": {
+    "required": "此字段为必填项",
+    "invalidEmail": "请输入有效的电子邮件地址",
+    "invalidNumber": "请输入有效数字",
+    "invalidPercentage": "请输入有效百分比（0-100）",
+    "fileTooLarge": "文件大小必须小于10MB",
+    "invalidFileType": "请上传有效文件类型"
+  },
+  "messages": {
+    "registrationSuccess": "资产注册提交成功！",
+    "registrationError": "资产注册提交失败。请重试。",
+    "loadingAssets": "加载资产中...",
+    "noAssetsFound": "未找到资产",
+    "assetDeleted": "资产删除成功",
+    "assetUpdated": "资产更新成功"
+  }
+}

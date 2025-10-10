@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "submit": "送信",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "edit": "編集",
+    "delete": "削除",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "close": "閉じる",
+    "confirm": "確認",
+    "required": "必須",
+    "optional": "任意",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "assets": "資産",
+    "register": "資産登録",
+    "admin": "管理"
+  },
+  "header": {
+    "title": "リアルワールドアセット",
+    "subtitle": "AGVプロトコル",
+    "nav": {
+      "home": "ホーム",
+      "register": "資産登録",
+      "assets": "資産"
+    }
+  },
+  "hero": {
+    "title": "リアルワールドアセット",
+    "subtitle": "資産登録・管理プラットフォーム",
+    "description": "AGVプロトコルを使用してブロックチェーン上でリアルワールドアセットを登録、管理、追跡します",
+    "registerButton": "資産登録",
+    "learnMore": "詳細を見る"
+  },
+  "assetForm": {
+    "title": "資産登録",
+    "subtitle": "ブロックチェーン上にリアルワールドアセットを登録する",
+    "steps": {
+      "basicInfo": "基本情報",
+      "assetDetails": "資産詳細",
+      "verification": "検証",
+      "review": "確認・送信"
+    },
+    "basicInfo": {
+      "title": "基本情報",
+      "assetName": "資産名",
+      "assetNamePlaceholder": "資産名を入力してください",
+      "assetType": "資産タイプ",
+      "assetTypePlaceholder": "資産タイプを選択してください",
+      "description": "説明",
+      "descriptionPlaceholder": "資産について説明してください",
+      "location": "場所",
+      "locationPlaceholder": "資産の場所を入力してください"
+    },
+    "assetDetails": {
+      "title": "資産詳細",
+      "value": "資産価値",
+      "valuePlaceholder": "資産価値を入力してください",
+      "currency": "通貨",
+      "currencyPlaceholder": "通貨を選択してください",
+      "ownership": "所有権割合",
+      "ownershipPlaceholder": "所有権割合を入力してください",
+      "documents": "サポート文書",
+      "documentsPlaceholder": "関連文書をアップロードしてください"
+    },
+    "verification": {
+      "title": "検証",
+      "identityVerification": "本人確認",
+      "assetVerification": "資産検証",
+      "legalCompliance": "法的コンプライアンス",
+      "termsAgreement": "利用規約同意",
+      "termsText": "資産登録の利用規約と条件に同意します"
+    },
+    "review": {
+      "title": "確認・送信",
+      "reviewInfo": "送信前に情報を確認してください",
+      "submitButton": "登録を送信",
+      "editButton": "情報を編集"
+    }
+  },
+  "footer": {
+    "companyName": "AGVプロトコル",
+    "tagline": "リアルワールドアセットプラットフォーム",
+    "description": "ブロックチェーン上でリアルワールドアセットを登録・管理するリーディングプラットフォーム。",
+    "sections": {
+      "platform": {
+        "title": "プラットフォーム",
+        "assetRegistration": "資産登録",
+        "assetManagement": "資産管理",
+        "verification": "検証",
+        "compliance": "コンプライアンス"
+      },
+      "resources": {
+        "title": "リソース",
+        "documentation": "ドキュメント",
+        "api": "API",
+        "guides": "ガイド",
+        "support": "サポート"
+      },
+      "legal": {
+        "title": "法的",
+        "privacyPolicy": "プライバシーポリシー",
+        "termsOfService": "利用規約",
+        "cookiePolicy": "クッキーポリシー"
+      }
+    },
+    "copyright": "© 2025 AGVプロトコル。全著作権所有。"
+  },
+  "assetTypes": {
+    "realEstate": "不動産",
+    "vehicles": "車両",
+    "machinery": "機械",
+    "intellectualProperty": "知的財産",
+    "artwork": "芸術作品",
+    "preciousMetals": "貴金属",
+    "commodities": "商品",
+    "other": "その他"
+  },
+  "currencies": {
+    "usd": "米ドル",
+    "eur": "ユーロ",
+    "gbp": "英ポンド",
+    "jpy": "日本円",
+    "cny": "中国元",
+    "krw": "韓国ウォン",
+    "btc": "ビットコイン",
+    "eth": "イーサリアム"
+  },
+  "validation": {
+    "required": "この項目は必須です",
+    "invalidEmail": "有効なメールアドレスを入力してください",
+    "invalidNumber": "有効な数値を入力してください",
+    "invalidPercentage": "有効なパーセンテージを入力してください（0-100）",
+    "fileTooLarge": "ファイルサイズは10MB未満である必要があります",
+    "invalidFileType": "有効なファイルタイプをアップロードしてください"
+  },
+  "messages": {
+    "registrationSuccess": "資産登録が正常に送信されました！",
+    "registrationError": "資産登録の送信に失敗しました。再試行してください。",
+    "loadingAssets": "資産を読み込み中...",
+    "noAssetsFound": "資産が見つかりません",
+    "assetDeleted": "資産が正常に削除されました",
+    "assetUpdated": "資産が正常に更新されました"
+  }
+}

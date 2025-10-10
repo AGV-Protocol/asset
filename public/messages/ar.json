@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "yes": "نعم",
+    "no": "لا"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "assets": "الأصول",
+    "register": "تسجيل أصل",
+    "admin": "الإدارة"
+  },
+  "header": {
+    "title": "الأصول الحقيقية",
+    "subtitle": "بروتوكول AGV",
+    "nav": {
+      "home": "الرئيسية",
+      "register": "تسجيل أصل",
+      "assets": "الأصول"
+    }
+  },
+  "hero": {
+    "title": "الأصول الحقيقية",
+    "subtitle": "منصة تسجيل وإدارة الأصول",
+    "description": "سجل وأدر وتتبع الأصول الحقيقية على البلوك تشين باستخدام بروتوكول AGV",
+    "registerButton": "تسجيل أصل",
+    "learnMore": "اعرف المزيد"
+  },
+  "assetForm": {
+    "title": "تسجيل الأصول",
+    "subtitle": "سجل أصلك الحقيقي على البلوك تشين",
+    "steps": {
+      "basicInfo": "المعلومات الأساسية",
+      "assetDetails": "تفاصيل الأصل",
+      "verification": "التحقق",
+      "review": "المراجعة والإرسال"
+    },
+    "basicInfo": {
+      "title": "المعلومات الأساسية",
+      "assetName": "اسم الأصل",
+      "assetNamePlaceholder": "أدخل اسم الأصل",
+      "assetType": "نوع الأصل",
+      "assetTypePlaceholder": "اختر نوع الأصل",
+      "description": "الوصف",
+      "descriptionPlaceholder": "اوصف أصلك",
+      "location": "الموقع",
+      "locationPlaceholder": "أدخل موقع الأصل"
+    },
+    "assetDetails": {
+      "title": "تفاصيل الأصل",
+      "value": "قيمة الأصل",
+      "valuePlaceholder": "أدخل قيمة الأصل",
+      "currency": "العملة",
+      "currencyPlaceholder": "اختر العملة",
+      "ownership": "نسبة الملكية",
+      "ownershipPlaceholder": "أدخل نسبة الملكية",
+      "documents": "المستندات الداعمة",
+      "documentsPlaceholder": "ارفع المستندات ذات الصلة"
+    },
+    "verification": {
+      "title": "التحقق",
+      "identityVerification": "التحقق من الهوية",
+      "assetVerification": "التحقق من الأصل",
+      "legalCompliance": "الامتثال القانوني",
+      "termsAgreement": "اتفاقية الشروط",
+      "termsText": "أوافق على الشروط والأحكام لتسجيل الأصول"
+    },
+    "review": {
+      "title": "المراجعة والإرسال",
+      "reviewInfo": "يرجى مراجعة معلوماتك قبل الإرسال",
+      "submitButton": "إرسال التسجيل",
+      "editButton": "تعديل المعلومات"
+    }
+  },
+  "footer": {
+    "companyName": "بروتوكول AGV",
+    "tagline": "منصة الأصول الحقيقية",
+    "description": "المنصة الرائدة لتسجيل وإدارة الأصول الحقيقية على البلوك تشين.",
+    "sections": {
+      "platform": {
+        "title": "المنصة",
+        "assetRegistration": "تسجيل الأصول",
+        "assetManagement": "إدارة الأصول",
+        "verification": "التحقق",
+        "compliance": "الامتثال"
+      },
+      "resources": {
+        "title": "الموارد",
+        "documentation": "الوثائق",
+        "api": "واجهة برمجة التطبيقات",
+        "guides": "الأدلة",
+        "support": "الدعم"
+      },
+      "legal": {
+        "title": "القانونية",
+        "privacyPolicy": "سياسة الخصوصية",
+        "termsOfService": "شروط الخدمة",
+        "cookiePolicy": "سياسة ملفات تعريف الارتباط"
+      }
+    },
+    "copyright": "© 2025 بروتوكول AGV. جميع الحقوق محفوظة"
+  },
+  "assetTypes": {
+    "realEstate": "العقارات",
+    "vehicles": "المركبات",
+    "machinery": "الآلات",
+    "intellectualProperty": "الملكية الفكرية",
+    "artwork": "الأعمال الفنية",
+    "preciousMetals": "المعادن الثمينة",
+    "commodities": "السلع",
+    "other": "أخرى"
+  },
+  "currencies": {
+    "usd": "دولار أمريكي",
+    "eur": "يورو",
+    "gbp": "جنيه إسترليني",
+    "jpy": "ين ياباني",
+    "cny": "يوان صيني",
+    "krw": "وون كوري",
+    "btc": "بيتكوين",
+    "eth": "إيثريوم"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح",
+    "invalidNumber": "يرجى إدخال رقم صحيح",
+    "invalidPercentage": "يرجى إدخال نسبة مئوية صحيحة (0-100)",
+    "fileTooLarge": "يجب أن يكون حجم الملف أقل من 10 ميجابايت",
+    "invalidFileType": "يرجى رفع نوع ملف صحيح"
+  },
+  "messages": {
+    "registrationSuccess": "تم إرسال تسجيل الأصل بنجاح!",
+    "registrationError": "فشل في إرسال تسجيل الأصل. يرجى المحاولة مرة أخرى.",
+    "loadingAssets": "جاري تحميل الأصول...",
+    "noAssetsFound": "لم يتم العثور على أصول",
+    "assetDeleted": "تم حذف الأصل بنجاح",
+    "assetUpdated": "تم تحديث الأصل بنجاح"
+  }
+}

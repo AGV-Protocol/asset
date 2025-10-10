@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "submit": "Einreichen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Vorherige",
+    "close": "Schließen",
+    "confirm": "Bestätigen",
+    "required": "Erforderlich",
+    "optional": "Optional",
+    "yes": "Ja",
+    "no": "Nein"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "assets": "Vermögenswerte",
+    "register": "Vermögenswert registrieren",
+    "admin": "Administration"
+  },
+  "header": {
+    "title": "Real World Assets",
+    "subtitle": "AGV Protokoll",
+    "nav": {
+      "home": "Startseite",
+      "register": "Vermögenswert registrieren",
+      "assets": "Vermögenswerte"
+    }
+  },
+  "hero": {
+    "title": "Real World Assets",
+    "subtitle": "Vermögenswert-Registrierungs- und Verwaltungsplattform",
+    "description": "Registrieren, verwalten und verfolgen Sie Real World Assets auf der Blockchain mit dem AGV-Protokoll",
+    "registerButton": "Vermögenswert registrieren",
+    "learnMore": "Mehr erfahren"
+  },
+  "assetForm": {
+    "title": "Vermögenswert-Registrierung",
+    "subtitle": "Registrieren Sie Ihren Real World Asset auf der Blockchain",
+    "steps": {
+      "basicInfo": "Grundinformationen",
+      "assetDetails": "Vermögenswert-Details",
+      "verification": "Verifizierung",
+      "review": "Überprüfung und Einreichung"
+    },
+    "basicInfo": {
+      "title": "Grundinformationen",
+      "assetName": "Vermögenswert-Name",
+      "assetNamePlaceholder": "Vermögenswert-Name eingeben",
+      "assetType": "Vermögenswert-Typ",
+      "assetTypePlaceholder": "Vermögenswert-Typ auswählen",
+      "description": "Beschreibung",
+      "descriptionPlaceholder": "Beschreiben Sie Ihren Vermögenswert",
+      "location": "Standort",
+      "locationPlaceholder": "Vermögenswert-Standort eingeben"
+    },
+    "assetDetails": {
+      "title": "Vermögenswert-Details",
+      "value": "Vermögenswert-Wert",
+      "valuePlaceholder": "Vermögenswert-Wert eingeben",
+      "currency": "Währung",
+      "currencyPlaceholder": "Währung auswählen",
+      "ownership": "Eigentumsanteil",
+      "ownershipPlaceholder": "Eigentumsanteil eingeben",
+      "documents": "Unterstützende Dokumente",
+      "documentsPlaceholder": "Relevante Dokumente hochladen"
+    },
+    "verification": {
+      "title": "Verifizierung",
+      "identityVerification": "Identitätsverifizierung",
+      "assetVerification": "Vermögenswert-Verifizierung",
+      "legalCompliance": "Rechtliche Compliance",
+      "termsAgreement": "Nutzungsbedingungen",
+      "termsText": "Ich stimme den Geschäftsbedingungen für die Vermögenswert-Registrierung zu"
+    },
+    "review": {
+      "title": "Überprüfung und Einreichung",
+      "reviewInfo": "Bitte überprüfen Sie Ihre Informationen vor der Einreichung",
+      "submitButton": "Registrierung einreichen",
+      "editButton": "Informationen bearbeiten"
+    }
+  },
+  "footer": {
+    "companyName": "AGV Protokoll",
+    "tagline": "Real World Assets Plattform",
+    "description": "Die führende Plattform für die Registrierung und Verwaltung von Real World Assets auf der Blockchain.",
+    "sections": {
+      "platform": {
+        "title": "Plattform",
+        "assetRegistration": "Vermögenswert-Registrierung",
+        "assetManagement": "Vermögenswert-Verwaltung",
+        "verification": "Verifizierung",
+        "compliance": "Compliance"
+      },
+      "resources": {
+        "title": "Ressourcen",
+        "documentation": "Dokumentation",
+        "api": "API",
+        "guides": "Anleitungen",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Rechtliches",
+        "privacyPolicy": "Datenschutzrichtlinie",
+        "termsOfService": "Nutzungsbedingungen",
+        "cookiePolicy": "Cookie-Richtlinie"
+      }
+    },
+    "copyright": "© 2025 AGV Protokoll. Alle Rechte vorbehalten"
+  },
+  "assetTypes": {
+    "realEstate": "Immobilien",
+    "vehicles": "Fahrzeuge",
+    "machinery": "Maschinen",
+    "intellectualProperty": "Geistiges Eigentum",
+    "artwork": "Kunstwerke",
+    "preciousMetals": "Edelmetalle",
+    "commodities": "Rohstoffe",
+    "other": "Andere"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "gbp": "GBP",
+    "jpy": "JPY",
+    "cny": "CNY",
+    "krw": "KRW",
+    "btc": "BTC",
+    "eth": "ETH"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "invalidNumber": "Bitte geben Sie eine gültige Zahl ein",
+    "invalidPercentage": "Bitte geben Sie einen gültigen Prozentsatz ein (0-100)",
+    "fileTooLarge": "Die Dateigröße muss weniger als 10MB betragen",
+    "invalidFileType": "Bitte laden Sie einen gültigen Dateityp hoch"
+  },
+  "messages": {
+    "registrationSuccess": "Vermögenswert-Registrierung erfolgreich eingereicht!",
+    "registrationError": "Einreichung der Vermögenswert-Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "loadingAssets": "Vermögenswerte werden geladen...",
+    "noAssetsFound": "Keine Vermögenswerte gefunden",
+    "assetDeleted": "Vermögenswert erfolgreich gelöscht",
+    "assetUpdated": "Vermögenswert erfolgreich aktualisiert"
+  }
+}

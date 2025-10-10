@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Naglo-load...",
+    "error": "Error",
+    "success": "Tagumpay",
+    "submit": "Ipasa",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "edit": "I-edit",
+    "delete": "Tanggalin",
+    "back": "Bumalik",
+    "next": "Susunod",
+    "previous": "Nakaraan",
+    "close": "Isara",
+    "confirm": "Kumpirmahin",
+    "required": "Kailangan",
+    "optional": "Opsiyonal",
+    "yes": "Oo",
+    "no": "Hindi"
+  },
+  "navigation": {
+    "home": "Home",
+    "assets": "Mga Asset",
+    "register": "Magparehistro ng Asset",
+    "admin": "Admin"
+  },
+  "header": {
+    "title": "Mga Tunay na Asset sa Mundo",
+    "subtitle": "AGV Protocol",
+    "nav": {
+      "home": "Home",
+      "register": "Magparehistro ng Asset",
+      "assets": "Mga Asset"
+    }
+  },
+  "hero": {
+    "title": "Real World Assets",
+    "subtitle": "Platform ng Pagrehistro at Pamamahala ng Asset",
+    "description": "Magparehistro, pamahalaan, at subaybayan ang mga real-world assets sa blockchain gamit ang AGV Protocol",
+    "registerButton": "Magparehistro ng Asset",
+    "learnMore": "Matuto Pa"
+  },
+  "assetForm": {
+    "title": "Pagrehistro ng Asset",
+    "subtitle": "Magparehistro ng inyong real-world asset sa blockchain",
+    "steps": {
+      "basicInfo": "Pangunahing Impormasyon",
+      "assetDetails": "Mga Detalye ng Asset",
+      "verification": "Pagpapatunay",
+      "review": "Suriin at Ipasa"
+    },
+    "basicInfo": {
+      "title": "Pangunahing Impormasyon",
+      "assetName": "Pangalan ng Asset",
+      "assetNamePlaceholder": "Ilagay ang pangalan ng asset",
+      "assetType": "Uri ng Asset",
+      "assetTypePlaceholder": "Piliin ang uri ng asset",
+      "description": "Paglalarawan",
+      "descriptionPlaceholder": "Ilarawan ang inyong asset",
+      "location": "Lokasyon",
+      "locationPlaceholder": "Ilagay ang lokasyon ng asset"
+    },
+    "assetDetails": {
+      "title": "Mga Detalye ng Asset",
+      "value": "Halaga ng Asset",
+      "valuePlaceholder": "Ilagay ang halaga ng asset",
+      "currency": "Currency",
+      "currencyPlaceholder": "Piliin ang currency",
+      "ownership": "Porsyento ng Pagmamay-ari",
+      "ownershipPlaceholder": "Ilagay ang porsyento ng pagmamay-ari",
+      "documents": "Mga Suportang Dokumento",
+      "documentsPlaceholder": "I-upload ang mga kaugnay na dokumento"
+    },
+    "verification": {
+      "title": "Pagpapatunay",
+      "identityVerification": "Pagpapatunay ng Identidad",
+      "assetVerification": "Pagpapatunay ng Asset",
+      "legalCompliance": "Legal na Pagsunod",
+      "termsAgreement": "Kasunduan sa mga Tuntunin",
+      "termsText": "Sumasang-ayon ako sa mga tuntunin at kondisyon para sa pagrehistro ng asset"
+    },
+    "review": {
+      "title": "Suriin at Ipasa",
+      "reviewInfo": "Pakitingnan ang inyong impormasyon bago ipasa",
+      "submitButton": "Ipasa ang Rehistrasyon",
+      "editButton": "I-edit ang Impormasyon"
+    }
+  },
+  "footer": {
+    "companyName": "AGV Protocol",
+    "tagline": "Real World Assets Platform",
+    "description": "Ang nangungunang platform para sa pagrehistro at pamamahala ng real-world assets sa blockchain.",
+    "sections": {
+      "platform": {
+        "title": "Platform",
+        "assetRegistration": "Pagrehistro ng Asset",
+        "assetManagement": "Pamamahala ng Asset",
+        "verification": "Pagpapatunay",
+        "compliance": "Pagsunod"
+      },
+      "resources": {
+        "title": "Mga Mapagkukunan",
+        "documentation": "Dokumentasyon",
+        "api": "API",
+        "guides": "Mga Gabay",
+        "support": "Suporta"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacyPolicy": "Patakaran sa Privacy",
+        "termsOfService": "Mga Tuntunin ng Serbisyo",
+        "cookiePolicy": "Patakaran sa Cookie"
+      }
+    },
+    "copyright": "© 2025 AGV Protocol. Lahat ng karapatan ay nakalaan"
+  },
+  "assetTypes": {
+    "realEstate": "Real Estate",
+    "vehicles": "Mga Sasakyan",
+    "machinery": "Mga Makinarya",
+    "intellectualProperty": "Intellectual Property",
+    "artwork": "Mga Sining",
+    "preciousMetals": "Mga Mahalagang Metal",
+    "commodities": "Mga Kalakal",
+    "other": "Iba Pa"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "gbp": "GBP",
+    "jpy": "JPY",
+    "cny": "CNY",
+    "krw": "KRW",
+    "btc": "BTC",
+    "eth": "ETH"
+  },
+  "validation": {
+    "required": "Ang field na ito ay kailangan",
+    "invalidEmail": "Pakilagay ang wastong email address",
+    "invalidNumber": "Pakilagay ang wastong numero",
+    "invalidPercentage": "Pakilagay ang wastong porsyento (0-100)",
+    "fileTooLarge": "Ang laki ng file ay dapat na mas mababa sa 10MB",
+    "invalidFileType": "Pakiupload ang wastong uri ng file"
+  },
+  "messages": {
+    "registrationSuccess": "Matagumpay na naipasa ang pagrehistro ng asset!",
+    "registrationError": "Nabigo ang pagpasa ng pagrehistro ng asset. Pakisubukan muli.",
+    "loadingAssets": "Naglo-load ng mga asset...",
+    "noAssetsFound": "Walang nahanap na asset",
+    "assetDeleted": "Matagumpay na natanggal ang asset",
+    "assetUpdated": "Matagumpay na na-update ang asset"
+  }
+}

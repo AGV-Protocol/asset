@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "required": "Requis",
+    "optional": "Optionnel",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "assets": "Actifs",
+    "register": "Enregistrer un actif",
+    "admin": "Administration"
+  },
+  "header": {
+    "title": "Actifs du monde réel",
+    "subtitle": "Protocole AGV",
+    "nav": {
+      "home": "Accueil",
+      "register": "Enregistrer un actif",
+      "assets": "Actifs"
+    }
+  },
+  "hero": {
+    "title": "Actifs du monde réel",
+    "subtitle": "Plateforme d'enregistrement et de gestion d'actifs",
+    "description": "Enregistrez, gérez et suivez les actifs du monde réel sur la blockchain avec le protocole AGV",
+    "registerButton": "Enregistrer un actif",
+    "learnMore": "En savoir plus"
+  },
+  "assetForm": {
+    "title": "Enregistrement d'actif",
+    "subtitle": "Enregistrez votre actif du monde réel sur la blockchain",
+    "steps": {
+      "basicInfo": "Informations de base",
+      "assetDetails": "Détails de l'actif",
+      "verification": "Vérification",
+      "review": "Révision et soumission"
+    },
+    "basicInfo": {
+      "title": "Informations de base",
+      "assetName": "Nom de l'actif",
+      "assetNamePlaceholder": "Entrez le nom de l'actif",
+      "assetType": "Type d'actif",
+      "assetTypePlaceholder": "Sélectionnez le type d'actif",
+      "description": "Description",
+      "descriptionPlaceholder": "Décrivez votre actif",
+      "location": "Localisation",
+      "locationPlaceholder": "Entrez la localisation de l'actif"
+    },
+    "assetDetails": {
+      "title": "Détails de l'actif",
+      "value": "Valeur de l'actif",
+      "valuePlaceholder": "Entrez la valeur de l'actif",
+      "currency": "Devise",
+      "currencyPlaceholder": "Sélectionnez la devise",
+      "ownership": "Pourcentage de propriété",
+      "ownershipPlaceholder": "Entrez le pourcentage de propriété",
+      "documents": "Documents de support",
+      "documentsPlaceholder": "Téléchargez les documents pertinents"
+    },
+    "verification": {
+      "title": "Vérification",
+      "identityVerification": "Vérification d'identité",
+      "assetVerification": "Vérification d'actif",
+      "legalCompliance": "Conformité légale",
+      "termsAgreement": "Accord sur les conditions",
+      "termsText": "J'accepte les termes et conditions pour l'enregistrement d'actif"
+    },
+    "review": {
+      "title": "Révision et soumission",
+      "reviewInfo": "Veuillez réviser vos informations avant de soumettre",
+      "submitButton": "Soumettre l'enregistrement",
+      "editButton": "Modifier les informations"
+    }
+  },
+  "footer": {
+    "companyName": "Protocole AGV",
+    "tagline": "Plateforme d'actifs du monde réel",
+    "description": "La plateforme leader pour l'enregistrement et la gestion d'actifs du monde réel sur la blockchain.",
+    "sections": {
+      "platform": {
+        "title": "Plateforme",
+        "assetRegistration": "Enregistrement d'actif",
+        "assetManagement": "Gestion d'actif",
+        "verification": "Vérification",
+        "compliance": "Conformité"
+      },
+      "resources": {
+        "title": "Ressources",
+        "documentation": "Documentation",
+        "api": "API",
+        "guides": "Guides",
+        "support": "Support"
+      },
+      "legal": {
+        "title": "Légal",
+        "privacyPolicy": "Politique de confidentialité",
+        "termsOfService": "Conditions d'utilisation",
+        "cookiePolicy": "Politique des cookies"
+      }
+    },
+    "copyright": "© 2025 Protocole AGV. Tous droits réservés"
+  },
+  "assetTypes": {
+    "realEstate": "Immobilier",
+    "vehicles": "Véhicules",
+    "machinery": "Machinerie",
+    "intellectualProperty": "Propriété intellectuelle",
+    "artwork": "Œuvres d'art",
+    "preciousMetals": "Métaux précieux",
+    "commodities": "Commodités",
+    "other": "Autre"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "gbp": "GBP",
+    "jpy": "JPY",
+    "cny": "CNY",
+    "krw": "KRW",
+    "btc": "BTC",
+    "eth": "ETH"
+  },
+  "validation": {
+    "required": "Ce champ est requis",
+    "invalidEmail": "Veuillez entrer une adresse email valide",
+    "invalidNumber": "Veuillez entrer un nombre valide",
+    "invalidPercentage": "Veuillez entrer un pourcentage valide (0-100)",
+    "fileTooLarge": "La taille du fichier doit être inférieure à 10MB",
+    "invalidFileType": "Veuillez télécharger un type de fichier valide"
+  },
+  "messages": {
+    "registrationSuccess": "L'enregistrement d'actif a été soumis avec succès !",
+    "registrationError": "Échec de la soumission de l'enregistrement d'actif. Veuillez réessayer.",
+    "loadingAssets": "Chargement des actifs...",
+    "noAssetsFound": "Aucun actif trouvé",
+    "assetDeleted": "Actif supprimé avec succès",
+    "assetUpdated": "Actif mis à jour avec succès"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "assets": "Activos",
+    "register": "Registrar Activo",
+    "admin": "Administración"
+  },
+  "header": {
+    "title": "Activos del Mundo Real",
+    "subtitle": "Protocolo AGV",
+    "nav": {
+      "home": "Inicio",
+      "register": "Registrar Activo",
+      "assets": "Activos"
+    }
+  },
+  "hero": {
+    "title": "Activos del Mundo Real",
+    "subtitle": "Plataforma de Registro y Gestión de Activos",
+    "description": "Registra, gestiona y rastrea activos del mundo real en la blockchain con el Protocolo AGV",
+    "registerButton": "Registrar Activo",
+    "learnMore": "Saber Más"
+  },
+  "assetForm": {
+    "title": "Registro de Activo",
+    "subtitle": "Registra tu activo del mundo real en la blockchain",
+    "steps": {
+      "basicInfo": "Información Básica",
+      "assetDetails": "Detalles del Activo",
+      "verification": "Verificación",
+      "review": "Revisar y Enviar"
+    },
+    "basicInfo": {
+      "title": "Información Básica",
+      "assetName": "Nombre del Activo",
+      "assetNamePlaceholder": "Ingresa el nombre del activo",
+      "assetType": "Tipo de Activo",
+      "assetTypePlaceholder": "Selecciona el tipo de activo",
+      "description": "Descripción",
+      "descriptionPlaceholder": "Describe tu activo",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ingresa la ubicación del activo"
+    },
+    "assetDetails": {
+      "title": "Detalles del Activo",
+      "value": "Valor del Activo",
+      "valuePlaceholder": "Ingresa el valor del activo",
+      "currency": "Moneda",
+      "currencyPlaceholder": "Selecciona la moneda",
+      "ownership": "Porcentaje de Propiedad",
+      "ownershipPlaceholder": "Ingresa el porcentaje de propiedad",
+      "documents": "Documentos de Soporte",
+      "documentsPlaceholder": "Sube documentos relevantes"
+    },
+    "verification": {
+      "title": "Verificación",
+      "identityVerification": "Verificación de Identidad",
+      "assetVerification": "Verificación de Activo",
+      "legalCompliance": "Cumplimiento Legal",
+      "termsAgreement": "Acuerdo de Términos",
+      "termsText": "Acepto los términos y condiciones para el registro de activos"
+    },
+    "review": {
+      "title": "Revisar y Enviar",
+      "reviewInfo": "Por favor revisa tu información antes de enviar",
+      "submitButton": "Enviar Registro",
+      "editButton": "Editar Información"
+    }
+  },
+  "footer": {
+    "companyName": "Protocolo AGV",
+    "tagline": "Plataforma de Activos del Mundo Real",
+    "description": "La plataforma líder para registrar y gestionar activos del mundo real en la blockchain.",
+    "sections": {
+      "platform": {
+        "title": "Plataforma",
+        "assetRegistration": "Registro de Activos",
+        "assetManagement": "Gestión de Activos",
+        "verification": "Verificación",
+        "compliance": "Cumplimiento"
+      },
+      "resources": {
+        "title": "Recursos",
+        "documentation": "Documentación",
+        "api": "API",
+        "guides": "Guías",
+        "support": "Soporte"
+      },
+      "legal": {
+        "title": "Legal",
+        "privacyPolicy": "Política de Privacidad",
+        "termsOfService": "Términos de Servicio",
+        "cookiePolicy": "Política de Cookies"
+      }
+    },
+    "copyright": "© 2025 Protocolo AGV. Todos los derechos reservados"
+  },
+  "assetTypes": {
+    "realEstate": "Bienes Raíces",
+    "vehicles": "Vehículos",
+    "machinery": "Maquinaria",
+    "intellectualProperty": "Propiedad Intelectual",
+    "artwork": "Obras de Arte",
+    "preciousMetals": "Metales Preciosos",
+    "commodities": "Commodities",
+    "other": "Otro"
+  },
+  "currencies": {
+    "usd": "USD",
+    "eur": "EUR",
+    "gbp": "GBP",
+    "jpy": "JPY",
+    "cny": "CNY",
+    "krw": "KRW",
+    "btc": "BTC",
+    "eth": "ETH"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "invalidEmail": "Por favor ingresa una dirección de email válida",
+    "invalidNumber": "Por favor ingresa un número válido",
+    "invalidPercentage": "Por favor ingresa un porcentaje válido (0-100)",
+    "fileTooLarge": "El tamaño del archivo debe ser menor a 10MB",
+    "invalidFileType": "Por favor sube un tipo de archivo válido"
+  },
+  "messages": {
+    "registrationSuccess": "¡Registro de activo enviado exitosamente!",
+    "registrationError": "Falló el envío del registro de activo. Por favor intenta de nuevo.",
+    "loadingAssets": "Cargando activos...",
+    "noAssetsFound": "No se encontraron activos",
+    "assetDeleted": "Activo eliminado exitosamente",
+    "assetUpdated": "Activo actualizado exitosamente"
+  }
+}
