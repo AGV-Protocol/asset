@@ -192,17 +192,35 @@ export function AssetRegistrationForm() {
 
   const handleSubmit = async () => {
     try {
+      // Create FormData object
+      const submitFormData = new FormData();
+      
+      // Add form data as JSON strings
+      submitFormData.append('basicData', JSON.stringify(formData.basicData));
+      submitFormData.append('financialData', JSON.stringify(formData.financialData));
+      submitFormData.append('operationsCompliance', JSON.stringify(formData.operationsCompliance));
+      submitFormData.append('tierData', JSON.stringify(formData.tierData));
+      
+      // Add files if they exist
+      if (otherSubsidiesFile) {
+        submitFormData.append('otherSubsidiesFile', otherSubsidiesFile);
+      }
+      if (orchardProductSalesRevenueFile) {
+        submitFormData.append('orchardProductSalesRevenueFile', orchardProductSalesRevenueFile);
+      }
+      if (solarElectricitySalesRevenueFile) {
+        submitFormData.append('solarElectricitySalesRevenueFile', solarElectricitySalesRevenueFile);
+      }
+
       const response = await fetch('/api/assets', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        body: submitFormData, // Don't set Content-Type header, let browser set it with boundary
       });
 
       if (response.ok) {
-        await response.json();
+        const result = await response.json();
         toast.success('Asset registration submitted successfully!');
+        console.log('Uploaded files:', result.uploadedFiles);
         // Reset form or redirect
         window.location.reload();
       } else {
