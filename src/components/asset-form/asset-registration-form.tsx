@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { YesNoToggle } from "@/components/ui/yes-no-toggle";
+import { FileUpload } from "@/components/ui/file-upload";
 import { StepIndicator } from "./step-indicator";
 import { OptionSelector } from "./option-selector";
 import { FormSection } from "./form-section";
@@ -33,9 +33,7 @@ const basicDataSchema = z.object({
 const financialDataSchema = z.object({
   unitInvestmentCost: z.string().min(1, "Unit investment cost is required"),
   annualCashFlowBreakdown: z.string().min(1, "Annual cash flow breakdown is required"),
-  orchardProductSalesRevenue: z.string().min(1, "Orchard product sales revenue is required"),
-  solarElectricitySalesRevenue: z.string().min(1, "Solar electricity sales revenue is required"),
-  otherSubsidies: z.string().min(1, "Other subsidies is required"),
+  otherSubsidiesFile: z.instanceof(File).optional(),
   annualizedIRR: z.string().min(1, "Annualized IRR is required"),
 });
 
@@ -59,6 +57,7 @@ const orchardDataSchema = z.object({
   lastThreeYearsYield: z.string().min(1, "Last 3 years yield is required"),
   monitoringSystem: z.boolean(),
   deviceId: z.string().optional(),
+  orchardProductSalesRevenueFile: z.instanceof(File).optional(),
 });
 
 const solarDataSchema = z.object({
@@ -70,18 +69,14 @@ const solarDataSchema = z.object({
   gridCompany: z.string().min(1, "Grid company is required"),
   averageAnnualPowerGeneration: z.string().min(1, "Average annual power generation is required"),
   tariffPpaContractId: z.string().min(1, "Tariff/PPA contract ID is required"),
-});
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const computeDataSchema = z.object({
-  type: z.literal("Compute Data"),
+  solarElectricitySalesRevenueFile: z.instanceof(File).optional(),
 });
 
 type FormData = {
   basicData: z.infer<typeof basicDataSchema>;
   financialData: z.infer<typeof financialDataSchema>;
   operationsCompliance: z.infer<typeof operationsComplianceSchema>;
-  tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema> | z.infer<typeof computeDataSchema>;
+  tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema>;
 };
 
 const steps = ["Basic Data", "Financial & Revenue", "Operations & Compliance", "Tier Data"];
@@ -90,6 +85,9 @@ export function AssetRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [formData, setFormData] = useState<Partial<FormData>>({});
+  const [otherSubsidiesFile, setOtherSubsidiesFile] = useState<File | undefined>(undefined);
+  const [orchardProductSalesRevenueFile, setOrchardProductSalesRevenueFile] = useState<File | undefined>(undefined);
+  const [solarElectricitySalesRevenueFile, setSolarElectricitySalesRevenueFile] = useState<File | undefined>(undefined);
 
   const basicForm = useForm<z.infer<typeof basicDataSchema>>({
     resolver: zodResolver(basicDataSchema),
@@ -127,7 +125,13 @@ export function AssetRegistrationForm() {
     } else if (currentStep === 2) {
       isValid = await financialForm.trigger();
       if (isValid) {
-        setFormData(prev => ({ ...prev, financialData: financialForm.getValues() }));
+        setFormData(prev => ({ 
+          ...prev, 
+          financialData: { 
+            ...financialForm.getValues(), 
+            otherSubsidiesFile 
+          } 
+        }));
       }
     } else if (currentStep === 3) {
       isValid = await operationsForm.trigger();
@@ -154,17 +158,25 @@ export function AssetRegistrationForm() {
     if (tier === "Orchard Data") {
       isValid = await orchardForm.trigger();
       if (isValid) {
-        setFormData(prev => ({ ...prev, tierData: orchardForm.getValues() }));
+        setFormData(prev => ({ 
+          ...prev, 
+          tierData: { 
+            ...orchardForm.getValues(), 
+            orchardProductSalesRevenueFile 
+          } 
+        }));
       }
     } else if (tier === "Solar Data") {
       isValid = await solarForm.trigger();
       if (isValid) {
-        setFormData(prev => ({ ...prev, tierData: solarForm.getValues() }));
+        setFormData(prev => ({ 
+          ...prev, 
+          tierData: { 
+            ...solarForm.getValues(), 
+            solarElectricitySalesRevenueFile 
+          } 
+        }));
       }
-    } else if (tier === "Compute Data") {
-      // For Compute Data, we don't have a specific form yet, so just proceed
-      isValid = true;
-      setFormData(prev => ({ ...prev, tierData: { type: "Compute Data" } }));
     } else {
       // No tier selected, show error
       toast.error("Please select a tier before proceeding to review.");
@@ -228,9 +240,7 @@ export function AssetRegistrationForm() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div><strong>Unit Investment Cost:</strong> {formData.financialData?.unitInvestmentCost}</div>
                 <div><strong>Annual Cash Flow:</strong> {formData.financialData?.annualCashFlowBreakdown}</div>
-                <div><strong>Orchard Revenue:</strong> {formData.financialData?.orchardProductSalesRevenue}</div>
-                <div><strong>Solar Revenue:</strong> {formData.financialData?.solarElectricitySalesRevenue}</div>
-                <div><strong>Other Subsidies:</strong> {formData.financialData?.otherSubsidies}</div>
+                <div><strong>Other Subsidies:</strong> {formData.financialData?.otherSubsidiesFile ? formData.financialData.otherSubsidiesFile.name : "No file uploaded"}</div>
                 <div><strong>Annualized IRR:</strong> {formData.financialData?.annualizedIRR}</div>
               </div>
             </div>
@@ -265,6 +275,7 @@ export function AssetRegistrationForm() {
                   {(formData.tierData as z.infer<typeof orchardDataSchema>)?.monitoringSystem && (
                     <div><strong>Device ID:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.deviceId}</div>
                   )}
+                  <div><strong>Orchard Product Sales Revenue:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile ? (formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile?.name : "No file uploaded"}</div>
                 </div>
               </div>
             )}
@@ -281,6 +292,7 @@ export function AssetRegistrationForm() {
                   <div><strong>Grid Company:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.gridCompany}</div>
                   <div><strong>Average Annual Power Generation:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.averageAnnualPowerGeneration}</div>
                   <div><strong>Tariff/PPA Contract ID:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.tariffPpaContractId}</div>
+                  <div><strong>Solar Electricity Sales Revenue:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile ? (formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile?.name : "No file uploaded"}</div>
                 </div>
               </div>
             )}
@@ -323,7 +335,17 @@ export function AssetRegistrationForm() {
                   {...basicForm.register("landParcelId")}
                 />
               </div>
-
+              {/* GPS Coordinates */}
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  placeholder="Latitude"
+                  {...basicForm.register("latitude")}
+                />
+                <Input
+                  placeholder="Longitude"
+                  {...basicForm.register("longitude")}
+                />
+              </div>
               {/* Location */}
               <div className="grid grid-cols-3 gap-4">
                 <Input
@@ -339,18 +361,7 @@ export function AssetRegistrationForm() {
                   {...basicForm.register("province")}
                 />
               </div>
-
-              {/* GPS Coordinates */}
-              <div className="grid grid-cols-2 gap-4">
-                <Input
-                  placeholder="Latitude"
-                  {...basicForm.register("latitude")}
-                />
-                <Input
-                  placeholder="Longitude"
-                  {...basicForm.register("longitude")}
-                />
-              </div>
+              
 
               {/* Land Type */}
               <OptionSelector
@@ -412,17 +423,12 @@ export function AssetRegistrationForm() {
                 placeholder="Annual Cash Flow Breakdown"
                 {...financialForm.register("annualCashFlowBreakdown")}
               />
-              <Input
-                placeholder="Orchard Product Sales Revenue"
-                {...financialForm.register("orchardProductSalesRevenue")}
-              />
-              <Input
-                placeholder="Solar Electricity Sales Revenue"
-                {...financialForm.register("solarElectricitySalesRevenue")}
-              />
-              <Input
+              <FileUpload
+                label=""
+                onFileSelect={(file) => setOtherSubsidiesFile(file || undefined)}
+                selectedFile={otherSubsidiesFile || null}
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 placeholder="Other Subsidies / Green Certificate Income"
-                {...financialForm.register("otherSubsidies")}
               />
               <Input
                 placeholder="Annualized IRR / ROI Calculation"
@@ -492,22 +498,13 @@ export function AssetRegistrationForm() {
               />
 
               {/* Tier Selection */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-white">Select Tier</label>
-                <Select
-                  value={operationsForm.watch("tier")}
-                  onValueChange={(value) => operationsForm.setValue("tier", value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Tier" className="text-white" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Orchard Data">Orchard Data</SelectItem>
-                    <SelectItem value="Solar Data">Solar Data</SelectItem>
-                    <SelectItem value="Compute Data">Compute Data</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              <OptionSelector
+                label="Select Tier"
+                options={["Orchard Data", "Solar Data"]}
+                selected={operationsForm.watch("tier")}
+                onSelect={(value) => operationsForm.setValue("tier", value)}
+                columns={2}
+              />
 
               <div className="flex gap-4">
                 {currentStep > 1 && (
@@ -525,7 +522,7 @@ export function AssetRegistrationForm() {
                   onClick={handleNext}
                   className="btn-primary flex-1"
                 >
-                  REVIEW
+                  NEXT
                 </Button>
               </div>
             </form>
@@ -600,6 +597,14 @@ export function AssetRegistrationForm() {
                   )}
                 </div>
 
+                <FileUpload
+                  label=""
+                  onFileSelect={(file) => setOrchardProductSalesRevenueFile(file || undefined)}
+                  selectedFile={orchardProductSalesRevenueFile || null}
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  placeholder="Orchard Product Sales Revenue"
+                />
+
                 <div className="flex gap-4">
                   {currentStep > 1 && (
                     <Button
@@ -669,6 +674,14 @@ export function AssetRegistrationForm() {
                   {...solarForm.register("tariffPpaContractId")}
                 />
 
+                <FileUpload
+                  label=""
+                  onFileSelect={(file) => setSolarElectricitySalesRevenueFile(file || undefined)}
+                  selectedFile={solarElectricitySalesRevenueFile || null}
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  placeholder="Solar Electricity Sales Revenue"
+                />
+                
                 <div className="flex gap-4">
                   {currentStep > 1 && (
                     <Button
