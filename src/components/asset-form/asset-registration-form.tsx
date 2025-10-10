@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { FloatingInput } from "@/components/ui/floating-input";
 import { YesNoToggle } from "@/components/ui/yes-no-toggle";
 import { FileUpload } from "@/components/ui/file-upload";
 import { StepIndicator } from "./step-indicator";
@@ -88,6 +88,7 @@ export function AssetRegistrationForm() {
   const [otherSubsidiesFile, setOtherSubsidiesFile] = useState<File | undefined>(undefined);
   const [orchardProductSalesRevenueFile, setOrchardProductSalesRevenueFile] = useState<File | undefined>(undefined);
   const [solarElectricitySalesRevenueFile, setSolarElectricitySalesRevenueFile] = useState<File | undefined>(undefined);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const basicForm = useForm<z.infer<typeof basicDataSchema>>({
     resolver: zodResolver(basicDataSchema),
@@ -121,6 +122,9 @@ export function AssetRegistrationForm() {
       isValid = await basicForm.trigger();
       if (isValid) {
         setFormData(prev => ({ ...prev, basicData: basicForm.getValues() }));
+      } else {
+        toast.error("Please fill in all required fields in the Basic Data section");
+        return;
       }
     } else if (currentStep === 2) {
       isValid = await financialForm.trigger();
@@ -132,11 +136,17 @@ export function AssetRegistrationForm() {
             otherSubsidiesFile 
           } 
         }));
+      } else {
+        toast.error("Please fill in all required fields in the Financial & Revenue Data section");
+        return;
       }
     } else if (currentStep === 3) {
       isValid = await operationsForm.trigger();
       if (isValid) {
         setFormData(prev => ({ ...prev, operationsCompliance: operationsForm.getValues() }));
+      } else {
+        toast.error("Please fill in all required fields in the Operations & Compliance section");
+        return;
       }
     }
 
@@ -165,6 +175,9 @@ export function AssetRegistrationForm() {
             orchardProductSalesRevenueFile 
           } 
         }));
+      } else {
+        toast.error("Please fill in all required fields in the Orchard Data section");
+        return;
       }
     } else if (tier === "Solar Data") {
       isValid = await solarForm.trigger();
@@ -176,6 +189,9 @@ export function AssetRegistrationForm() {
             solarElectricitySalesRevenueFile 
           } 
         }));
+      } else {
+        toast.error("Please fill in all required fields in the Solar Data section");
+        return;
       }
     } else {
       // No tier selected, show error
@@ -185,12 +201,11 @@ export function AssetRegistrationForm() {
 
     if (isValid) {
       setIsReviewMode(true);
-    } else {
-      toast.error("Please fill in all required fields before proceeding to review.");
     }
   };
 
   const handleSubmit = async () => {
+    setIsSubmitting(true);
     try {
       // Create FormData object
       const submitFormData = new FormData();
@@ -230,6 +245,8 @@ export function AssetRegistrationForm() {
     } catch (error) {
       console.error('Error submitting form:', error);
       toast.error('Failed to submit asset registration. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -328,9 +345,17 @@ export function AssetRegistrationForm() {
             <Button
               type="button"
               onClick={handleSubmit}
+              disabled={isSubmitting}
               className="btn-primary w-full"
             >
-              Submit Registration
+              {isSubmitting ? (
+                <div className="flex items-center gap-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  Submitting...
+                </div>
+              ) : (
+                "Submit Registration"
+              )}
             </Button>
           </div>
         </div>
@@ -344,38 +369,38 @@ export function AssetRegistrationForm() {
             <form className="space-y-6">
               {/* Project Name and Land Parcel ID */}
               <div className="grid grid-cols-2 gap-4">
-                <Input
-                  placeholder="Project Name"
+                <FloatingInput
+                  label="Project Name"
                   {...basicForm.register("projectName")}
                 />
-                <Input
-                  placeholder="Land Parcel ID"
+                <FloatingInput
+                  label="Land Parcel ID"
                   {...basicForm.register("landParcelId")}
                 />
               </div>
               {/* GPS Coordinates */}
               <div className="grid grid-cols-2 gap-4">
-                <Input
-                  placeholder="Latitude"
+                <FloatingInput
+                  label="Latitude"
                   {...basicForm.register("latitude")}
                 />
-                <Input
-                  placeholder="Longitude"
+                <FloatingInput
+                  label="Longitude"
                   {...basicForm.register("longitude")}
                 />
               </div>
               {/* Location */}
               <div className="grid grid-cols-3 gap-4">
-                <Input
-                  placeholder="County"
+                <FloatingInput
+                  label="County"
                   {...basicForm.register("county")}
                 />
-                <Input
-                  placeholder="City"
+                <FloatingInput
+                  label="City"
                   {...basicForm.register("city")}
                 />
-                <Input
-                  placeholder="Province"
+                <FloatingInput
+                  label="Province"
                   {...basicForm.register("province")}
                 />
               </div>
@@ -392,16 +417,16 @@ export function AssetRegistrationForm() {
 
               {/* Land Ownership Proof */}
               <div className="grid grid-cols-3 gap-4">
-                <Input
-                  placeholder="Lease Contract ID"
+                <FloatingInput
+                  label="Lease Contract ID"
                   {...basicForm.register("leaseContractId")}
                 />
-                <Input
-                  placeholder="Duration"
+                <FloatingInput
+                  label="Duration"
                   {...basicForm.register("duration")}
                 />
-                <Input
-                  placeholder="Owner"
+                <FloatingInput
+                  label="Owner"
                   {...basicForm.register("owner")}
                 />
               </div>
@@ -433,12 +458,12 @@ export function AssetRegistrationForm() {
         return (
           <FormSection title="Financial & Revenue Data">
             <form className="space-y-6">
-              <Input
-                placeholder="Unit Investment Cost (CNY per mu or per MW)"
+              <FloatingInput
+                label="Unit Investment Cost (CNY per mu or per MW)"
                 {...financialForm.register("unitInvestmentCost")}
               />
-              <Input
-                placeholder="Annual Cash Flow Breakdown"
+              <FloatingInput
+                label="Annual Cash Flow Breakdown"
                 {...financialForm.register("annualCashFlowBreakdown")}
               />
               <FileUpload
@@ -448,8 +473,8 @@ export function AssetRegistrationForm() {
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 placeholder="Other Subsidies / Green Certificate Income"
               />
-              <Input
-                placeholder="Annualized IRR / ROI Calculation"
+              <FloatingInput
+                label="Annualized IRR / ROI Calculation"
                 {...financialForm.register("annualizedIRR")}
               />
 
@@ -482,18 +507,18 @@ export function AssetRegistrationForm() {
             <form className="space-y-6">
               {/* Company Name and Business License */}
               <div className="grid grid-cols-2 gap-4">
-                <Input
-                  placeholder="Company Name"
+                <FloatingInput
+                  label="Company Name"
                   {...operationsForm.register("companyName")}
                 />
-                <Input
-                  placeholder="Business License / Credit Code"
+                <FloatingInput
+                  label="Business License / Credit Code"
                   {...operationsForm.register("businessLicense")}
                 />
               </div>
 
-              <Input
-                placeholder="EPC / O&M Contractor Name"
+              <FloatingInput
+                label="EPC / O&M Contractor Name"
                 {...operationsForm.register("epcContractorName")}
               />
 
@@ -554,23 +579,23 @@ export function AssetRegistrationForm() {
           return (
             <FormSection title="Orchard Data">
               <form className="space-y-6">
-                <Input
-                  placeholder="Planting Area (mu / hectares)"
+                <FloatingInput
+                  label="Planting Area (mu / hectares)"
                   {...orchardForm.register("plantingArea")}
                 />
 
                 {/* Number of Trees, Age, Variety */}
                 <div className="grid grid-cols-3 gap-4">
-                  <Input
-                    placeholder="Number of Trees"
+                  <FloatingInput
+                    label="Number of Trees"
                     {...orchardForm.register("numberOfTrees")}
                   />
-                  <Input
-                    placeholder="Age"
+                  <FloatingInput
+                    label="Age"
                     {...orchardForm.register("age")}
                   />
-                  <Input
-                    placeholder="Variety"
+                  <FloatingInput
+                    label="Variety"
                     {...orchardForm.register("variety")}
                   />
                 </div>
@@ -579,22 +604,22 @@ export function AssetRegistrationForm() {
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-white">Planting Density</label>
                   <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      placeholder="Row Spacing"
+                    <FloatingInput
+                      label="Row Spacing"
                       {...orchardForm.register("rowSpacing")}
                     />
-                    <Input
-                      placeholder="Tree Density"
+                    <FloatingInput
+                      label="Tree Density"
                       {...orchardForm.register("treeDensity")}
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
-                    <Input
-                      placeholder="Annual Yield (tons)"
+                    <FloatingInput
+                      label="Annual Yield (tons)"
                       {...orchardForm.register("annualYield")}
                     />
-                    <Input
-                      placeholder="Last 3 years yield"
+                    <FloatingInput
+                      label="Last 3 years yield"
                       {...orchardForm.register("lastThreeYearsYield")}
                     />
                   </div>
@@ -608,8 +633,8 @@ export function AssetRegistrationForm() {
                     onChange={(value) => orchardForm.setValue("monitoringSystem", value)}
                   />
                   {orchardForm.watch("monitoringSystem") && (
-                    <Input
-                      placeholder="Device ID if available"
+                    <FloatingInput
+                      label="Device ID if available"
                       {...orchardForm.register("deviceId")}
                     />
                   )}
@@ -649,46 +674,46 @@ export function AssetRegistrationForm() {
           return (
             <FormSection title="Solar Data">
               <form className="space-y-6">
-                <Input
-                  placeholder="Installed Capacity (MWp)"
+                <FloatingInput
+                  label="Installed Capacity (MWp)"
                   {...solarForm.register("installedCapacity")}
                 />
 
                 {/* PV Module Model, Manufacturer, Installation Date */}
                 <div className="grid grid-cols-3 gap-4">
-                  <Input
-                    placeholder="PV Module Model"
+                  <FloatingInput
+                    label="PV Module Model"
                     {...solarForm.register("pvModuleModel")}
                   />
-                  <Input
-                    placeholder="Manufacturer"
+                  <FloatingInput
+                    label="Manufacturer"
                     {...solarForm.register("manufacturer")}
                   />
-                  <Input
-                    placeholder="Installation Date"
+                  <FloatingInput
+                    label="Installation Date"
                     {...solarForm.register("installationDate")}
                   />
                 </div>
 
                 {/* Grid Connection */}
                 <div className="grid grid-cols-2 gap-4">
-                  <Input
-                    placeholder="Grid Connection Permit ID"
+                  <FloatingInput
+                    label="Grid Connection Permit ID"
                     {...solarForm.register("gridConnectionPermitId")}
                   />
-                  <Input
-                    placeholder="Grid Company"
+                  <FloatingInput
+                    label="Grid Company"
                     {...solarForm.register("gridCompany")}
                   />
                 </div>
 
-                <Input
-                  placeholder="Average Annual Power Generation (last 12 months, kWh)"
+                <FloatingInput
+                  label="Average Annual Power Generation (last 12 months, kWh)"
                   {...solarForm.register("averageAnnualPowerGeneration")}
                 />
 
-                <Input
-                  placeholder="Tariff / PPA Contract ID"
+                <FloatingInput
+                  label="Tariff / PPA Contract ID"
                   {...solarForm.register("tariffPpaContractId")}
                 />
 
