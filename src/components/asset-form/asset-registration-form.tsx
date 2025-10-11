@@ -14,6 +14,7 @@ import { OptionSelector } from "./option-selector";
 import { FormSection } from "./form-section";
 import { AssetFormHeader } from "./header";
 import { AssetFormFooter } from "./footer";
+import { useTranslations } from "../../hooks/useTranslations";
 import { toast } from "sonner";
 
 // Form schemas for each section
@@ -80,9 +81,8 @@ type FormData = {
   tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema>;
 };
 
-const steps = ["Basic Data", "Financial & Revenue", "Operations & Compliance", "Tier Data"];
-
 export function AssetRegistrationForm() {
+  const { t } = useTranslations();
   const [currentStep, setCurrentStep] = useState(1);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [formData, setFormData] = useState<Partial<FormData>>({});
@@ -90,6 +90,13 @@ export function AssetRegistrationForm() {
   const [orchardProductSalesRevenueFile, setOrchardProductSalesRevenueFile] = useState<File | undefined>(undefined);
   const [solarElectricitySalesRevenueFile, setSolarElectricitySalesRevenueFile] = useState<File | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const steps = [
+    t("form.steps.basicData"),
+    t("form.steps.financialRevenue"),
+    t("form.steps.operationsCompliance"),
+    t("form.steps.tierData")
+  ];
 
   const basicForm = useForm<z.infer<typeof basicDataSchema>>({
     resolver: zodResolver(basicDataSchema),
@@ -124,7 +131,7 @@ export function AssetRegistrationForm() {
       if (isValid) {
         setFormData(prev => ({ ...prev, basicData: basicForm.getValues() }));
       } else {
-        toast.error("Please fill in all required fields in the Basic Data section");
+        toast.error(t("form.validation.fillAllRequired").replace("{section}", t("form.steps.basicData")));
         return;
       }
     } else if (currentStep === 2) {
@@ -138,7 +145,7 @@ export function AssetRegistrationForm() {
           } 
         }));
       } else {
-        toast.error("Please fill in all required fields in the Financial & Revenue Data section");
+        toast.error(t("form.validation.fillAllRequired").replace("{section}", t("form.steps.financialRevenue")));
         return;
       }
     } else if (currentStep === 3) {
@@ -146,7 +153,7 @@ export function AssetRegistrationForm() {
       if (isValid) {
         setFormData(prev => ({ ...prev, operationsCompliance: operationsForm.getValues() }));
       } else {
-        toast.error("Please fill in all required fields in the Operations & Compliance section");
+        toast.error(t("form.validation.fillAllRequired").replace("{section}", t("form.steps.operationsCompliance")));
         return;
       }
     }
@@ -177,7 +184,7 @@ export function AssetRegistrationForm() {
           } 
         }));
       } else {
-        toast.error("Please fill in all required fields in the Orchard Data section");
+        toast.error(t("form.validation.fillAllRequired").replace("{section}", t("form.orchardData.title")));
         return;
       }
     } else if (tier === "Solar Data") {
@@ -191,12 +198,12 @@ export function AssetRegistrationForm() {
           } 
         }));
       } else {
-        toast.error("Please fill in all required fields in the Solar Data section");
+        toast.error(t("form.validation.fillAllRequired").replace("{section}", t("form.solarData.title")));
         return;
       }
     } else {
       // No tier selected, show error
-      toast.error("Please select a tier before proceeding to review.");
+      toast.error(t("form.validation.selectTier"));
       return;
     }
 
@@ -235,7 +242,7 @@ export function AssetRegistrationForm() {
 
       if (response.ok) {
         const result = await response.json();
-        toast.success('Asset registration submitted successfully!');
+        toast.success(t("form.success.submitted"));
         console.log('Uploaded files:', result.uploadedFiles);
         // Reset form or redirect
         window.location.reload();
@@ -245,7 +252,7 @@ export function AssetRegistrationForm() {
       }
     } catch (error) {
       console.error('Error submitting form:', error);
-      toast.error('Failed to submit asset registration. Please try again.');
+      toast.error(t("form.success.failed"));
     } finally {
       setIsSubmitting(false);
     }
@@ -255,11 +262,11 @@ export function AssetRegistrationForm() {
     if (isReviewMode) {
       return (
         <div className="bg-white rounded-lg p-4 sm:p-8 shadow-lg">
-          <h2 className="!text-xl font-bold text-gray-900 mb-6">Review Your Submission</h2>
+          <h2 className="!text-xl font-bold text-gray-900 mb-6">{t("form.review.title")}</h2>
           <div className="space-y-6">
             {/* Basic Data Review */}
             <div>
-              <h3 className="!text-lg font-semibold text-gray-900 mb-3">Basic Data</h3>
+              <h3 className="!text-lg font-semibold text-gray-900 mb-3">{t("form.review.basicData")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Project Name:</strong> {formData.basicData?.projectName}</div>
                 <div><strong>Land Parcel ID:</strong> {formData.basicData?.landParcelId}</div>
@@ -272,7 +279,7 @@ export function AssetRegistrationForm() {
 
             {/* Financial Data Review */}
             <div>
-              <h3 className="!text-lg font-semibold text-gray-900 mb-3">Financial & Revenue Data</h3>
+              <h3 className="!text-lg font-semibold text-gray-900 mb-3">{t("form.review.financialData")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Unit Investment Cost:</strong> {formData.financialData?.unitInvestmentCost}</div>
                 <div><strong>Annual Cash Flow:</strong> {formData.financialData?.annualCashFlowBreakdown}</div>
@@ -283,7 +290,7 @@ export function AssetRegistrationForm() {
 
             {/* Operations & Compliance Review */}
             <div>
-              <h3 className="!text-lg font-semibold text-gray-900 mb-3">Operations & Compliance</h3>
+              <h3 className="!text-lg font-semibold text-gray-900 mb-3">{t("form.review.operationsCompliance")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Company Name:</strong> {formData.operationsCompliance?.companyName}</div>
                 <div><strong>Business License:</strong> {formData.operationsCompliance?.businessLicense}</div>
@@ -297,7 +304,7 @@ export function AssetRegistrationForm() {
             {/* Tier Data Review */}
             {formData.operationsCompliance?.tier === "Orchard Data" && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Orchard Data</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">{t("form.review.orchardData")}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div><strong>Planting Area:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.plantingArea}</div>
                   <div><strong>Number of Trees:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.numberOfTrees}</div>
@@ -318,7 +325,7 @@ export function AssetRegistrationForm() {
 
             {formData.operationsCompliance?.tier === "Solar Data" && (
               <div>
-                <h3 className="!text-lg font-semibold text-gray-900 mb-3">Solar Data</h3>
+                <h3 className="!text-lg font-semibold text-gray-900 mb-3">{t("form.review.solarData")}</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div><strong>Installed Capacity:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.installedCapacity}</div>
                   <div><strong>PV Module Model:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.pvModuleModel}</div>
@@ -341,7 +348,7 @@ export function AssetRegistrationForm() {
               onClick={() => setIsReviewMode(false)}
               className="w-full text-black"
             >
-              Back to Edit
+{t("form.review.backToEdit")}
             </Button>
             <Button
               type="button"
@@ -352,10 +359,10 @@ export function AssetRegistrationForm() {
               {isSubmitting ? (
                 <div className="flex items-center gap-2">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Submitting...
+                  {t("common.submitting")}
                 </div>
               ) : (
-                "Submit Registration"
+                t("form.review.submitRegistration")
               )}
             </Button>
           </div>
@@ -366,16 +373,16 @@ export function AssetRegistrationForm() {
     switch (currentStep) {
       case 1:
         return (
-          <FormSection title="BASIC DATA">
+          <FormSection title={t("form.basicData.title")}>
             <form className="space-y-6">
               {/* Project Name and Land Parcel ID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
-                  label="Project Name"
+                  label={t("form.basicData.projectName")}
                   {...basicForm.register("projectName")}
                 />
                 <FloatingInput
-                  label="Land Parcel ID"
+                  label={t("form.basicData.landParcelId")}
                   {...basicForm.register("landParcelId")}
                 />
               </div>
@@ -400,8 +407,12 @@ export function AssetRegistrationForm() {
 
               {/* Land Type */}
               <OptionSelector
-                label="Land Type"
-                options={["Orchard", "Farmland", "Facility Agriculture"]}
+                label={t("form.basicData.landType")}
+                options={[
+                  t("form.basicData.landTypeOptions.orchard"),
+                  t("form.basicData.landTypeOptions.farmland"),
+                  t("form.basicData.landTypeOptions.facilityAgriculture")
+                ]}
                 selected={basicForm.watch("landType")}
                 onSelect={(value) => basicForm.setValue("landType", value)}
                 columns={3}
@@ -410,15 +421,15 @@ export function AssetRegistrationForm() {
               {/* Land Ownership Proof */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <FloatingInput
-                  label="Lease Contract ID"
+                  label={t("form.basicData.leaseContractId")}
                   {...basicForm.register("leaseContractId")}
                 />
                 <FloatingInput
-                  label="Duration"
+                  label={t("form.basicData.duration")}
                   {...basicForm.register("duration")}
                 />
                 <FloatingInput
-                  label="Owner"
+                  label={t("form.basicData.owner")}
                   {...basicForm.register("owner")}
                 />
               </div>
@@ -431,7 +442,7 @@ export function AssetRegistrationForm() {
                     variant="outline"
                     className="flex-1"
                   >
-                    BACK
+                    {t("common.back")}
                   </Button>
                 )}
                 <Button
@@ -439,7 +450,7 @@ export function AssetRegistrationForm() {
                   onClick={handleNext}
                   className="btn-primary flex-1"
                 >
-                  NEXT
+{t("common.next")}
                 </Button>
               </div>
             </form>
@@ -448,14 +459,14 @@ export function AssetRegistrationForm() {
 
       case 2:
         return (
-          <FormSection title="Financial & Revenue Data">
+          <FormSection title={t("form.financialData.title")}>
             <form className="space-y-6">
               <FloatingInput
-                label="Unit Investment Cost (CNY per mu or per MW)"
+                label={t("form.financialData.unitInvestmentCost")}
                 {...financialForm.register("unitInvestmentCost")}
               />
               <FloatingInput
-                label="Annual Cash Flow Breakdown"
+                label={t("form.financialData.annualCashFlowBreakdown")}
                 {...financialForm.register("annualCashFlowBreakdown")}
               />
               <FileUpload
@@ -463,10 +474,10 @@ export function AssetRegistrationForm() {
                 onFileSelect={(file) => setOtherSubsidiesFile(file || undefined)}
                 selectedFile={otherSubsidiesFile || null}
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                placeholder="Other Subsidies / Green Certificate Income"
+                placeholder={t("form.financialData.otherSubsidies")}
               />
               <FloatingInput
-                label="Annualized IRR / ROI Calculation"
+                label={t("form.financialData.annualizedIRR")}
                 {...financialForm.register("annualizedIRR")}
               />
 
@@ -478,7 +489,7 @@ export function AssetRegistrationForm() {
                     variant="outline"
                     className="flex-1"
                   >
-                    BACK
+                    {t("common.back")}
                   </Button>
                 )}
                 <Button
@@ -486,7 +497,7 @@ export function AssetRegistrationForm() {
                   onClick={handleNext}
                   className="btn-primary flex-1"
                 >
-                  NEXT
+{t("common.next")}
                 </Button>
               </div>
             </form>
@@ -495,29 +506,33 @@ export function AssetRegistrationForm() {
 
       case 3:
         return (
-          <FormSection title="Operations & Compliance">
+          <FormSection title={t("form.operationsCompliance.title")}>
             <form className="space-y-6">
               {/* Company Name and Business License */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
-                  label="Company Name"
+                  label={t("form.operationsCompliance.companyName")}
                   {...operationsForm.register("companyName")}
                 />
                 <FloatingInput
-                  label="Business License / Credit Code"
+                  label={t("form.operationsCompliance.businessLicense")}
                   {...operationsForm.register("businessLicense")}
                 />
               </div>
 
               <FloatingInput
-                label="EPC / O&M Contractor Name"
+                label={t("form.operationsCompliance.epcContractorName")}
                 {...operationsForm.register("epcContractorName")}
               />
 
               {/* Government Filing */}
               <OptionSelector
-                label="Government Filing / Approval Document IDs"
-                options={["NDRC", "Energy Bureau", "Agriculture Bureau"]}
+                label={t("form.operationsCompliance.governmentFiling")}
+                options={[
+                  t("form.operationsCompliance.governmentFilingOptions.ndrc"),
+                  t("form.operationsCompliance.governmentFilingOptions.energyBureau"),
+                  t("form.operationsCompliance.governmentFilingOptions.agricultureBureau")
+                ]}
                 selected={operationsForm.watch("governmentFiling")}
                 onSelect={(value) => operationsForm.setValue("governmentFiling", value)}
                 columns={3}
@@ -525,8 +540,11 @@ export function AssetRegistrationForm() {
 
               {/* Operating Entity */}
               <OptionSelector
-                label="Operating Entity"
-                options={["Agriculture Insurance", "Solar Plant Insurance"]}
+                label={t("form.operationsCompliance.operatingEntity")}
+                options={[
+                  t("form.operationsCompliance.operatingEntityOptions.agricultureInsurance"),
+                  t("form.operationsCompliance.operatingEntityOptions.solarPlantInsurance")
+                ]}
                 selected={operationsForm.watch("operatingEntity")}
                 onSelect={(value) => operationsForm.setValue("operatingEntity", value)}
                 columns={2}
@@ -534,8 +552,11 @@ export function AssetRegistrationForm() {
 
               {/* Tier Selection */}
               <OptionSelector
-                label="Select Tier"
-                options={["Orchard Data", "Solar Data"]}
+                label={t("form.operationsCompliance.tier")}
+                options={[
+                  t("form.operationsCompliance.tierOptions.orchardData"),
+                  t("form.operationsCompliance.tierOptions.solarData")
+                ]}
                 selected={operationsForm.watch("tier")}
                 onSelect={(value) => operationsForm.setValue("tier", value)}
                 columns={2}
@@ -549,7 +570,7 @@ export function AssetRegistrationForm() {
                     variant="outline"
                     className="flex-1"
                   >
-                    BACK
+                    {t("common.back")}
                   </Button>
                 )}
                 <Button
@@ -557,7 +578,7 @@ export function AssetRegistrationForm() {
                   onClick={handleNext}
                   className="btn-primary flex-1"
                 >
-                  NEXT
+{t("common.next")}
                 </Button>
               </div>
             </form>
@@ -569,49 +590,49 @@ export function AssetRegistrationForm() {
         
         if (tier === "Orchard Data") {
           return (
-            <FormSection title="Orchard Data">
+            <FormSection title={t("form.orchardData.title")}>
               <form className="space-y-6">
                 <FloatingInput
-                  label="Planting Area (mu / hectares)"
+                  label={t("form.orchardData.plantingArea")}
                   {...orchardForm.register("plantingArea")}
                 />
 
                 {/* Number of Trees, Age, Variety */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
-                    label="Number of Trees"
+                    label={t("form.orchardData.numberOfTrees")}
                     {...orchardForm.register("numberOfTrees")}
                   />
                   <FloatingInput
-                    label="Age"
+                    label={t("form.orchardData.age")}
                     {...orchardForm.register("age")}
                   />
                   <FloatingInput
-                    label="Variety"
+                    label={t("form.orchardData.variety")}
                     {...orchardForm.register("variety")}
                   />
                 </div>
 
                 {/* Planting Density */}
                 <div className="space-y-3">
-                  <label className="text-sm font-medium text-white">Planting Density</label>
+                  <label className="text-sm font-medium text-white">{t("form.orchardData.plantingDensity")}</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
-                      label="Row Spacing"
+                      label={t("form.orchardData.rowSpacing")}
                       {...orchardForm.register("rowSpacing")}
                     />
                     <FloatingInput
-                      label="Tree Density"
+                      label={t("form.orchardData.treeDensity")}
                       {...orchardForm.register("treeDensity")}
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
-                      label="Annual Yield (tons)"
+                      label={t("form.orchardData.annualYield")}
                       {...orchardForm.register("annualYield")}
                     />
                     <FloatingInput
-                      label="Last 3 years yield"
+                      label={t("form.orchardData.lastThreeYearsYield")}
                       {...orchardForm.register("lastThreeYearsYield")}
                     />
                   </div>
@@ -620,13 +641,13 @@ export function AssetRegistrationForm() {
                 {/* Monitoring System */}
                 <div className="space-y-3">
                   <YesNoToggle
-                    label="Monitoring System (IoT devices for pest/climate control)"
+                    label={t("form.orchardData.monitoringSystem")}
                     value={orchardForm.watch("monitoringSystem")}
                     onChange={(value) => orchardForm.setValue("monitoringSystem", value)}
                   />
                   {orchardForm.watch("monitoringSystem") && (
                     <FloatingInput
-                      label="Device ID if available"
+                      label={t("form.orchardData.deviceId")}
                       {...orchardForm.register("deviceId")}
                     />
                   )}
@@ -637,7 +658,7 @@ export function AssetRegistrationForm() {
                   onFileSelect={(file) => setOrchardProductSalesRevenueFile(file || undefined)}
                   selectedFile={orchardProductSalesRevenueFile || null}
                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                  placeholder="Orchard Product Sales Revenue"
+                  placeholder={t("form.orchardData.orchardProductSalesRevenue")}
                 />
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -648,7 +669,7 @@ export function AssetRegistrationForm() {
                       variant="outline"
                       className="flex-1"
                     >
-                      BACK
+                      {t("common.back")}
                     </Button>
                   )}
                   <Button
@@ -656,7 +677,7 @@ export function AssetRegistrationForm() {
                     onClick={handleReview}
                     className="btn-primary flex-1"
                   >
-                    REVIEW
+{t("common.review")}
                   </Button>
                 </div>
               </form>
@@ -664,25 +685,25 @@ export function AssetRegistrationForm() {
           );
         } else if (tier === "Solar Data") {
           return (
-            <FormSection title="Solar Data">
+            <FormSection title={t("form.solarData.title")}>
               <form className="space-y-6">
                 <FloatingInput
-                  label="Installed Capacity (MWp)"
+                  label={t("form.solarData.installedCapacity")}
                   {...solarForm.register("installedCapacity")}
                 />
 
                 {/* PV Module Model, Manufacturer, Installation Date */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
-                    label="PV Module Model"
+                    label={t("form.solarData.pvModuleModel")}
                     {...solarForm.register("pvModuleModel")}
                   />
                   <FloatingInput
-                    label="Manufacturer"
+                    label={t("form.solarData.manufacturer")}
                     {...solarForm.register("manufacturer")}
                   />
                   <FloatingInput
-                    label="Installation Date"
+                    label={t("form.solarData.installationDate")}
                     {...solarForm.register("installationDate")}
                   />
                 </div>
@@ -690,22 +711,22 @@ export function AssetRegistrationForm() {
                 {/* Grid Connection */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FloatingInput
-                    label="Grid Connection Permit ID"
+                    label={t("form.solarData.gridConnectionPermitId")}
                     {...solarForm.register("gridConnectionPermitId")}
                   />
                   <FloatingInput
-                    label="Grid Company"
+                    label={t("form.solarData.gridCompany")}
                     {...solarForm.register("gridCompany")}
                   />
                 </div>
 
                 <FloatingInput
-                  label="Average Annual Power Generation (last 12 months, kWh)"
+                  label={t("form.solarData.averageAnnualPowerGeneration")}
                   {...solarForm.register("averageAnnualPowerGeneration")}
                 />
 
                 <FloatingInput
-                  label="Tariff / PPA Contract ID"
+                  label={t("form.solarData.tariffPpaContractId")}
                   {...solarForm.register("tariffPpaContractId")}
                 />
 
@@ -714,7 +735,7 @@ export function AssetRegistrationForm() {
                   onFileSelect={(file) => setSolarElectricitySalesRevenueFile(file || undefined)}
                   selectedFile={solarElectricitySalesRevenueFile || null}
                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-                  placeholder="Solar Electricity Sales Revenue"
+                  placeholder={t("form.solarData.solarElectricitySalesRevenue")}
                 />
                 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -725,7 +746,7 @@ export function AssetRegistrationForm() {
                       variant="outline"
                       className="flex-1"
                     >
-                      BACK
+                      {t("common.back")}
                     </Button>
                   )}
                   <Button
@@ -733,7 +754,7 @@ export function AssetRegistrationForm() {
                     onClick={handleReview}
                     className="btn-primary flex-1"
                   >
-                    REVIEW
+{t("common.review")}
                   </Button>
                 </div>
               </form>
@@ -761,7 +782,7 @@ export function AssetRegistrationForm() {
           
           <div className="glass rounded-lg p-4 sm:p-8 shadow-lg">
             <h1 className="!text-xl sm:!text-2xl font-bold text-white mb-6 sm:mb-8 text-center">
-              ASSET REGISTRATION FORM
+              {t("form.title")}
             </h1>
             {renderStep()}
           </div>

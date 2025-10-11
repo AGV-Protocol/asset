@@ -1,0 +1,190 @@
+{
+  "common": {
+    "loading": "載入中...",
+    "error": "錯誤",
+    "success": "成功",
+    "submit": "提交",
+    "cancel": "取消",
+    "save": "儲存",
+    "edit": "編輯",
+    "delete": "刪除",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "close": "關閉",
+    "confirm": "確認",
+    "required": "必填",
+    "optional": "可選",
+    "readMore": "閱讀更多",
+    "yes": "是",
+    "no": "否",
+    "review": "審核",
+    "submitting": "提交中..."
+  },
+  "header": {
+    "title": "真實世界資產",
+    "alt": "AGV協議"
+  },
+  "form": {
+    "title": "資產註冊表單",
+    "steps": {
+      "basicData": "基礎數據",
+      "financialRevenue": "財務與收入",
+      "operationsCompliance": "營運與合規",
+      "tierData": "層級數據"
+    },
+    "basicData": {
+      "title": "基礎數據",
+      "projectName": "專案名稱",
+      "landParcelId": "土地地塊ID",
+      "county": "縣",
+      "city": "市",
+      "province": "省",
+      "latitude": "緯度",
+      "longitude": "經度",
+      "landType": "土地類型",
+      "landTypeOptions": {
+        "orchard": "果園",
+        "farmland": "農田",
+        "facilityAgriculture": "設施農業"
+      },
+      "leaseContractId": "租賃合約ID",
+      "duration": "期限",
+      "owner": "所有者"
+    },
+    "financialData": {
+      "title": "財務與收入數據",
+      "unitInvestmentCost": "單位投資成本（每畝或每兆瓦人民幣）",
+      "annualCashFlowBreakdown": "年度現金流分解",
+      "otherSubsidies": "其他補貼/綠色證書收入",
+      "annualizedIRR": "年化內部收益率/投資回報率計算"
+    },
+    "operationsCompliance": {
+      "title": "營運與合規",
+      "companyName": "公司名稱",
+      "businessLicense": "營業執照/信用代碼",
+      "epcContractorName": "EPC/O&M承包商名稱",
+      "governmentFiling": "政府備案/批准文件ID",
+      "governmentFilingOptions": {
+        "ndrc": "發改委",
+        "energyBureau": "能源局",
+        "agricultureBureau": "農業局"
+      },
+      "operatingEntity": "營運實體",
+      "operatingEntityOptions": {
+        "agricultureInsurance": "農業保險",
+        "solarPlantInsurance": "太陽能電站保險"
+      },
+      "tier": "選擇層級",
+      "tierOptions": {
+        "orchardData": "果園數據",
+        "solarData": "太陽能數據"
+      }
+    },
+    "orchardData": {
+      "title": "果園數據",
+      "plantingArea": "種植面積（畝/公頃）",
+      "numberOfTrees": "樹木數量",
+      "age": "樹齡",
+      "variety": "品種",
+      "plantingDensity": "種植密度",
+      "rowSpacing": "行距",
+      "treeDensity": "樹密度",
+      "annualYield": "年產量（噸）",
+      "lastThreeYearsYield": "過去3年產量",
+      "monitoringSystem": "監控系統（病蟲害/氣候控制物聯網設備）",
+      "deviceId": "設備ID（如有）",
+      "orchardProductSalesRevenue": "果園產品銷售收入"
+    },
+    "solarData": {
+      "title": "太陽能數據",
+      "installedCapacity": "裝機容量（MWp）",
+      "pvModuleModel": "光伏組件型號",
+      "manufacturer": "製造商",
+      "installationDate": "安裝日期",
+      "gridConnectionPermitId": "併網許可證ID",
+      "gridCompany": "電網公司",
+      "averageAnnualPowerGeneration": "平均年發電量（過去12個月，千瓦時）",
+      "tariffPpaContractId": "電價/購電協議合約ID",
+      "solarElectricitySalesRevenue": "太陽能電力銷售收入"
+    },
+    "review": {
+      "title": "審核您的提交",
+      "basicData": "基礎數據",
+      "financialData": "財務與收入數據",
+      "operationsCompliance": "營運與合規",
+      "orchardData": "果園數據",
+      "solarData": "太陽能數據",
+      "backToEdit": "返回編輯",
+      "submitRegistration": "提交註冊",
+      "noFileUploaded": "未上傳文件"
+    },
+    "validation": {
+      "required": "此欄位為必填項",
+      "fillAllRequired": "請填寫{section}部分的所有必填欄位",
+      "selectTier": "請在進入審核前選擇一個層級。"
+    },
+    "success": {
+      "submitted": "資產註冊提交成功！",
+      "failed": "資產註冊提交失敗。請重試。"
+    }
+  },
+  "footer": {
+    "title": "真實世界資產 NFT 鑄造平台",
+    "description": "通過區塊鏈技術和真實世界資產代幣化改變農業。",
+    "features": {
+      "secure": "安全",
+      "fast": "快速",
+      "multichain": "多鏈"
+    },
+    "sections": {
+      "resources": "資源",
+      "company": "公司",
+      "support": "支援",
+      "legal": "法律"
+    },
+    "links": {
+      "assetRegistration": "資產註冊",
+      "documentation": "文件",
+      "support": "支援",
+      "aboutUs": "關於我們",
+      "careers": "職業",
+      "blog": "部落格",
+      "helpCenter": "幫助中心",
+      "contactSupport": "聯繫支援",
+      "faq": "常見問題",
+      "privacy": "隱私",
+      "terms": "條款",
+      "cookiePolicy": "Cookie政策"
+    },
+    "legal": {
+      "headquarters": "總部：全球",
+      "description": "保留所有權利。AGV協議是一個用於真實世界資產代幣化的去中心化平台。"
+    },
+    "copyright": "© 2024 AGV協議。保留所有權利。"
+  },
+  "locationPicker": {
+    "noLocationSelected": "未選擇位置",
+    "changeLocation": "更改位置",
+    "selectLocation": "選擇位置",
+    "selectLocationTitle": "選擇位置",
+    "searchLocation": "搜尋位置",
+    "searchPlaceholder": "輸入地址、城市或地標...",
+    "useCurrentLocation": "使用目前位置",
+    "detecting": "偵測中...",
+    "searchResults": "搜尋結果",
+    "selectedLocation": "已選擇位置",
+    "address": "地址",
+    "province": "省份",
+    "city": "城市",
+    "county": "縣區",
+    "coordinates": "座標",
+    "mapNotConfigured": "地圖API未配置。請手動輸入座標或配置API金鑰。",
+    "latitude": "緯度",
+    "longitude": "經度",
+    "setCoordinates": "設定座標",
+    "cancel": "取消",
+    "confirmLocation": "確認位置"
+  }
+}
+

@@ -1,0 +1,189 @@
+{
+  "common": {
+    "loading": "Naglo-load...",
+    "error": "Error",
+    "success": "Tagumpay",
+    "submit": "Isumite",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "edit": "I-edit",
+    "delete": "Tanggalin",
+    "back": "Bumalik",
+    "next": "Susunod",
+    "previous": "Nakaraang",
+    "close": "Isara",
+    "confirm": "Kumpirmahin",
+    "required": "Kinakailangan",
+    "optional": "Opsyonal",
+    "readMore": "Magbasa pa",
+    "yes": "Oo",
+    "no": "Hindi",
+    "review": "Suriin",
+    "submitting": "Isinusumite..."
+  },
+  "header": {
+    "title": "MGA TOTOONG ARI-ARIAN",
+    "alt": "AGV Protocol"
+  },
+  "form": {
+    "title": "FORM NG PAGPAPAREHISTRO NG ARI-ARIAN",
+    "steps": {
+      "basicData": "Pangunahing Data",
+      "financialRevenue": "Pinansyal at Kita",
+      "operationsCompliance": "Mga Operasyon at Pagsunod",
+      "tierData": "Data ng Tier"
+    },
+    "basicData": {
+      "title": "PANGUNAHING DATA",
+      "projectName": "Pangalan ng Proyekto",
+      "landParcelId": "ID ng Lupang Parcela",
+      "county": "County",
+      "city": "Lungsod",
+      "province": "Lalawigan",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "landType": "Uri ng Lupa",
+      "landTypeOptions": {
+        "orchard": "Hardin ng Prutas",
+        "farmland": "Lupang Sakahan",
+        "facilityAgriculture": "Agrikultura ng Pasilidad"
+      },
+      "leaseContractId": "ID ng Kontrata ng Lease",
+      "duration": "Tagal",
+      "owner": "May-ari"
+    },
+    "financialData": {
+      "title": "Data ng Pinansyal at Kita",
+      "unitInvestmentCost": "Gastos sa Pamumuhunan ng Yunit (CNY bawat mu o bawat MW)",
+      "annualCashFlowBreakdown": "Pagsusuri ng Taunang Cash Flow",
+      "otherSubsidies": "Iba pang Subsidyo / Kita ng Green Certificate",
+      "annualizedIRR": "Pagkalkula ng Annualized IRR / ROI"
+    },
+    "operationsCompliance": {
+      "title": "Mga Operasyon at Pagsunod",
+      "companyName": "Pangalan ng Kumpanya",
+      "businessLicense": "Lisensya sa Negosyo / Credit Code",
+      "epcContractorName": "Pangalan ng EPC / O&M Contractor",
+      "governmentFiling": "Pag-file sa Gobyerno / ID ng mga Dokumento ng Pag-apruba",
+      "governmentFilingOptions": {
+        "ndrc": "NDRC",
+        "energyBureau": "Bureau ng Enerhiya",
+        "agricultureBureau": "Bureau ng Agrikultura"
+      },
+      "operatingEntity": "Operating Entity",
+      "operatingEntityOptions": {
+        "agricultureInsurance": "Insurance sa Agrikultura",
+        "solarPlantInsurance": "Insurance ng Solar Plant"
+      },
+      "tier": "Piliin ang Tier",
+      "tierOptions": {
+        "orchardData": "Data ng Hardin ng Prutas",
+        "solarData": "Data ng Solar"
+      }
+    },
+    "orchardData": {
+      "title": "Data ng Hardin ng Prutas",
+      "plantingArea": "Lugar ng Pagtatanim (mu / hectares)",
+      "numberOfTrees": "Bilang ng mga Puno",
+      "age": "Edad",
+      "variety": "Variedad",
+      "plantingDensity": "Densidad ng Pagtatanim",
+      "rowSpacing": "Pagitan ng mga Hanay",
+      "treeDensity": "Densidad ng Puno",
+      "annualYield": "Taunang Ani (tonelada)",
+      "lastThreeYearsYield": "Ani ng huling 3 taon",
+      "monitoringSystem": "Sistema ng Pagsubaybay (IoT devices para sa pest/climate control)",
+      "deviceId": "Device ID kung available",
+      "orchardProductSalesRevenue": "Kita sa Pagbebenta ng Produkto ng Hardin ng Prutas"
+    },
+    "solarData": {
+      "title": "Data ng Solar",
+      "installedCapacity": "Naka-install na Kapasidad (MWp)",
+      "pvModuleModel": "Modelo ng PV Module",
+      "manufacturer": "Tagagawa",
+      "installationDate": "Petsa ng Pag-install",
+      "gridConnectionPermitId": "ID ng Permit sa Grid Connection",
+      "gridCompany": "Kumpanya ng Grid",
+      "averageAnnualPowerGeneration": "Average na Taunang Power Generation (huling 12 buwan, kWh)",
+      "tariffPpaContractId": "ID ng Kontrata ng Tariff / PPA",
+      "solarElectricitySalesRevenue": "Kita sa Pagbebenta ng Solar Electricity"
+    },
+    "review": {
+      "title": "Suriin ang Inyong Pagsumite",
+      "basicData": "Pangunahing Data",
+      "financialData": "Data ng Pinansyal at Kita",
+      "operationsCompliance": "Mga Operasyon at Pagsunod",
+      "orchardData": "Data ng Hardin ng Prutas",
+      "solarData": "Data ng Solar",
+      "backToEdit": "Bumalik sa Edit",
+      "submitRegistration": "Isumite ang Pagpaparehistro",
+      "noFileUploaded": "Walang na-upload na file"
+    },
+    "validation": {
+      "required": "Kinakailangan ang field na ito",
+      "fillAllRequired": "Pakipunan ang lahat ng kinakailangang field sa seksyon ng {section}",
+      "selectTier": "Pakisuyo pumili ng tier bago magpatuloy sa pagsusuri."
+    },
+    "success": {
+      "submitted": "Matagumpay na naisumite ang pagpaparehistro ng ari-arian!",
+      "failed": "Nabigo ang pagsumite ng pagpaparehistro ng ari-arian. Pakisuyo subukan muli."
+    }
+  },
+  "footer": {
+    "title": "Real-World Assets NFT Minting Platform",
+    "description": "Binabago ang agrikultura sa pamamagitan ng blockchain technology at real-world asset tokenization.",
+    "features": {
+      "secure": "Ligtas",
+      "fast": "Mabilis",
+      "multichain": "Multichain"
+    },
+    "sections": {
+      "resources": "Mga Mapagkukunan",
+      "company": "Kumpanya",
+      "support": "Suporta",
+      "legal": "Legal"
+    },
+    "links": {
+      "assetRegistration": "Pagpaparehistro ng Ari-arian",
+      "documentation": "Dokumentasyon",
+      "support": "Suporta",
+      "aboutUs": "Tungkol sa Amin",
+      "careers": "Mga Karera",
+      "blog": "Blog",
+      "helpCenter": "Sentro ng Tulong",
+      "contactSupport": "Makipag-ugnayan sa Suporta",
+      "faq": "Mga Madalas na Tanong",
+      "privacy": "Privacy",
+      "terms": "Mga Tuntunin",
+      "cookiePolicy": "Patakaran sa Cookie"
+    },
+    "legal": {
+      "headquarters": "Punong Tanggapan: Global",
+      "description": "Lahat ng karapatan ay nakalaan. Ang AGV Protocol ay isang decentralized platform para sa real-world asset tokenization."
+    },
+    "copyright": "© 2024 AGV Protocol. Lahat ng karapatan ay nakalaan."
+  },
+  "locationPicker": {
+    "noLocationSelected": "Walang napiling lokasyon",
+    "changeLocation": "Baguhin ang Lokasyon",
+    "selectLocation": "Piliin ang Lokasyon",
+    "selectLocationTitle": "Piliin ang Lokasyon",
+    "searchLocation": "Maghanap ng Lokasyon",
+    "searchPlaceholder": "Ilagay ang address, lungsod, o landmark...",
+    "useCurrentLocation": "Gamitin ang Kasalukuyang Lokasyon",
+    "detecting": "Nakikita...",
+    "searchResults": "Mga Resulta ng Paghahanap",
+    "selectedLocation": "Napiling Lokasyon",
+    "address": "Address",
+    "province": "Lalawigan",
+    "city": "Lungsod",
+    "county": "Bayan",
+    "coordinates": "Mga Coordinate",
+    "mapNotConfigured": "Hindi naka-configure ang Map APIs. Pakisuyo maglagay ng coordinates nang manu-mano o i-configure ang API keys.",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "setCoordinates": "Itakda ang Coordinates",
+    "cancel": "Kanselahin",
+    "confirmLocation": "Kumpirmahin ang Lokasyon"
+  }
+}

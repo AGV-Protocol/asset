@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
+import "../globals.css";
+import { Toaster } from "../../components/ui/toaster";
+import { locales, defaultLocale } from "../../../i18n";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +16,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: paramLocale } = await params;
+  const locale = paramLocale || defaultLocale;
+  
   return (
-    <html>
+    <html lang={locale}>
       <body className={inter.className}>
         {children}
         <Toaster />

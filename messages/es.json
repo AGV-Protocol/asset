@@ -1,0 +1,189 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "required": "Requerido",
+    "optional": "Opcional",
+    "readMore": "Leer más",
+    "yes": "Sí",
+    "no": "No",
+    "review": "Revisar",
+    "submitting": "Enviando..."
+  },
+  "header": {
+    "title": "ACTIVOS REALES",
+    "alt": "Protocolo AGV"
+  },
+  "form": {
+    "title": "FORMULARIO DE REGISTRO DE ACTIVOS",
+    "steps": {
+      "basicData": "Datos básicos",
+      "financialRevenue": "Financiero y ingresos",
+      "operationsCompliance": "Operaciones y cumplimiento",
+      "tierData": "Datos de nivel"
+    },
+    "basicData": {
+      "title": "DATOS BÁSICOS",
+      "projectName": "Nombre del proyecto",
+      "landParcelId": "ID de parcela de tierra",
+      "county": "Condado",
+      "city": "Ciudad",
+      "province": "Provincia",
+      "latitude": "Latitud",
+      "longitude": "Longitud",
+      "landType": "Tipo de tierra",
+      "landTypeOptions": {
+        "orchard": "Huerto",
+        "farmland": "Tierra agrícola",
+        "facilityAgriculture": "Agricultura de instalaciones"
+      },
+      "leaseContractId": "ID de contrato de arrendamiento",
+      "duration": "Duración",
+      "owner": "Propietario"
+    },
+    "financialData": {
+      "title": "Datos financieros y de ingresos",
+      "unitInvestmentCost": "Costo de inversión unitario (CNY por mu o por MW)",
+      "annualCashFlowBreakdown": "Desglose de flujo de efectivo anual",
+      "otherSubsidies": "Otras subvenciones / Ingresos de certificados verdes",
+      "annualizedIRR": "Cálculo de TIR / ROI anualizado"
+    },
+    "operationsCompliance": {
+      "title": "Operaciones y cumplimiento",
+      "companyName": "Nombre de la empresa",
+      "businessLicense": "Licencia comercial / Código de crédito",
+      "epcContractorName": "Nombre del contratista EPC / O&M",
+      "governmentFiling": "Presentación gubernamental / ID de documentos de aprobación",
+      "governmentFilingOptions": {
+        "ndrc": "NDRC",
+        "energyBureau": "Oficina de energía",
+        "agricultureBureau": "Oficina de agricultura"
+      },
+      "operatingEntity": "Entidad operativa",
+      "operatingEntityOptions": {
+        "agricultureInsurance": "Seguro agrícola",
+        "solarPlantInsurance": "Seguro de planta solar"
+      },
+      "tier": "Seleccionar nivel",
+      "tierOptions": {
+        "orchardData": "Datos de huerto",
+        "solarData": "Datos solares"
+      }
+    },
+    "orchardData": {
+      "title": "Datos de huerto",
+      "plantingArea": "Área de plantación (mu / hectáreas)",
+      "numberOfTrees": "Número de árboles",
+      "age": "Edad",
+      "variety": "Variedad",
+      "plantingDensity": "Densidad de plantación",
+      "rowSpacing": "Espaciado entre filas",
+      "treeDensity": "Densidad de árboles",
+      "annualYield": "Rendimiento anual (toneladas)",
+      "lastThreeYearsYield": "Rendimiento de los últimos 3 años",
+      "monitoringSystem": "Sistema de monitoreo (dispositivos IoT para control de plagas/clima)",
+      "deviceId": "ID de dispositivo si está disponible",
+      "orchardProductSalesRevenue": "Ingresos por ventas de productos de huerto"
+    },
+    "solarData": {
+      "title": "Datos solares",
+      "installedCapacity": "Capacidad instalada (MWp)",
+      "pvModuleModel": "Modelo de módulo PV",
+      "manufacturer": "Fabricante",
+      "installationDate": "Fecha de instalación",
+      "gridConnectionPermitId": "ID de permiso de conexión a la red",
+      "gridCompany": "Compañía de red",
+      "averageAnnualPowerGeneration": "Generación de energía anual promedio (últimos 12 meses, kWh)",
+      "tariffPpaContractId": "ID de contrato de tarifa / PPA",
+      "solarElectricitySalesRevenue": "Ingresos por ventas de electricidad solar"
+    },
+    "review": {
+      "title": "Revisar su envío",
+      "basicData": "Datos básicos",
+      "financialData": "Datos financieros y de ingresos",
+      "operationsCompliance": "Operaciones y cumplimiento",
+      "orchardData": "Datos de huerto",
+      "solarData": "Datos solares",
+      "backToEdit": "Volver a editar",
+      "submitRegistration": "Enviar registro",
+      "noFileUploaded": "Ningún archivo cargado"
+    },
+    "validation": {
+      "required": "Este campo es requerido",
+      "fillAllRequired": "Por favor complete todos los campos requeridos en la sección {section}",
+      "selectTier": "Por favor seleccione un nivel antes de proceder a la revisión."
+    },
+    "success": {
+      "submitted": "¡El registro de activos se envió exitosamente!",
+      "failed": "Error al enviar el registro de activos. Por favor intente de nuevo."
+    }
+  },
+  "footer": {
+    "title": "Plataforma de Acuñación NFT de Activos Reales",
+    "description": "Transformando la agricultura a través de la tecnología blockchain y la tokenización de activos reales.",
+    "features": {
+      "secure": "Seguro",
+      "fast": "Rápido",
+      "multichain": "Multicadena"
+    },
+    "sections": {
+      "resources": "Recursos",
+      "company": "Empresa",
+      "support": "Soporte",
+      "legal": "Legal"
+    },
+    "links": {
+      "assetRegistration": "Registro de Activos",
+      "documentation": "Documentación",
+      "support": "Soporte",
+      "aboutUs": "Acerca de Nosotros",
+      "careers": "Carreras",
+      "blog": "Blog",
+      "helpCenter": "Centro de Ayuda",
+      "contactSupport": "Contactar Soporte",
+      "faq": "Preguntas Frecuentes",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "cookiePolicy": "Política de Cookies"
+    },
+    "legal": {
+      "headquarters": "Sede: Global",
+      "description": "Todos los derechos reservados. El Protocolo AGV es una plataforma descentralizada para la tokenización de activos reales."
+    },
+    "copyright": "© 2024 Protocolo AGV. Todos los derechos reservados."
+  },
+  "locationPicker": {
+    "noLocationSelected": "Ninguna ubicación seleccionada",
+    "changeLocation": "Cambiar ubicación",
+    "selectLocation": "Seleccionar ubicación",
+    "selectLocationTitle": "Seleccionar ubicación",
+    "searchLocation": "Buscar ubicación",
+    "searchPlaceholder": "Ingrese dirección, ciudad o punto de referencia...",
+    "useCurrentLocation": "Usar ubicación actual",
+    "detecting": "Detectando...",
+    "searchResults": "Resultados de búsqueda",
+    "selectedLocation": "Ubicación seleccionada",
+    "address": "Dirección",
+    "province": "Provincia",
+    "city": "Ciudad",
+    "county": "Condado",
+    "coordinates": "Coordenadas",
+    "mapNotConfigured": "APIs de mapas no configuradas. Por favor ingrese coordenadas manualmente o configure las claves API.",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "setCoordinates": "Establecer coordenadas",
+    "cancel": "Cancelar",
+    "confirmLocation": "Confirmar ubicación"
+  }
+}

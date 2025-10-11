@@ -1,0 +1,190 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "close": "Fermer",
+    "confirm": "Confirmer",
+    "required": "Requis",
+    "optional": "Optionnel",
+    "readMore": "Lire plus",
+    "yes": "Oui",
+    "no": "Non",
+    "review": "Réviser",
+    "submitting": "Soumission..."
+  },
+  "header": {
+    "title": "ACTIFS RÉELS",
+    "alt": "Protocole AGV"
+  },
+  "form": {
+    "title": "FORMULAIRE D'ENREGISTREMENT D'ACTIFS",
+    "steps": {
+      "basicData": "Données de base",
+      "financialRevenue": "Financier et revenus",
+      "operationsCompliance": "Opérations et conformité",
+      "tierData": "Données de niveau"
+    },
+    "basicData": {
+      "title": "DONNÉES DE BASE",
+      "projectName": "Nom du projet",
+      "landParcelId": "ID de parcelle de terrain",
+      "county": "Comté",
+      "city": "Ville",
+      "province": "Province",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "landType": "Type de terrain",
+      "landTypeOptions": {
+        "orchard": "Verger",
+        "farmland": "Terres agricoles",
+        "facilityAgriculture": "Agriculture en serre"
+      },
+      "leaseContractId": "ID de contrat de location",
+      "duration": "Durée",
+      "owner": "Propriétaire"
+    },
+    "financialData": {
+      "title": "Données financières et de revenus",
+      "unitInvestmentCost": "Coût d'investissement unitaire (CNY par mu ou par MW)",
+      "annualCashFlowBreakdown": "Répartition des flux de trésorerie annuels",
+      "otherSubsidies": "Autres subventions / Revenus de certificats verts",
+      "annualizedIRR": "Calcul du TRI / ROI annualisé"
+    },
+    "operationsCompliance": {
+      "title": "Opérations et conformité",
+      "companyName": "Nom de l'entreprise",
+      "businessLicense": "Licence commerciale / Code de crédit",
+      "epcContractorName": "Nom du contractant EPC / O&M",
+      "governmentFiling": "Dépôt gouvernemental / ID de documents d'approbation",
+      "governmentFilingOptions": {
+        "ndrc": "NDRC",
+        "energyBureau": "Bureau de l'énergie",
+        "agricultureBureau": "Bureau de l'agriculture"
+      },
+      "operatingEntity": "Entité opérationnelle",
+      "operatingEntityOptions": {
+        "agricultureInsurance": "Assurance agricole",
+        "solarPlantInsurance": "Assurance de centrale solaire"
+      },
+      "tier": "Sélectionner le niveau",
+      "tierOptions": {
+        "orchardData": "Données de verger",
+        "solarData": "Données solaires"
+      }
+    },
+    "orchardData": {
+      "title": "Données de verger",
+      "plantingArea": "Zone de plantation (mu / hectares)",
+      "numberOfTrees": "Nombre d'arbres",
+      "age": "Âge",
+      "variety": "Variété",
+      "plantingDensity": "Densité de plantation",
+      "rowSpacing": "Espacement des rangs",
+      "treeDensity": "Densité des arbres",
+      "annualYield": "Rendement annuel (tonnes)",
+      "lastThreeYearsYield": "Rendement des 3 dernières années",
+      "monitoringSystem": "Système de surveillance (dispositifs IoT pour contrôle des ravageurs/climat)",
+      "deviceId": "ID de dispositif si disponible",
+      "orchardProductSalesRevenue": "Revenus de vente de produits de verger"
+    },
+    "solarData": {
+      "title": "Données solaires",
+      "installedCapacity": "Capacité installée (MWp)",
+      "pvModuleModel": "Modèle de module PV",
+      "manufacturer": "Fabricant",
+      "installationDate": "Date d'installation",
+      "gridConnectionPermitId": "ID de permis de connexion au réseau",
+      "gridCompany": "Compagnie de réseau",
+      "averageAnnualPowerGeneration": "Génération d'énergie annuelle moyenne (12 derniers mois, kWh)",
+      "tariffPpaContractId": "ID de contrat tarifaire / PPA",
+      "solarElectricitySalesRevenue": "Revenus de vente d'électricité solaire"
+    },
+    "review": {
+      "title": "Réviser votre soumission",
+      "basicData": "Données de base",
+      "financialData": "Données financières et de revenus",
+      "operationsCompliance": "Opérations et conformité",
+      "orchardData": "Données de verger",
+      "solarData": "Données solaires",
+      "backToEdit": "Retour à l'édition",
+      "submitRegistration": "Soumettre l'enregistrement",
+      "noFileUploaded": "Aucun fichier téléchargé"
+    },
+    "validation": {
+      "required": "Ce champ est requis",
+      "fillAllRequired": "Veuillez remplir tous les champs requis dans la section {section}",
+      "selectTier": "Veuillez sélectionner un niveau avant de procéder à la révision."
+    },
+    "success": {
+      "submitted": "L'enregistrement d'actif a été soumis avec succès !",
+      "failed": "Échec de la soumission de l'enregistrement d'actif. Veuillez réessayer."
+    }
+  },
+  "footer": {
+    "title": "Plateforme de Minting NFT d'Actifs Réels",
+    "description": "Transformer l'agriculture grâce à la technologie blockchain et à la tokenisation d'actifs réels.",
+    "features": {
+      "secure": "Sécurisé",
+      "fast": "Rapide",
+      "multichain": "Multichain"
+    },
+    "sections": {
+      "resources": "Ressources",
+      "company": "Entreprise",
+      "support": "Support",
+      "legal": "Légal"
+    },
+    "links": {
+      "assetRegistration": "Enregistrement d'Actifs",
+      "documentation": "Documentation",
+      "support": "Support",
+      "aboutUs": "À Propos",
+      "careers": "Carrières",
+      "blog": "Blog",
+      "helpCenter": "Centre d'Aide",
+      "contactSupport": "Contacter le Support",
+      "faq": "FAQ",
+      "privacy": "Confidentialité",
+      "terms": "Conditions",
+      "cookiePolicy": "Politique de Cookies"
+    },
+    "legal": {
+      "headquarters": "Siège Social : Global",
+      "description": "Tous droits réservés. Le Protocole AGV est une plateforme décentralisée pour la tokenisation d'actifs réels."
+    },
+    "copyright": "© 2024 Protocole AGV. Tous droits réservés."
+  },
+  "locationPicker": {
+    "noLocationSelected": "Aucun emplacement sélectionné",
+    "changeLocation": "Changer l'emplacement",
+    "selectLocation": "Sélectionner l'emplacement",
+    "selectLocationTitle": "Sélectionner l'emplacement",
+    "searchLocation": "Rechercher un emplacement",
+    "searchPlaceholder": "Entrez une adresse, une ville ou un point de repère...",
+    "useCurrentLocation": "Utiliser l'emplacement actuel",
+    "detecting": "Détection...",
+    "searchResults": "Résultats de recherche",
+    "selectedLocation": "Emplacement sélectionné",
+    "address": "Adresse",
+    "province": "Province",
+    "city": "Ville",
+    "county": "Comté",
+    "coordinates": "Coordonnées",
+    "mapNotConfigured": "APIs de carte non configurées. Veuillez entrer les coordonnées manuellement ou configurer les clés API.",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "setCoordinates": "Définir les coordonnées",
+    "cancel": "Annuler",
+    "confirmLocation": "Confirmer l'emplacement"
+  }
+}
+

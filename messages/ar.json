@@ -1,0 +1,189 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "readMore": "اقرأ المزيد",
+    "yes": "نعم",
+    "no": "لا",
+    "review": "مراجعة",
+    "submitting": "جاري الإرسال..."
+  },
+  "header": {
+    "title": "الأصول الحقيقية",
+    "alt": "بروتوكول AGV"
+  },
+  "form": {
+    "title": "نموذج تسجيل الأصول",
+    "steps": {
+      "basicData": "البيانات الأساسية",
+      "financialRevenue": "المالية والإيرادات",
+      "operationsCompliance": "العمليات والامتثال",
+      "tierData": "بيانات المستوى"
+    },
+    "basicData": {
+      "title": "البيانات الأساسية",
+      "projectName": "اسم المشروع",
+      "landParcelId": "معرف قطعة الأرض",
+      "county": "المقاطعة",
+      "city": "المدينة",
+      "province": "المحافظة",
+      "latitude": "خط العرض",
+      "longitude": "خط الطول",
+      "landType": "نوع الأرض",
+      "landTypeOptions": {
+        "orchard": "بستان",
+        "farmland": "أرض زراعية",
+        "facilityAgriculture": "الزراعة المكيفة"
+      },
+      "leaseContractId": "معرف عقد الإيجار",
+      "duration": "المدة",
+      "owner": "المالك"
+    },
+    "financialData": {
+      "title": "البيانات المالية والإيرادات",
+      "unitInvestmentCost": "تكلفة الاستثمار لكل وحدة (يوان صيني لكل مو أو لكل ميجاوات)",
+      "annualCashFlowBreakdown": "تفصيل التدفق النقدي السنوي",
+      "otherSubsidies": "إعانات أخرى / دخل الشهادات الخضراء",
+      "annualizedIRR": "حساب معدل العائد الداخلي / عائد الاستثمار السنوي"
+    },
+    "operationsCompliance": {
+      "title": "العمليات والامتثال",
+      "companyName": "اسم الشركة",
+      "businessLicense": "رخصة العمل / رمز الائتمان",
+      "epcContractorName": "اسم مقاول EPC / O&M",
+      "governmentFiling": "التقديم الحكومي / معرفات وثائق الموافقة",
+      "governmentFilingOptions": {
+        "ndrc": "NDRC",
+        "energyBureau": "مكتب الطاقة",
+        "agricultureBureau": "مكتب الزراعة"
+      },
+      "operatingEntity": "الكيان التشغيلي",
+      "operatingEntityOptions": {
+        "agricultureInsurance": "التأمين الزراعي",
+        "solarPlantInsurance": "تأمين محطة الطاقة الشمسية"
+      },
+      "tier": "اختيار المستوى",
+      "tierOptions": {
+        "orchardData": "بيانات البستان",
+        "solarData": "البيانات الشمسية"
+      }
+    },
+    "orchardData": {
+      "title": "بيانات البستان",
+      "plantingArea": "منطقة الزراعة (مو / هكتار)",
+      "numberOfTrees": "عدد الأشجار",
+      "age": "العمر",
+      "variety": "النوع",
+      "plantingDensity": "كثافة الزراعة",
+      "rowSpacing": "تباعد الصفوف",
+      "treeDensity": "كثافة الأشجار",
+      "annualYield": "الإنتاج السنوي (طن)",
+      "lastThreeYearsYield": "إنتاج آخر 3 سنوات",
+      "monitoringSystem": "نظام المراقبة (أجهزة إنترنت الأشياء لمراقبة الآفات/المناخ)",
+      "deviceId": "معرف الجهاز إن وجد",
+      "orchardProductSalesRevenue": "إيرادات مبيعات منتجات البستان"
+    },
+    "solarData": {
+      "title": "البيانات الشمسية",
+      "installedCapacity": "القدرة المركبة (MWp)",
+      "pvModuleModel": "نموذج وحدة PV",
+      "manufacturer": "الشركة المصنعة",
+      "installationDate": "تاريخ التثبيت",
+      "gridConnectionPermitId": "معرف تصريح الاتصال بالشبكة",
+      "gridCompany": "شركة الشبكة",
+      "averageAnnualPowerGeneration": "متوسط إنتاج الطاقة السنوي (آخر 12 شهر، كيلوواط ساعة)",
+      "tariffPpaContractId": "معرف عقد التعريفة / اتفاقية شراء الطاقة",
+      "solarElectricitySalesRevenue": "إيرادات مبيعات الكهرباء الشمسية"
+    },
+    "review": {
+      "title": "مراجعة تقديمك",
+      "basicData": "البيانات الأساسية",
+      "financialData": "البيانات المالية والإيرادات",
+      "operationsCompliance": "العمليات والامتثال",
+      "orchardData": "بيانات البستان",
+      "solarData": "البيانات الشمسية",
+      "backToEdit": "العودة للتحرير",
+      "submitRegistration": "إرسال التسجيل",
+      "noFileUploaded": "لم يتم رفع أي ملف"
+    },
+    "validation": {
+      "required": "هذا الحقل مطلوب",
+      "fillAllRequired": "يرجى ملء جميع الحقول المطلوبة في قسم {section}",
+      "selectTier": "يرجى اختيار مستوى قبل المتابعة للمراجعة."
+    },
+    "success": {
+      "submitted": "تم إرسال تسجيل الأصل بنجاح!",
+      "failed": "فشل في إرسال تسجيل الأصل. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "footer": {
+    "title": "منصة سك NFT للأصول الحقيقية",
+    "description": "تحويل الزراعة من خلال تقنية البلوك تشين وتوحيد الأصول الحقيقية.",
+    "features": {
+      "secure": "آمن",
+      "fast": "سريع",
+      "multichain": "متعدد السلاسل"
+    },
+    "sections": {
+      "resources": "الموارد",
+      "company": "الشركة",
+      "support": "الدعم",
+      "legal": "قانوني"
+    },
+    "links": {
+      "assetRegistration": "تسجيل الأصول",
+      "documentation": "الوثائق",
+      "support": "الدعم",
+      "aboutUs": "من نحن",
+      "careers": "الوظائف",
+      "blog": "المدونة",
+      "helpCenter": "مركز المساعدة",
+      "contactSupport": "اتصل بالدعم",
+      "faq": "الأسئلة الشائعة",
+      "privacy": "الخصوصية",
+      "terms": "الشروط",
+      "cookiePolicy": "سياسة ملفات تعريف الارتباط"
+    },
+    "legal": {
+      "headquarters": "المقر الرئيسي: عالمي",
+      "description": "جميع الحقوق محفوظة. بروتوكول AGV هو منصة لامركزية لتوحيد الأصول الحقيقية."
+    },
+    "copyright": "© 2024 بروتوكول AGV. جميع الحقوق محفوظة."
+  },
+  "locationPicker": {
+    "noLocationSelected": "لم يتم اختيار موقع",
+    "changeLocation": "تغيير الموقع",
+    "selectLocation": "اختيار الموقع",
+    "selectLocationTitle": "اختيار الموقع",
+    "searchLocation": "البحث عن الموقع",
+    "searchPlaceholder": "أدخل العنوان أو المدينة أو المعلم...",
+    "useCurrentLocation": "استخدام الموقع الحالي",
+    "detecting": "جاري الكشف...",
+    "searchResults": "نتائج البحث",
+    "selectedLocation": "الموقع المختار",
+    "address": "العنوان",
+    "province": "المحافظة",
+    "city": "المدينة",
+    "county": "المقاطعة",
+    "coordinates": "الإحداثيات",
+    "mapNotConfigured": "واجهات برمجة التطبيقات للخرائط غير مُكوّنة. يرجى إدخال الإحداثيات يدوياً أو تكوين مفاتيح واجهة برمجة التطبيقات.",
+    "latitude": "خط العرض",
+    "longitude": "خط الطول",
+    "setCoordinates": "تعيين الإحداثيات",
+    "cancel": "إلغاء",
+    "confirmLocation": "تأكيد الموقع"
+  }
+}

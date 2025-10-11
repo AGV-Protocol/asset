@@ -5,6 +5,7 @@ import { Button } from './button';
 import { Input } from './input';
 import { MapPin, Search, X, Navigation } from 'lucide-react';
 import { MAP_CONFIG, isChineseUser } from '@/lib/map-config';
+import { useTranslations } from '../../hooks/useTranslations';
 
 // Type definitions for map APIs
 interface AMapMap {
@@ -53,6 +54,7 @@ interface LocationPickerProps {
 }
 
 export function LocationPicker({ onLocationSelect, initialLocation }: LocationPickerProps) {
+  const { t } = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Array<{
@@ -450,7 +452,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
         <span className="text-white text-sm">
           {selectedLocation 
             ? `${selectedLocation.address || `${selectedLocation.city}, ${selectedLocation.province}`}`
-            : 'No location selected'
+            : t("locationPicker.noLocationSelected")
           }
         </span>
         <Button
@@ -460,7 +462,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
           onClick={() => setIsOpen(true)}
           className="ml-auto"
         >
-          {selectedLocation ? 'Change Location' : 'Select Location'}
+          {selectedLocation ? t("locationPicker.changeLocation") : t("locationPicker.selectLocation")}
         </Button>
       </div>
 
@@ -469,7 +471,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 sm:p-4">
           <div className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Select Location</h3>
+              <h3 className="text-lg font-semibold text-gray-900">{t("locationPicker.selectLocationTitle")}</h3>
               <Button
                 type="button"
                 variant="ghost"
@@ -484,10 +486,10 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
               {/* Search Panel */}
               <div className="space-y-3 sm:space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Search Location</label>
+                  <label className="text-sm font-medium text-gray-700">{t("locationPicker.searchLocation")}</label>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Input
-                      placeholder="Enter address, city, or landmark..."
+                      placeholder={t("locationPicker.searchPlaceholder")}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -512,13 +514,13 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                   className="w-full"
                   disabled={isDetectingLocation}
                 >
-                  {isDetectingLocation ? 'Detecting...' : 'Use Current Location'}
+                  {isDetectingLocation ? t("locationPicker.detecting") : t("locationPicker.useCurrentLocation")}
                 </Button>
 
                 {/* Search Results */}
                 {searchResults.length > 0 && (
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Search Results</label>
+                    <label className="text-sm font-medium text-gray-700">{t("locationPicker.searchResults")}</label>
                     <div className="max-h-32 sm:max-h-48 overflow-y-auto space-y-1">
                       {searchResults.map((result, index) => (
                         <button
@@ -537,13 +539,13 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 {/* Selected Location Details */}
                 {selectedLocation && (
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Selected Location</label>
+                    <label className="text-sm font-medium text-gray-700">{t("locationPicker.selectedLocation")}</label>
                     <div className="p-3 bg-gray-50 rounded text-sm space-y-1">
-                      <div className="break-words"><strong>Address:</strong> {selectedLocation.address}</div>
-                      <div><strong>Province:</strong> {selectedLocation.province}</div>
-                      <div><strong>City:</strong> {selectedLocation.city}</div>
-                      <div><strong>County:</strong> {selectedLocation.county}</div>
-                      <div className="text-xs text-gray-600"><strong>Coordinates:</strong> {selectedLocation.latitude}, {selectedLocation.longitude}</div>
+                      <div className="break-words"><strong>{t("locationPicker.address")}:</strong> {selectedLocation.address}</div>
+                      <div><strong>{t("locationPicker.province")}:</strong> {selectedLocation.province}</div>
+                      <div><strong>{t("locationPicker.city")}:</strong> {selectedLocation.city}</div>
+                      <div><strong>{t("locationPicker.county")}:</strong> {selectedLocation.county}</div>
+                      <div className="text-xs text-gray-600"><strong>{t("locationPicker.coordinates")}:</strong> {selectedLocation.latitude}, {selectedLocation.longitude}</div>
                     </div>
                   </div>
                 )}
@@ -555,11 +557,11 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                   <div className="w-full h-full flex flex-col items-center justify-center p-3 sm:p-4 bg-gray-50">
                     <Navigation className="h-8 w-8 sm:h-12 sm:w-12 text-gray-400 mb-3 sm:mb-4" />
                     <p className="text-gray-600 text-center mb-3 sm:mb-4 text-sm sm:text-base px-2">
-                      Map APIs not configured. Please enter coordinates manually or configure API keys.
+                      {t("locationPicker.mapNotConfigured")}
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-sm">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Latitude</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t("locationPicker.latitude")}</label>
                         <Input
                           type="number"
                           step="any"
@@ -574,7 +576,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Longitude</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">{t("locationPicker.longitude")}</label>
                         <Input
                           type="number"
                           step="any"
@@ -607,7 +609,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                       className="mt-3 sm:mt-4 w-full sm:w-auto"
                       disabled={!mapMarker}
                     >
-                      Set Coordinates
+                      {t("locationPicker.setCoordinates")}
                     </Button>
                   </div>
                 ) : (
@@ -624,7 +626,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 onClick={() => setIsOpen(false)}
                 className="w-full sm:w-auto"
               >
-                Cancel
+                {t("locationPicker.cancel")}
               </Button>
               <Button
                 type="button"
@@ -632,7 +634,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 disabled={!selectedLocation}
                 className="w-full sm:w-auto"
               >
-                Confirm Location
+                {t("locationPicker.confirmLocation")}
               </Button>
             </div>
           </div>

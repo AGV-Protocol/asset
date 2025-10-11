@@ -3,8 +3,10 @@
 import React from "react";
 import { Check, Zap, Link2, MessageCircle, Twitter, Send, Github } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "../../hooks/useTranslations";
 
 export function AssetFormFooter() {
+  const { t } = useTranslations();
   return (
     <footer className="relative bg-[#3399FF] text-white overflow-hidden mt-16">
       {/* Circular Overlay */}
@@ -26,28 +28,26 @@ export function AssetFormFooter() {
                   className="rounded-lg"
                 />
               </div>
-              <span className="text-white font-semibold text-sm sm:text-lg">RWA <br />ASSETS
-              <br />
-                NFT Minting Platform</span>
+              <span className="text-white font-semibold text-sm sm:text-lg">{t("footer.title")}</span>
             </div>
             {/* Description */}
             <p className="text-white/90 leading-relaxed max-w-lg text-sm sm:!text-base">
-              Transforming agriculture through blockchain technology and real-world asset tokenization.
+              {t("footer.description")}
             </p>
             
             {/* Feature Highlights */}
             <div className="flex flex-wrap gap-3 sm:gap-4 lg:gap-6">
               <div className="flex items-center space-x-2">
                 <Check className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                <span className="text-white text-xs sm:text-sm font-medium">Secure</span>
+                <span className="text-white text-xs sm:text-sm font-medium">{t("footer.features.secure")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Zap className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                <span className="text-white text-xs sm:text-sm font-medium">Fast</span>
+                <span className="text-white text-xs sm:text-sm font-medium">{t("footer.features.fast")}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Link2 className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                <span className="text-white text-xs sm:text-sm font-medium">Multichain</span>
+                <span className="text-white text-xs sm:text-sm font-medium">{t("footer.features.multichain")}</span>
               </div>
             </div>
           </div>
@@ -56,41 +56,41 @@ export function AssetFormFooter() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {/* Product Column */}
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-white font-bold !text-base sm:text-lg">Resources</h3>
+              <h3 className="text-white font-bold !text-base sm:text-lg">{t("footer.sections.resources")}</h3>
               <ul className="space-y-1 sm:space-y-2">
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Asset Registration</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Documentation</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Support</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.assetRegistration")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.documentation")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.support")}</a></li>
               </ul>
             </div>
             
             {/* Company Column */}
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-white font-bold !text-base sm:text-lg">Company</h3>
+              <h3 className="text-white font-bold !text-base sm:text-lg">{t("footer.sections.company")}</h3>
               <ul className="space-y-1 sm:space-y-2">
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">About Us</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Careers</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Blog</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.aboutUs")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.careers")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.blog")}</a></li>
               </ul>
             </div>
             
             {/* Support Column */}
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-white font-bold !text-base sm:text-lg">Support</h3>
+              <h3 className="text-white font-bold !text-base sm:text-lg">{t("footer.sections.support")}</h3>
               <ul className="space-y-1 sm:space-y-2">
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Help Center</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Contact Support</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">FAQ</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.helpCenter")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.contactSupport")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.faq")}</a></li>
               </ul>
             </div>
             
             {/* Legal Column */}
             <div className="space-y-3 sm:space-y-4">
-              <h3 className="text-white font-bold !text-base sm:text-lg">Legal</h3>
+              <h3 className="text-white font-bold !text-base sm:text-lg">{t("footer.sections.legal")}</h3>
               <ul className="space-y-1 sm:space-y-2">
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Privacy</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Terms</a></li>
-                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">Cookie Policy</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.privacy")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.terms")}</a></li>
+                <li><a href="#" className="text-white/80 hover:text-white transition-colors text-xs sm:text-sm">{t("footer.links.cookiePolicy")}</a></li>
               </ul>
             </div>
           </div>
@@ -100,9 +100,9 @@ export function AssetFormFooter() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-8 sm:mb-12">
           {/* Legal/Operational Details */}
           <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-white/80">
-            <p>Headquarters: Global</p>
+            <p>{t("footer.legal.headquarters")}</p>
             <p>
-              All rights reserved. AGV Protocol is a decentralized platform for real-world asset tokenization.
+              {t("footer.legal.description")}
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export function AssetFormFooter() {
             </div>
 
             {/* Copyright */}
-            <p className="text-white/80 text-xs sm:text-sm">© 2024 AGV Protocol. All rights reserved.</p>
+            <p className="text-white/80 text-xs sm:text-sm">{t("footer.copyright")}</p>
           </div>
         </div>
       </div>
