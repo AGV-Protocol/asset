@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FloatingInput } from "@/components/ui/floating-input";
 import { YesNoToggle } from "@/components/ui/yes-no-toggle";
 import { FileUpload } from "@/components/ui/file-upload";
+import { LocationPicker } from "@/components/ui/location-picker";
 import { StepIndicator } from "./step-indicator";
 import { OptionSelector } from "./option-selector";
 import { FormSection } from "./form-section";
@@ -253,17 +254,17 @@ export function AssetRegistrationForm() {
   const renderStep = () => {
     if (isReviewMode) {
       return (
-        <div className="bg-white rounded-lg p-8 shadow-lg">
+        <div className="bg-white rounded-lg p-4 sm:p-8 shadow-lg">
           <h2 className="!text-xl font-bold text-gray-900 mb-6">Review Your Submission</h2>
           <div className="space-y-6">
             {/* Basic Data Review */}
             <div>
               <h3 className="!text-lg font-semibold text-gray-900 mb-3">Basic Data</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Project Name:</strong> {formData.basicData?.projectName}</div>
                 <div><strong>Land Parcel ID:</strong> {formData.basicData?.landParcelId}</div>
-                <div><strong>Location:</strong> {formData.basicData?.county}, {formData.basicData?.city}, {formData.basicData?.province}</div>
-                <div><strong>GPS:</strong> {formData.basicData?.latitude}, {formData.basicData?.longitude}</div>
+                <div className="sm:col-span-2"><strong>Location:</strong> {formData.basicData?.county}, {formData.basicData?.city}, {formData.basicData?.province}</div>
+                <div className="sm:col-span-2"><strong>GPS:</strong> {formData.basicData?.latitude}, {formData.basicData?.longitude}</div>
                 <div><strong>Land Type:</strong> {formData.basicData?.landType}</div>
                 <div><strong>Owner:</strong> {formData.basicData?.owner}</div>
               </div>
@@ -272,10 +273,10 @@ export function AssetRegistrationForm() {
             {/* Financial Data Review */}
             <div>
               <h3 className="!text-lg font-semibold text-gray-900 mb-3">Financial & Revenue Data</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Unit Investment Cost:</strong> {formData.financialData?.unitInvestmentCost}</div>
                 <div><strong>Annual Cash Flow:</strong> {formData.financialData?.annualCashFlowBreakdown}</div>
-                <div><strong>Other Subsidies:</strong> {formData.financialData?.otherSubsidiesFile ? formData.financialData.otherSubsidiesFile.name : "No file uploaded"}</div>
+                <div className="sm:col-span-2"><strong>Other Subsidies:</strong> {formData.financialData?.otherSubsidiesFile ? formData.financialData.otherSubsidiesFile.name : "No file uploaded"}</div>
                 <div><strong>Annualized IRR:</strong> {formData.financialData?.annualizedIRR}</div>
               </div>
             </div>
@@ -283,7 +284,7 @@ export function AssetRegistrationForm() {
             {/* Operations & Compliance Review */}
             <div>
               <h3 className="!text-lg font-semibold text-gray-900 mb-3">Operations & Compliance</h3>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Company Name:</strong> {formData.operationsCompliance?.companyName}</div>
                 <div><strong>Business License:</strong> {formData.operationsCompliance?.businessLicense}</div>
                 <div><strong>EPC Contractor:</strong> {formData.operationsCompliance?.epcContractorName}</div>
@@ -297,7 +298,7 @@ export function AssetRegistrationForm() {
             {formData.operationsCompliance?.tier === "Orchard Data" && (
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Orchard Data</h3>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div><strong>Planting Area:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.plantingArea}</div>
                   <div><strong>Number of Trees:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.numberOfTrees}</div>
                   <div><strong>Age:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.age}</div>
@@ -310,7 +311,7 @@ export function AssetRegistrationForm() {
                   {(formData.tierData as z.infer<typeof orchardDataSchema>)?.monitoringSystem && (
                     <div><strong>Device ID:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.deviceId}</div>
                   )}
-                  <div><strong>Orchard Product Sales Revenue:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile ? (formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile?.name : "No file uploaded"}</div>
+                  <div className="sm:col-span-2"><strong>Orchard Product Sales Revenue:</strong> {(formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile ? (formData.tierData as z.infer<typeof orchardDataSchema>)?.orchardProductSalesRevenueFile?.name : "No file uploaded"}</div>
                 </div>
               </div>
             )}
@@ -318,7 +319,7 @@ export function AssetRegistrationForm() {
             {formData.operationsCompliance?.tier === "Solar Data" && (
               <div>
                 <h3 className="!text-lg font-semibold text-gray-900 mb-3">Solar Data</h3>
-                <div className="grid grid-cols-2 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div><strong>Installed Capacity:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.installedCapacity}</div>
                   <div><strong>PV Module Model:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.pvModuleModel}</div>
                   <div><strong>Manufacturer:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.manufacturer}</div>
@@ -327,7 +328,7 @@ export function AssetRegistrationForm() {
                   <div><strong>Grid Company:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.gridCompany}</div>
                   <div><strong>Average Annual Power Generation:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.averageAnnualPowerGeneration}</div>
                   <div><strong>Tariff/PPA Contract ID:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.tariffPpaContractId}</div>
-                  <div><strong>Solar Electricity Sales Revenue:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile ? (formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile?.name : "No file uploaded"}</div>
+                  <div className="sm:col-span-2"><strong>Solar Electricity Sales Revenue:</strong> {(formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile ? (formData.tierData as z.infer<typeof solarDataSchema>)?.solarElectricitySalesRevenueFile?.name : "No file uploaded"}</div>
                 </div>
               </div>
             )}
@@ -368,7 +369,7 @@ export function AssetRegistrationForm() {
           <FormSection title="BASIC DATA">
             <form className="space-y-6">
               {/* Project Name and Land Parcel ID */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
                   label="Project Name"
                   {...basicForm.register("projectName")}
@@ -378,32 +379,23 @@ export function AssetRegistrationForm() {
                   {...basicForm.register("landParcelId")}
                 />
               </div>
-              {/* GPS Coordinates */}
-              <div className="grid grid-cols-2 gap-4">
-                <FloatingInput
-                  label="Latitude"
-                  {...basicForm.register("latitude")}
-                />
-                <FloatingInput
-                  label="Longitude"
-                  {...basicForm.register("longitude")}
-                />
-              </div>
-              {/* Location */}
-              <div className="grid grid-cols-3 gap-4">
-                <FloatingInput
-                  label="County"
-                  {...basicForm.register("county")}
-                />
-                <FloatingInput
-                  label="City"
-                  {...basicForm.register("city")}
-                />
-                <FloatingInput
-                  label="Province"
-                  {...basicForm.register("province")}
-                />
-              </div>
+              {/* Location Selection */}
+              <LocationPicker
+                onLocationSelect={(location) => {
+                  basicForm.setValue("latitude", location.latitude);
+                  basicForm.setValue("longitude", location.longitude);
+                  basicForm.setValue("county", location.county);
+                  basicForm.setValue("city", location.city);
+                  basicForm.setValue("province", location.province);
+                }}
+                initialLocation={{
+                  latitude: basicForm.watch("latitude"),
+                  longitude: basicForm.watch("longitude"),
+                  county: basicForm.watch("county"),
+                  city: basicForm.watch("city"),
+                  province: basicForm.watch("province"),
+                }}
+              />
               
 
               {/* Land Type */}
@@ -416,7 +408,7 @@ export function AssetRegistrationForm() {
               />
 
               {/* Land Ownership Proof */}
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <FloatingInput
                   label="Lease Contract ID"
                   {...basicForm.register("leaseContractId")}
@@ -431,7 +423,7 @@ export function AssetRegistrationForm() {
                 />
               </div>
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 {currentStep > 1 && (
                   <Button
                     type="button"
@@ -478,7 +470,7 @@ export function AssetRegistrationForm() {
                 {...financialForm.register("annualizedIRR")}
               />
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 {currentStep > 1 && (
                   <Button
                     type="button"
@@ -506,7 +498,7 @@ export function AssetRegistrationForm() {
           <FormSection title="Operations & Compliance">
             <form className="space-y-6">
               {/* Company Name and Business License */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
                   label="Company Name"
                   {...operationsForm.register("companyName")}
@@ -549,7 +541,7 @@ export function AssetRegistrationForm() {
                 columns={2}
               />
 
-              <div className="flex gap-4">
+              <div className="flex flex-col sm:flex-row gap-4">
                 {currentStep > 1 && (
                   <Button
                     type="button"
@@ -585,7 +577,7 @@ export function AssetRegistrationForm() {
                 />
 
                 {/* Number of Trees, Age, Variety */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
                     label="Number of Trees"
                     {...orchardForm.register("numberOfTrees")}
@@ -603,7 +595,7 @@ export function AssetRegistrationForm() {
                 {/* Planting Density */}
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-white">Planting Density</label>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
                       label="Row Spacing"
                       {...orchardForm.register("rowSpacing")}
@@ -613,7 +605,7 @@ export function AssetRegistrationForm() {
                       {...orchardForm.register("treeDensity")}
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
                       label="Annual Yield (tons)"
                       {...orchardForm.register("annualYield")}
@@ -648,7 +640,7 @@ export function AssetRegistrationForm() {
                   placeholder="Orchard Product Sales Revenue"
                 />
 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   {currentStep > 1 && (
                     <Button
                       type="button"
@@ -680,7 +672,7 @@ export function AssetRegistrationForm() {
                 />
 
                 {/* PV Module Model, Manufacturer, Installation Date */}
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
                     label="PV Module Model"
                     {...solarForm.register("pvModuleModel")}
@@ -696,7 +688,7 @@ export function AssetRegistrationForm() {
                 </div>
 
                 {/* Grid Connection */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FloatingInput
                     label="Grid Connection Permit ID"
                     {...solarForm.register("gridConnectionPermitId")}
@@ -725,7 +717,7 @@ export function AssetRegistrationForm() {
                   placeholder="Solar Electricity Sales Revenue"
                 />
                 
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-4">
                   {currentStep > 1 && (
                     <Button
                       type="button"
@@ -757,7 +749,7 @@ export function AssetRegistrationForm() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/background.png')" }}>
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         <AssetFormHeader />
         
         <div className="max-w-4xl mx-auto">
@@ -767,8 +759,8 @@ export function AssetRegistrationForm() {
             steps={steps}
           />
           
-          <div className="glass rounded-lg p-8 shadow-lg">
-            <h1 className="!text-2xl font-bold text-white mb-8 text-center">
+          <div className="glass rounded-lg p-4 sm:p-8 shadow-lg">
+            <h1 className="!text-xl sm:!text-2xl font-bold text-white mb-6 sm:mb-8 text-center">
               ASSET REGISTRATION FORM
             </h1>
             {renderStep()}
