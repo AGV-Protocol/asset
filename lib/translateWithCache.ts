@@ -6,11 +6,10 @@ config();
 
 export async function translateWithCache(
   translator: Translator,
-  { text, from, to, version = 'v1' }: {
+  { text, from, to }: {
     text: string;
     from: string;
     to: string;
-    version?: string;
   }
 ): Promise<string> {
   try {

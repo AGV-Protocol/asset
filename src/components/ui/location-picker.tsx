@@ -79,42 +79,6 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<unknown>(null);
 
-  // Detect user's current location on component mount
-  useEffect(() => {
-    detectUserLocation();
-  }, []);
-
-  // Function to detect user's current location
-  const detectUserLocation = useCallback(() => {
-    if (navigator.geolocation) {
-      setIsDetectingLocation(true);
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
-          setMapCenter({ lat, lng });
-          setIsDetectingLocation(false);
-        },
-        (error) => {
-          console.log('Location access denied or failed:', error);
-          // Fallback to capital city based on timezone
-          const capitalLocation = getCapitalByTimezone();
-          setMapCenter(capitalLocation);
-          setIsDetectingLocation(false);
-        },
-        {
-          timeout: 10000,
-          enableHighAccuracy: true,
-          maximumAge: 300000 // 5 minutes
-        }
-      );
-    } else {
-      // Fallback to capital city based on timezone
-      const capitalLocation = getCapitalByTimezone();
-      setMapCenter(capitalLocation);
-    }
-  }, []);
-
   // Get capital city based on user's timezone
   const getCapitalByTimezone = useCallback(() => {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -165,6 +129,43 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
     return timezoneCapitals[timezone] || MAP_CONFIG.DEFAULT_CENTER;
   }, []);
 
+  // Function to detect user's current location
+  const detectUserLocation = useCallback(() => {
+    if (navigator.geolocation) {
+      setIsDetectingLocation(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          setMapCenter({ lat, lng });
+          setIsDetectingLocation(false);
+        },
+        (error) => {
+          console.log('Location access denied or failed:', error);
+          // Fallback to capital city based on timezone
+          const capitalLocation = getCapitalByTimezone();
+          setMapCenter(capitalLocation);
+          setIsDetectingLocation(false);
+        },
+        {
+          timeout: 10000,
+          enableHighAccuracy: true,
+          maximumAge: 300000 // 5 minutes
+        }
+      );
+    } else {
+      // Fallback to capital city based on timezone
+      const capitalLocation = getCapitalByTimezone();
+      setMapCenter(capitalLocation);
+    }
+  }, [getCapitalByTimezone]);
+
+  // Detect user's current location on component mount
+  useEffect(() => {
+    detectUserLocation();
+  }, [detectUserLocation]);
+
+
   // Initialize AMap (AutoNavi Map) for Chinese users
   const initializeAMap = useCallback(async () => {
     return new Promise((resolve, reject) => {
@@ -204,7 +205,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
       script.onerror = reject;
       document.head.appendChild(script);
     });
-  }, []);
+  }, [mapCenter.lat, mapCenter.lng]);
 
   // Initialize Google Maps for international users
   const initializeGoogleMap = useCallback(async () => {
@@ -245,7 +246,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
       script.onerror = reject;
       document.head.appendChild(script);
     });
-  }, []);
+  }, [mapCenter.lat, mapCenter.lng]);
 
   // Simple coordinate picker fallback
   const initializeSimplePicker = useCallback(() => {

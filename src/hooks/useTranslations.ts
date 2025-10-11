@@ -20,7 +20,7 @@ export function useTranslations() {
   const hasT = (key: string): boolean => {
     try {
       return hasTranslation(locale, key);
-    } catch (error) {
+    } catch {
       return false;
     }
   };
