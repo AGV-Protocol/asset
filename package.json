@@ -10,6 +10,7 @@
     "translate": "tsx scripts/translate-missing.ts"
   },
   "dependencies": {
+    "@google-cloud/translate": "^9.2.0",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -19,6 +20,7 @@
     "@radix-ui/react-switch": "^1.2.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.3",
     "firebase": "^12.3.0",
     "firebase-admin": "^13.5.0",
     "lucide-react": "^0.544.0",
@@ -28,7 +30,6 @@
     "react-hook-form": "^7.64.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
-    "tsx": "^4.20.6",
     "zod": "^4.1.11"
   },
   "devDependencies": {
@@ -40,6 +41,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }

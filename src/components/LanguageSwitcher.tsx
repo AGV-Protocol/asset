@@ -50,19 +50,19 @@ export function LanguageSwitcher({ currentLocale, className }: LanguageSwitcherP
           {localeFlags[currentLocale]} {localeNames[currentLocale]}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 z-[100]">
+      <DropdownMenuContent align="end" className="w-48 z-[100] bg-white border border-gray-200 shadow-lg">
         {locales.map((locale) => (
           <DropdownMenuItem
             key={locale}
             onClick={() => handleLocaleChange(locale)}
-            className={`flex items-center space-x-2 ${
-              locale === currentLocale ? 'bg-accent' : ''
+            className={`flex items-center space-x-2 text-gray-900 hover:bg-gray-100 hover:text-gray-900 ${
+              locale === currentLocale ? 'bg-blue-50 text-blue-900' : ''
             }`}
           >
             <span className="text-lg">{localeFlags[locale]}</span>
-            <span>{localeNames[locale]}</span>
+            <span className="text-gray-900">{localeNames[locale]}</span>
             {locale === currentLocale && (
-              <span className="ml-auto text-xs text-muted-foreground">✓</span>
+              <span className="ml-auto text-xs text-blue-600">✓</span>
             )}
           </DropdownMenuItem>
         ))}

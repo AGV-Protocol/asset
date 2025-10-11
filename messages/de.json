@@ -4,12 +4,12 @@
     "error": "Fehler",
     "success": "Erfolg",
     "submit": "Einreichen",
-    "cancel": "Abbrechen",
+    "cancel": "Stornieren",
     "save": "Speichern",
     "edit": "Bearbeiten",
     "delete": "Löschen",
     "back": "Zurück",
-    "next": "Weiter",
+    "next": "Nächste",
     "previous": "Vorherige",
     "close": "Schließen",
     "confirm": "Bestätigen",
@@ -17,65 +17,65 @@
     "optional": "Optional",
     "readMore": "Mehr lesen",
     "yes": "Ja",
-    "no": "Nein",
-    "review": "Überprüfen",
-    "submitting": "Einreichen..."
+    "no": "NEIN",
+    "review": "Rezension",
+    "submitting": "Senden..."
   },
   "header": {
-    "title": "REALE VERMÖGENSWERTE",
+    "title": "REALE WELTVERMÖGENSWERTE",
     "alt": "AGV-Protokoll"
   },
   "form": {
-    "title": "VERMÖGENSWERT-REGISTRIERUNGSFORMULAR",
+    "title": "Formular zur Vermögensregistrierung",
     "steps": {
-      "basicData": "Grunddaten",
-      "financialRevenue": "Finanziell und Einnahmen",
+      "basicData": "Basisdaten",
+      "financialRevenue": "Finanzen & Einnahmen",
       "operationsCompliance": "Betrieb und Compliance",
-      "tierData": "Ebenen-Daten"
+      "tierData": "Tierdaten"
     },
     "basicData": {
       "title": "GRUNDDATEN",
       "projectName": "Projektname",
-      "landParcelId": "Grundstücks-ID",
-      "county": "Landkreis",
+      "landParcelId": "Flurstücks-ID",
+      "county": "County",
       "city": "Stadt",
       "province": "Provinz",
-      "latitude": "Breitengrad",
-      "longitude": "Längengrad",
+      "latitude": "Breite",
+      "longitude": "Länge",
       "landType": "Grundstückstyp",
       "landTypeOptions": {
         "orchard": "Obstgarten",
         "farmland": "Ackerland",
-        "facilityAgriculture": "Anlagenlandwirtschaft"
+        "facilityAgriculture": "Anlage Landwirtschaft"
       },
-      "leaseContractId": "Pachtvertrags-ID",
+      "leaseContractId": "Leasingvertrags-ID",
       "duration": "Dauer",
       "owner": "Eigentümer"
     },
     "financialData": {
-      "title": "Finanz- und Einnahmendaten",
-      "unitInvestmentCost": "Einheitsinvestitionskosten (CNY pro Mu oder pro MW)",
+      "title": "Finanz- und Umsatzdaten",
+      "unitInvestmentCost": "Einheitliche Investitionskosten (CNY pro mu oder pro MW)",
       "annualCashFlowBreakdown": "Jährliche Cashflow-Aufschlüsselung",
-      "otherSubsidies": "Andere Subventionen / Grüne Zertifikatseinnahmen",
-      "annualizedIRR": "Annualisierte IRR / ROI-Berechnung"
+      "otherSubsidies": "Sonstige Subventionen / Einnahmen aus Grünen Zertifikaten",
+      "annualizedIRR": "Annualisierte IRR/ROI-Berechnung"
     },
     "operationsCompliance": {
       "title": "Betrieb und Compliance",
-      "companyName": "Firmenname",
-      "businessLicense": "Gewerbelizenz / Kreditcode",
-      "epcContractorName": "EPC / O&M-Auftragnehmername",
-      "governmentFiling": "Regierungsanmeldung / Genehmigungsdokument-IDs",
+      "companyName": "Name der Firma",
+      "businessLicense": "Geschäftslizenz/Kreditcode",
+      "epcContractorName": "Name des EPC-/O&M-Auftragnehmers",
+      "governmentFiling": "IDs für amtliche Einreichungs-/Genehmigungsdokumente",
       "governmentFilingOptions": {
         "ndrc": "NDRC",
-        "energyBureau": "Energiebehörde",
-        "agricultureBureau": "Landwirtschaftsbehörde"
+        "energyBureau": "Energiebüro",
+        "agricultureBureau": "Landwirtschaftsbüro"
       },
-      "operatingEntity": "Betriebseinheit",
+      "operatingEntity": "Betreibergesellschaft",
       "operatingEntityOptions": {
         "agricultureInsurance": "Landwirtschaftsversicherung",
         "solarPlantInsurance": "Solaranlagenversicherung"
       },
-      "tier": "Ebene auswählen",
+      "tier": "Stufe auswählen",
       "tierOptions": {
         "orchardData": "Obstgartendaten",
         "solarData": "Solardaten"
@@ -83,107 +83,107 @@
     },
     "orchardData": {
       "title": "Obstgartendaten",
-      "plantingArea": "Pflanzfläche (Mu / Hektar)",
+      "plantingArea": "Pflanzfläche (mu / Hektar)",
       "numberOfTrees": "Anzahl der Bäume",
       "age": "Alter",
-      "variety": "Sorte",
+      "variety": "Vielfalt",
       "plantingDensity": "Pflanzdichte",
-      "rowSpacing": "Reihenabstand",
+      "rowSpacing": "Zeilenabstand",
       "treeDensity": "Baumdichte",
-      "annualYield": "Jahresertrag (Tonnen)",
-      "lastThreeYearsYield": "Ertrag der letzten 3 Jahre",
-      "monitoringSystem": "Überwachungssystem (IoT-Geräte für Schädlings-/Klimakontrolle)",
-      "deviceId": "Geräte-ID falls verfügbar",
-      "orchardProductSalesRevenue": "Obstgartenproduktverkaufseinnahmen"
+      "annualYield": "Jährlicher Ertrag (Tonnen)",
+      "lastThreeYearsYield": "Rendite der letzten 3 Jahre",
+      "monitoringSystem": "Überwachungssystem (IoT-Geräte zur Schädlings-/Klimakontrolle)",
+      "deviceId": "Geräte-ID, falls verfügbar",
+      "orchardProductSalesRevenue": "Umsatzerlöse aus dem Verkauf von Obstgartenprodukten"
     },
     "solarData": {
       "title": "Solardaten",
-      "installedCapacity": "Installierte Kapazität (MWp)",
-      "pvModuleModel": "PV-Modellmodell",
+      "installedCapacity": "Installierte Leistung (MWp)",
+      "pvModuleModel": "PV-Modulmodell",
       "manufacturer": "Hersteller",
       "installationDate": "Installationsdatum",
       "gridConnectionPermitId": "Netzanschlussgenehmigungs-ID",
       "gridCompany": "Netzgesellschaft",
       "averageAnnualPowerGeneration": "Durchschnittliche jährliche Stromerzeugung (letzte 12 Monate, kWh)",
-      "tariffPpaContractId": "Tarif- / PPA-Vertrags-ID",
-      "solarElectricitySalesRevenue": "Solarenergieverkaufseinnahmen"
+      "tariffPpaContractId": "Tarif-/PPA-Vertrags-ID",
+      "solarElectricitySalesRevenue": "Umsatz mit Solarstrom"
     },
     "review": {
-      "title": "Ihre Einreichung überprüfen",
-      "basicData": "Grunddaten",
-      "financialData": "Finanz- und Einnahmendaten",
+      "title": "Überprüfen Sie Ihre Einreichung",
+      "basicData": "Basisdaten",
+      "financialData": "Finanz- und Umsatzdaten",
       "operationsCompliance": "Betrieb und Compliance",
       "orchardData": "Obstgartendaten",
       "solarData": "Solardaten",
       "backToEdit": "Zurück zur Bearbeitung",
-      "submitRegistration": "Registrierung einreichen",
+      "submitRegistration": "Registrierung absenden",
       "noFileUploaded": "Keine Datei hochgeladen"
     },
     "validation": {
       "required": "Dieses Feld ist erforderlich",
       "fillAllRequired": "Bitte füllen Sie alle erforderlichen Felder im Abschnitt {section} aus",
-      "selectTier": "Bitte wählen Sie eine Ebene aus, bevor Sie mit der Überprüfung fortfahren."
+      "selectTier": "Bitte wählen Sie eine Stufe aus, bevor Sie mit der Überprüfung fortfahren."
     },
     "success": {
-      "submitted": "Vermögenswertregistrierung erfolgreich eingereicht!",
-      "failed": "Fehler beim Einreichen der Vermögenswertregistrierung. Bitte versuchen Sie es erneut."
+      "submitted": "Die Asset-Registrierung wurde erfolgreich übermittelt!",
+      "failed": "Die Asset-Registrierung konnte nicht übermittelt werden. Bitte versuchen Sie es erneut."
     }
   },
   "footer": {
-    "title": "Real-World-Assets NFT-Minting-Plattform",
+    "title": "RWA ASSETS NFT-Prägeplattform",
     "description": "Transformation der Landwirtschaft durch Blockchain-Technologie und Tokenisierung realer Vermögenswerte.",
     "features": {
       "secure": "Sicher",
       "fast": "Schnell",
-      "multichain": "Multichain"
+      "multichain": "Mehrketten"
     },
     "sections": {
       "resources": "Ressourcen",
       "company": "Unternehmen",
-      "support": "Support",
-      "legal": "Rechtlich"
+      "support": "Unterstützung",
+      "legal": "Rechtliches"
     },
     "links": {
-      "assetRegistration": "Vermögensregistrierung",
+      "assetRegistration": "Anlagenregistrierung",
       "documentation": "Dokumentation",
-      "support": "Support",
-      "aboutUs": "Über Uns",
+      "support": "Unterstützung",
+      "aboutUs": "Über uns",
       "careers": "Karriere",
-      "blog": "Blog",
-      "helpCenter": "Hilfezentrum",
-      "contactSupport": "Support Kontaktieren",
-      "faq": "FAQ",
+      "blog": "Der Blog",
+      "helpCenter": "Hilfecenter",
+      "contactSupport": "Support kontaktieren",
+      "faq": "Häufig gestellte Fragen",
       "privacy": "Datenschutz",
       "terms": "Bedingungen",
       "cookiePolicy": "Cookie-Richtlinie"
     },
     "legal": {
       "headquarters": "Hauptsitz: Global",
-      "description": "Alle Rechte vorbehalten. Das AGV-Protokoll ist eine dezentrale Plattform für die Tokenisierung realer Vermögenswerte."
+      "description": "Alle Rechte vorbehalten. AGV Protocol ist eine dezentrale Plattform für die Tokenisierung realer Vermögenswerte."
     },
-    "copyright": "© 2024 AGV-Protokoll. Alle Rechte vorbehalten."
+    "copyright": "© 2024 AGV Protocol. Alle Rechte vorbehalten."
   },
   "locationPicker": {
     "noLocationSelected": "Kein Standort ausgewählt",
     "changeLocation": "Standort ändern",
     "selectLocation": "Standort auswählen",
     "selectLocationTitle": "Standort auswählen",
-    "searchLocation": "Standort suchen",
-    "searchPlaceholder": "Adresse, Stadt oder Wahrzeichen eingeben...",
+    "searchLocation": "Ort suchen",
+    "searchPlaceholder": "Geben Sie Adresse, Stadt oder Sehenswürdigkeit ein ...",
     "useCurrentLocation": "Aktuellen Standort verwenden",
-    "detecting": "Erkennung...",
+    "detecting": "Erkennen...",
     "searchResults": "Suchergebnisse",
     "selectedLocation": "Ausgewählter Standort",
     "address": "Adresse",
     "province": "Provinz",
     "city": "Stadt",
-    "county": "Landkreis",
+    "county": "County",
     "coordinates": "Koordinaten",
-    "mapNotConfigured": "Karten-APIs nicht konfiguriert. Bitte geben Sie Koordinaten manuell ein oder konfigurieren Sie API-Schlüssel.",
-    "latitude": "Breitengrad",
-    "longitude": "Längengrad",
+    "mapNotConfigured": "Karten-APIs nicht konfiguriert. Bitte geben Sie die Koordinaten manuell ein oder konfigurieren Sie die API-Schlüssel.",
+    "latitude": "Breite",
+    "longitude": "Länge",
     "setCoordinates": "Koordinaten festlegen",
-    "cancel": "Abbrechen",
+    "cancel": "Stornieren",
     "confirmLocation": "Standort bestätigen"
   }
 }
