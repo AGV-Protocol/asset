@@ -122,7 +122,8 @@
     "validation": {
       "required": "此字段是必需的",
       "fillAllRequired": "请填写{section}部分的所有必填字段",
-      "selectTier": "请在继续审核之前选择一个等级。"
+      "selectTier": "请在继续审核之前选择一个等级。",
+      "fieldRequired": "此字段是必需的"
     },
     "success": {
       "submitted": "资产登记提交成功！",

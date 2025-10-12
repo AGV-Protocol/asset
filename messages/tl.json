@@ -122,7 +122,8 @@
     "validation": {
       "required": "Kinakailangan ang field na ito",
       "fillAllRequired": "Mangyaring punan ang lahat ng kinakailangang field sa seksyong {section}.",
-      "selectTier": "Mangyaring pumili ng isang antas bago magpatuloy sa pagsusuri."
+      "selectTier": "Mangyaring pumili ng isang antas bago magpatuloy sa pagsusuri.",
+      "fieldRequired": "Kinakailangan ang field na ito"
     },
     "success": {
       "submitted": "Matagumpay na naisumite ang pagpaparehistro ng asset!",

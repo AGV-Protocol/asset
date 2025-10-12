@@ -122,7 +122,8 @@
     "validation": {
       "required": "This field is required",
       "fillAllRequired": "Please fill in all required fields in the {section} section",
-      "selectTier": "Please select a tier before proceeding to review."
+      "selectTier": "Please select a tier before proceeding to review.",
+      "fieldRequired": "This field is required"
     },
     "success": {
       "submitted": "Asset registration submitted successfully!",

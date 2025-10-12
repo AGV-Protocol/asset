@@ -122,7 +122,8 @@
     "validation": {
       "required": "Dieses Feld ist erforderlich",
       "fillAllRequired": "Bitte füllen Sie alle erforderlichen Felder im Abschnitt {section} aus",
-      "selectTier": "Bitte wählen Sie eine Stufe aus, bevor Sie mit der Überprüfung fortfahren."
+      "selectTier": "Bitte wählen Sie eine Stufe aus, bevor Sie mit der Überprüfung fortfahren.",
+      "fieldRequired": "Dieses Feld ist erforderlich"
     },
     "success": {
       "submitted": "Die Asset-Registrierung wurde erfolgreich übermittelt!",

@@ -122,7 +122,8 @@
     "validation": {
       "required": "Ce champ est obligatoire",
       "fillAllRequired": "Veuillez remplir tous les champs obligatoires dans la section {section}",
-      "selectTier": "Veuillez sélectionner un niveau avant de procéder à l'examen."
+      "selectTier": "Veuillez sélectionner un niveau avant de procéder à l'examen.",
+      "fieldRequired": "Ce champ est obligatoire"
     },
     "success": {
       "submitted": "L'enregistrement des actifs a été soumis avec succès !",

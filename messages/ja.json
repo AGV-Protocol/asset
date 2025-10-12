@@ -122,7 +122,8 @@
     "validation": {
       "required": "この項目は必須です",
       "fillAllRequired": "{section}セクションのすべての必須項目を入力してください",
-      "selectTier": "レビューに進む前に、ティアを選択してください。"
+      "selectTier": "レビューに進む前に、ティアを選択してください。",
+      "fieldRequired": "この項目は必須です"
     },
     "success": {
       "submitted": "[JA] Asset registration submitted successfully!",

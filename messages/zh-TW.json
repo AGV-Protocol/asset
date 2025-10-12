@@ -122,7 +122,8 @@
     "validation": {
       "required": "此欄位是必需的",
       "fillAllRequired": "請填寫{section}部分的所有必填字段",
-      "selectTier": "請在繼續審核之前選擇一個等級。"
+      "selectTier": "請在繼續審核之前選擇一個等級。",
+      "fieldRequired": "此欄位是必需的"
     },
     "success": {
       "submitted": "資產登記提交成功！",

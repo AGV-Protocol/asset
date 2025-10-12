@@ -17,68 +17,12 @@ import { AssetFormFooter } from "./footer";
 import { useTranslations } from "../../hooks/useTranslations";
 import { toast } from "sonner";
 
-// Form schemas for each section
-const basicDataSchema = z.object({
-  projectName: z.string().min(1, "Project name is required"),
-  landParcelId: z.string().min(1, "Land parcel ID is required"),
-  county: z.string().min(1, "County is required"),
-  city: z.string().min(1, "City is required"),
-  province: z.string().min(1, "Province is required"),
-  latitude: z.string().min(1, "Latitude is required"),
-  longitude: z.string().min(1, "Longitude is required"),
-  landType: z.string().min(1, "Land type is required"),
-  leaseContractId: z.string().min(1, "Lease contract ID is required"),
-  duration: z.string().min(1, "Duration is required"),
-  owner: z.string().min(1, "Owner is required"),
-});
-
-const financialDataSchema = z.object({
-  unitInvestmentCost: z.string().min(1, "Unit investment cost is required"),
-  annualCashFlowBreakdown: z.string().min(1, "Annual cash flow breakdown is required"),
-  otherSubsidiesFile: z.instanceof(File).optional(),
-  annualizedIRR: z.string().min(1, "Annualized IRR is required"),
-});
-
-const operationsComplianceSchema = z.object({
-  companyName: z.string().min(1, "Company name is required"),
-  businessLicense: z.string().min(1, "Business license is required"),
-  epcContractorName: z.string().min(1, "EPC contractor name is required"),
-  governmentFiling: z.string().min(1, "Government filing is required"),
-  operatingEntity: z.string().min(1, "Operating entity is required"),
-  tier: z.string().min(1, "Tier is required"),
-});
-
-const orchardDataSchema = z.object({
-  plantingArea: z.string().min(1, "Planting area is required"),
-  numberOfTrees: z.string().min(1, "Number of trees is required"),
-  age: z.string().min(1, "Age is required"),
-  variety: z.string().min(1, "Variety is required"),
-  rowSpacing: z.string().min(1, "Row spacing is required"),
-  treeDensity: z.string().min(1, "Tree density is required"),
-  annualYield: z.string().min(1, "Annual yield is required"),
-  lastThreeYearsYield: z.string().min(1, "Last 3 years yield is required"),
-  monitoringSystem: z.boolean(),
-  deviceId: z.string().optional(),
-  orchardProductSalesRevenueFile: z.instanceof(File).optional(),
-});
-
-const solarDataSchema = z.object({
-  installedCapacity: z.string().min(1, "Installed capacity is required"),
-  pvModuleModel: z.string().min(1, "PV module model is required"),
-  manufacturer: z.string().min(1, "Manufacturer is required"),
-  installationDate: z.string().min(1, "Installation date is required"),
-  gridConnectionPermitId: z.string().min(1, "Grid connection permit ID is required"),
-  gridCompany: z.string().min(1, "Grid company is required"),
-  averageAnnualPowerGeneration: z.string().min(1, "Average annual power generation is required"),
-  tariffPpaContractId: z.string().min(1, "Tariff/PPA contract ID is required"),
-  solarElectricitySalesRevenueFile: z.instanceof(File).optional(),
-});
 
 type FormData = {
-  basicData: z.infer<typeof basicDataSchema>;
-  financialData: z.infer<typeof financialDataSchema>;
-  operationsCompliance: z.infer<typeof operationsComplianceSchema>;
-  tierData: z.infer<typeof orchardDataSchema> | z.infer<typeof solarDataSchema>;
+  basicData: Record<string, any>;
+  financialData: Record<string, any>;
+  operationsCompliance: Record<string, any>;
+  tierData: Record<string, any>;
 };
 
 export function AssetRegistrationForm() {
@@ -91,6 +35,63 @@ export function AssetRegistrationForm() {
   const [solarElectricitySalesRevenueFile, setSolarElectricitySalesRevenueFile] = useState<File | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Form schemas with translated error messages
+  const basicDataSchema = z.object({
+    projectName: z.string().min(1, t("form.validation.fieldRequired")),
+    landParcelId: z.string().min(1, t("form.validation.fieldRequired")),
+    county: z.string().min(1, t("form.validation.fieldRequired")),
+    city: z.string().min(1, t("form.validation.fieldRequired")),
+    province: z.string().min(1, t("form.validation.fieldRequired")),
+    latitude: z.string().min(1, t("form.validation.fieldRequired")),
+    longitude: z.string().min(1, t("form.validation.fieldRequired")),
+    landType: z.string().min(1, t("form.validation.fieldRequired")),
+    leaseContractId: z.string().min(1, t("form.validation.fieldRequired")),
+    duration: z.string().min(1, t("form.validation.fieldRequired")),
+    owner: z.string().min(1, t("form.validation.fieldRequired")),
+  });
+
+  const financialDataSchema = z.object({
+    unitInvestmentCost: z.string().min(1, t("form.validation.fieldRequired")),
+    annualCashFlowBreakdown: z.string().min(1, t("form.validation.fieldRequired")),
+    otherSubsidiesFile: z.instanceof(File).optional(),
+    annualizedIRR: z.string().min(1, t("form.validation.fieldRequired")),
+  });
+
+  const operationsComplianceSchema = z.object({
+    companyName: z.string().min(1, t("form.validation.fieldRequired")),
+    businessLicense: z.string().min(1, t("form.validation.fieldRequired")),
+    epcContractorName: z.string().min(1, t("form.validation.fieldRequired")),
+    governmentFiling: z.string().min(1, t("form.validation.fieldRequired")),
+    operatingEntity: z.string().min(1, t("form.validation.fieldRequired")),
+    tier: z.string().min(1, t("form.validation.fieldRequired")),
+  });
+
+  const orchardDataSchema = z.object({
+    plantingArea: z.string().min(1, t("form.validation.fieldRequired")),
+    numberOfTrees: z.string().min(1, t("form.validation.fieldRequired")),
+    age: z.string().min(1, t("form.validation.fieldRequired")),
+    variety: z.string().min(1, t("form.validation.fieldRequired")),
+    rowSpacing: z.string().min(1, t("form.validation.fieldRequired")),
+    treeDensity: z.string().min(1, t("form.validation.fieldRequired")),
+    annualYield: z.string().min(1, t("form.validation.fieldRequired")),
+    lastThreeYearsYield: z.string().min(1, t("form.validation.fieldRequired")),
+    monitoringSystem: z.boolean(),
+    deviceId: z.string().optional(),
+    orchardProductSalesRevenueFile: z.instanceof(File).optional(),
+  });
+
+  const solarDataSchema = z.object({
+    installedCapacity: z.string().min(1, t("form.validation.fieldRequired")),
+    pvModuleModel: z.string().min(1, t("form.validation.fieldRequired")),
+    manufacturer: z.string().min(1, t("form.validation.fieldRequired")),
+    installationDate: z.string().min(1, t("form.validation.fieldRequired")),
+    gridConnectionPermitId: z.string().min(1, t("form.validation.fieldRequired")),
+    gridCompany: z.string().min(1, t("form.validation.fieldRequired")),
+    averageAnnualPowerGeneration: z.string().min(1, t("form.validation.fieldRequired")),
+    tariffPpaContractId: z.string().min(1, t("form.validation.fieldRequired")),
+    solarElectricitySalesRevenueFile: z.instanceof(File).optional(),
+  });
+
   const steps = [
     t("form.steps.basicData"),
     t("form.steps.financialRevenue"),
@@ -100,27 +101,75 @@ export function AssetRegistrationForm() {
 
   const basicForm = useForm<z.infer<typeof basicDataSchema>>({
     resolver: zodResolver(basicDataSchema),
-    defaultValues: formData.basicData || {},
+    defaultValues: {
+      ...formData.basicData,
+      projectName: formData.basicData?.projectName || "",
+      landParcelId: formData.basicData?.landParcelId || "",
+      county: formData.basicData?.county || "",
+      city: formData.basicData?.city || "",
+      province: formData.basicData?.province || "",
+      latitude: formData.basicData?.latitude || "",
+      longitude: formData.basicData?.longitude || "",
+      landType: formData.basicData?.landType || "",
+      leaseContractId: formData.basicData?.leaseContractId || "",
+      duration: formData.basicData?.duration || "",
+      owner: formData.basicData?.owner || "",
+    },
   });
 
   const financialForm = useForm<z.infer<typeof financialDataSchema>>({
     resolver: zodResolver(financialDataSchema),
-    defaultValues: formData.financialData || {},
+    defaultValues: {
+      ...formData.financialData,
+      unitInvestmentCost: formData.financialData?.unitInvestmentCost || "",
+      annualCashFlowBreakdown: formData.financialData?.annualCashFlowBreakdown || "",
+      annualizedIRR: formData.financialData?.annualizedIRR || "",
+    },
   });
 
   const operationsForm = useForm<z.infer<typeof operationsComplianceSchema>>({
     resolver: zodResolver(operationsComplianceSchema),
-    defaultValues: formData.operationsCompliance || {},
+    defaultValues: {
+      ...formData.operationsCompliance,
+      companyName: formData.operationsCompliance?.companyName || "",
+      businessLicense: formData.operationsCompliance?.businessLicense || "",
+      epcContractorName: formData.operationsCompliance?.epcContractorName || "",
+      governmentFiling: formData.operationsCompliance?.governmentFiling || "",
+      operatingEntity: formData.operationsCompliance?.operatingEntity || "",
+      tier: formData.operationsCompliance?.tier || "",
+    },
   });
 
   const orchardForm = useForm<z.infer<typeof orchardDataSchema>>({
     resolver: zodResolver(orchardDataSchema),
-    defaultValues: formData.tierData as z.infer<typeof orchardDataSchema> || {},
+    defaultValues: {
+      ...(formData.tierData as z.infer<typeof orchardDataSchema> || {}),
+      plantingArea: (formData.tierData as z.infer<typeof orchardDataSchema>)?.plantingArea || "",
+      numberOfTrees: (formData.tierData as z.infer<typeof orchardDataSchema>)?.numberOfTrees || "",
+      age: (formData.tierData as z.infer<typeof orchardDataSchema>)?.age || "",
+      variety: (formData.tierData as z.infer<typeof orchardDataSchema>)?.variety || "",
+      rowSpacing: (formData.tierData as z.infer<typeof orchardDataSchema>)?.rowSpacing || "",
+      treeDensity: (formData.tierData as z.infer<typeof orchardDataSchema>)?.treeDensity || "",
+      annualYield: (formData.tierData as z.infer<typeof orchardDataSchema>)?.annualYield || "",
+      lastThreeYearsYield: (formData.tierData as z.infer<typeof orchardDataSchema>)?.lastThreeYearsYield || "",
+      monitoringSystem: (formData.tierData as z.infer<typeof orchardDataSchema>)?.monitoringSystem || false,
+      deviceId: (formData.tierData as z.infer<typeof orchardDataSchema>)?.deviceId || "",
+    },
   });
 
   const solarForm = useForm<z.infer<typeof solarDataSchema>>({
     resolver: zodResolver(solarDataSchema),
-    defaultValues: formData.tierData as z.infer<typeof solarDataSchema> || {},
+    defaultValues: {
+      ...(formData.tierData as z.infer<typeof solarDataSchema> || {}),
+      installedCapacity: (formData.tierData as z.infer<typeof solarDataSchema>)?.installedCapacity || "",
+      pvModuleModel: (formData.tierData as z.infer<typeof solarDataSchema>)?.pvModuleModel || "",
+      manufacturer: (formData.tierData as z.infer<typeof solarDataSchema>)?.manufacturer || "",
+      installationDate: (formData.tierData as z.infer<typeof solarDataSchema>)?.installationDate || "",
+      gridConnectionPermitId: (formData.tierData as z.infer<typeof solarDataSchema>)?.gridConnectionPermitId || "",
+      gridCompany: (formData.tierData as z.infer<typeof solarDataSchema>)?.gridCompany || "",
+      averageAnnualPowerGeneration: (formData.tierData as z.infer<typeof solarDataSchema>)?.averageAnnualPowerGeneration || "",
+      tariffPpaContractId: (formData.tierData as z.infer<typeof solarDataSchema>)?.tariffPpaContractId || "",
+    },
   });
 
   const handleNext = async () => {
@@ -379,10 +428,12 @@ export function AssetRegistrationForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
                   label={t("form.basicData.projectName")}
+                  error={basicForm.formState.errors.projectName?.message}
                   {...basicForm.register("projectName")}
                 />
                 <FloatingInput
                   label={t("form.basicData.landParcelId")}
+                  error={basicForm.formState.errors.landParcelId?.message}
                   {...basicForm.register("landParcelId")}
                 />
               </div>
@@ -416,20 +467,24 @@ export function AssetRegistrationForm() {
                 selected={basicForm.watch("landType")}
                 onSelect={(value) => basicForm.setValue("landType", value)}
                 columns={3}
+                error={basicForm.formState.errors.landType?.message}
               />
 
               {/* Land Ownership Proof */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <FloatingInput
                   label={t("form.basicData.leaseContractId")}
+                  error={basicForm.formState.errors.leaseContractId?.message}
                   {...basicForm.register("leaseContractId")}
                 />
                 <FloatingInput
                   label={t("form.basicData.duration")}
+                  error={basicForm.formState.errors.duration?.message}
                   {...basicForm.register("duration")}
                 />
                 <FloatingInput
                   label={t("form.basicData.owner")}
+                  error={basicForm.formState.errors.owner?.message}
                   {...basicForm.register("owner")}
                 />
               </div>
@@ -463,10 +518,12 @@ export function AssetRegistrationForm() {
             <form className="space-y-6">
               <FloatingInput
                 label={t("form.financialData.unitInvestmentCost")}
+                error={financialForm.formState.errors.unitInvestmentCost?.message}
                 {...financialForm.register("unitInvestmentCost")}
               />
               <FloatingInput
                 label={t("form.financialData.annualCashFlowBreakdown")}
+                error={financialForm.formState.errors.annualCashFlowBreakdown?.message}
                 {...financialForm.register("annualCashFlowBreakdown")}
               />
               <FileUpload
@@ -478,6 +535,7 @@ export function AssetRegistrationForm() {
               />
               <FloatingInput
                 label={t("form.financialData.annualizedIRR")}
+                error={financialForm.formState.errors.annualizedIRR?.message}
                 {...financialForm.register("annualizedIRR")}
               />
 
@@ -512,16 +570,19 @@ export function AssetRegistrationForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <FloatingInput
                   label={t("form.operationsCompliance.companyName")}
+                  error={operationsForm.formState.errors.companyName?.message}
                   {...operationsForm.register("companyName")}
                 />
                 <FloatingInput
                   label={t("form.operationsCompliance.businessLicense")}
+                  error={operationsForm.formState.errors.businessLicense?.message}
                   {...operationsForm.register("businessLicense")}
                 />
               </div>
 
               <FloatingInput
                 label={t("form.operationsCompliance.epcContractorName")}
+                error={operationsForm.formState.errors.epcContractorName?.message}
                 {...operationsForm.register("epcContractorName")}
               />
 
@@ -536,6 +597,7 @@ export function AssetRegistrationForm() {
                 selected={operationsForm.watch("governmentFiling")}
                 onSelect={(value) => operationsForm.setValue("governmentFiling", value)}
                 columns={3}
+                error={operationsForm.formState.errors.governmentFiling?.message}
               />
 
               {/* Operating Entity */}
@@ -548,6 +610,7 @@ export function AssetRegistrationForm() {
                 selected={operationsForm.watch("operatingEntity")}
                 onSelect={(value) => operationsForm.setValue("operatingEntity", value)}
                 columns={2}
+                error={operationsForm.formState.errors.operatingEntity?.message}
               />
 
               {/* Tier Selection */}
@@ -560,6 +623,7 @@ export function AssetRegistrationForm() {
                 selected={operationsForm.watch("tier")}
                 onSelect={(value) => operationsForm.setValue("tier", value)}
                 columns={2}
+                error={operationsForm.formState.errors.tier?.message}
               />
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -594,6 +658,7 @@ export function AssetRegistrationForm() {
               <form className="space-y-6">
                 <FloatingInput
                   label={t("form.orchardData.plantingArea")}
+                  error={orchardForm.formState.errors.plantingArea?.message}
                   {...orchardForm.register("plantingArea")}
                 />
 
@@ -601,14 +666,17 @@ export function AssetRegistrationForm() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
                     label={t("form.orchardData.numberOfTrees")}
+                    error={orchardForm.formState.errors.numberOfTrees?.message}
                     {...orchardForm.register("numberOfTrees")}
                   />
                   <FloatingInput
                     label={t("form.orchardData.age")}
+                    error={orchardForm.formState.errors.age?.message}
                     {...orchardForm.register("age")}
                   />
                   <FloatingInput
                     label={t("form.orchardData.variety")}
+                    error={orchardForm.formState.errors.variety?.message}
                     {...orchardForm.register("variety")}
                   />
                 </div>
@@ -619,20 +687,24 @@ export function AssetRegistrationForm() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
                       label={t("form.orchardData.rowSpacing")}
+                      error={orchardForm.formState.errors.rowSpacing?.message}
                       {...orchardForm.register("rowSpacing")}
                     />
                     <FloatingInput
                       label={t("form.orchardData.treeDensity")}
+                      error={orchardForm.formState.errors.treeDensity?.message}
                       {...orchardForm.register("treeDensity")}
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <FloatingInput
                       label={t("form.orchardData.annualYield")}
+                      error={orchardForm.formState.errors.annualYield?.message}
                       {...orchardForm.register("annualYield")}
                     />
                     <FloatingInput
                       label={t("form.orchardData.lastThreeYearsYield")}
+                      error={orchardForm.formState.errors.lastThreeYearsYield?.message}
                       {...orchardForm.register("lastThreeYearsYield")}
                     />
                   </div>
@@ -689,6 +761,7 @@ export function AssetRegistrationForm() {
               <form className="space-y-6">
                 <FloatingInput
                   label={t("form.solarData.installedCapacity")}
+                  error={solarForm.formState.errors.installedCapacity?.message}
                   {...solarForm.register("installedCapacity")}
                 />
 
@@ -696,14 +769,17 @@ export function AssetRegistrationForm() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <FloatingInput
                     label={t("form.solarData.pvModuleModel")}
+                    error={solarForm.formState.errors.pvModuleModel?.message}
                     {...solarForm.register("pvModuleModel")}
                   />
                   <FloatingInput
                     label={t("form.solarData.manufacturer")}
+                    error={solarForm.formState.errors.manufacturer?.message}
                     {...solarForm.register("manufacturer")}
                   />
                   <FloatingInput
                     label={t("form.solarData.installationDate")}
+                    error={solarForm.formState.errors.installationDate?.message}
                     {...solarForm.register("installationDate")}
                   />
                 </div>
@@ -712,21 +788,25 @@ export function AssetRegistrationForm() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <FloatingInput
                     label={t("form.solarData.gridConnectionPermitId")}
+                    error={solarForm.formState.errors.gridConnectionPermitId?.message}
                     {...solarForm.register("gridConnectionPermitId")}
                   />
                   <FloatingInput
                     label={t("form.solarData.gridCompany")}
+                    error={solarForm.formState.errors.gridCompany?.message}
                     {...solarForm.register("gridCompany")}
                   />
                 </div>
 
                 <FloatingInput
                   label={t("form.solarData.averageAnnualPowerGeneration")}
+                  error={solarForm.formState.errors.averageAnnualPowerGeneration?.message}
                   {...solarForm.register("averageAnnualPowerGeneration")}
                 />
 
                 <FloatingInput
                   label={t("form.solarData.tariffPpaContractId")}
+                  error={solarForm.formState.errors.tariffPpaContractId?.message}
                   {...solarForm.register("tariffPpaContractId")}
                 />
 

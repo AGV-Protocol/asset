@@ -122,7 +122,8 @@
     "validation": {
       "required": "Este campo es obligatorio",
       "fillAllRequired": "Por favor, rellene todos los campos obligatorios en la sección {section}",
-      "selectTier": "Seleccione un nivel antes de continuar con la revisión."
+      "selectTier": "Seleccione un nivel antes de continuar con la revisión.",
+      "fieldRequired": "Este campo es obligatorio"
     },
     "success": {
       "submitted": "¡Registro de activos enviado exitosamente!",
