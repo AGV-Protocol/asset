@@ -5,7 +5,7 @@ export const MAP_CONFIG = {
   // AMap (AutoNavi Map) - Primary for Chinese users
   AMAP_KEY: process.env.NEXT_PUBLIC_AMAP_KEY || 'YOUR_AMAP_KEY',
   
-  // Google Maps - Fallback for international users
+  // Google Maps - For client-side map display (server-side geocoding uses GOOGLE_MAPS_API_KEY)
   GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || 'YOUR_GOOGLE_MAPS_KEY',
   
   // OpenCage Geocoding - For address search

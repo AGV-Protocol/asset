@@ -24,7 +24,7 @@ export function OptionSelector({
           {label}
         </label>
       )}
-      <div className={`grid grid-cols-${columns} gap-3`}>
+      <div className={`grid grid-cols-${columns} gap-3 w-full`}>
         {options.map((option) => (
           <button
             key={option}

@@ -63,6 +63,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
     components: Record<string, string>;
   }>>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<LocationData | null>(
     initialLocation ? {
       latitude: initialLocation.latitude || '',
@@ -165,6 +166,15 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
     detectUserLocation();
   }, [detectUserLocation]);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (searchTimeout) {
+        clearTimeout(searchTimeout);
+      }
+    };
+  }, [searchTimeout]);
+
 
   // Initialize AMap (AutoNavi Map) for Chinese users
   const initializeAMap = useCallback(async () => {
@@ -207,7 +217,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
     });
   }, [mapCenter.lat, mapCenter.lng]);
 
-  // Initialize Google Maps for international users
+  // Initialize Google Maps for international users (using Firebase API for geocoding)
   const initializeGoogleMap = useCallback(async () => {
     return new Promise((resolve, reject) => {
       if (typeof window === 'undefined') {
@@ -215,9 +225,9 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
         return;
       }
 
-      // Load Google Maps script
+      // Load Google Maps script (without geocoding library since we use server-side)
       const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAP_CONFIG.GOOGLE_MAPS_KEY}&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${MAP_CONFIG.GOOGLE_MAPS_KEY}`;
       script.onload = () => {
         try {
           if (!mapRef.current) {
@@ -234,7 +244,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
             const lat = e.latLng.lat();
             const lng = e.latLng.lng();
             setMapMarker({ lat, lng });
-            reverseGeocodeGoogle(lat, lng);
+            reverseGeocodeFirebase(lat, lng);
           });
 
           mapInstanceRef.current = map;
@@ -307,73 +317,89 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
     }
   };
 
-  // Reverse geocoding for Google Maps
-  const reverseGeocodeGoogle = async (lat: number, lng: number) => {
+  // Reverse geocoding using Firebase API
+  const reverseGeocodeFirebase = async (lat: number, lng: number) => {
     try {
-      const geocoder = new window.google.maps.Geocoder();
-      geocoder.geocode({ location: { lat, lng } }, (results, status) => {
-        if (status === 'OK' && results[0]) {
-          const result = results[0];
-          const address = result.formatted_address;
-          
-          // Parse address components
-          let county = '';
-          let city = '';
-          let province = '';
-          
-          result.address_components.forEach((component) => {
-            const types = component.types;
-            if (types.includes('administrative_area_level_3')) {
-              county = component.long_name;
-            } else if (types.includes('administrative_area_level_2')) {
-              city = component.long_name;
-            } else if (types.includes('administrative_area_level_1')) {
-              province = component.long_name;
-            }
-          });
-          
-          const locationData: LocationData = {
-            latitude: lat.toString(),
-            longitude: lng.toString(),
-            county,
-            city,
-            province,
-            address
-          };
-          
-          setSelectedLocation(locationData);
-        }
+      const response = await fetch('/api/geocoding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'reverse_geocode',
+          data: { lat: lat.toString(), lng: lng.toString() }
+        }),
       });
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setSelectedLocation(result.data);
+      } else {
+        console.error('Reverse geocoding failed:', result.error);
+      }
     } catch (error) {
-      console.error('Error in Google reverse geocoding:', error);
+      console.error('Error in Firebase reverse geocoding:', error);
     }
   };
 
-  // Search for locations
-  const handleSearch = async () => {
-    if (!searchQuery.trim()) return;
+  // Search for locations using Firebase API
+  const handleSearch = async (query: string = searchQuery) => {
+    if (!query.trim()) {
+      setSearchResults([]);
+      return;
+    }
     
     setIsSearching(true);
     try {
-      // Use a geocoding service to search for locations
-      if (MAP_CONFIG.OPENCAGE_KEY === 'YOUR_OPENCAGE_KEY') {
-        console.log('OpenCage API key not configured');
-        return;
-      }
+      const response = await fetch('/api/geocoding', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'search',
+          data: { query }
+        }),
+      });
+
+      const result = await response.json();
       
-      const response = await fetch(
-        `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(searchQuery)}&key=${MAP_CONFIG.OPENCAGE_KEY}&limit=5`
-      );
-      const data = await response.json();
-      
-      if (data.results) {
-        setSearchResults(data.results);
+      if (result.success) {
+        console.log('Search API response:', result.data);
+        setSearchResults(result.data);
+        if (result.data.length === 0) {
+          // Show a message when no results are found
+          console.log('No search results found for:', query);
+        } else {
+          console.log('Found', result.data.length, 'search results');
+        }
+      } else {
+        console.error('Search failed:', result.error);
+        setSearchResults([]);
       }
     } catch (error) {
       console.error('Error searching locations:', error);
     } finally {
       setIsSearching(false);
     }
+  };
+
+  // Debounced search function
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    
+    // Clear existing timeout
+    if (searchTimeout) {
+      clearTimeout(searchTimeout);
+    }
+    
+    // Set new timeout for debounced search
+    const timeout = setTimeout(() => {
+      handleSearch(value);
+    }, 200); // 200ms delay
+    
+    setSearchTimeout(timeout);
   };
 
   // Handle location selection from search results
@@ -412,6 +438,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
   // Get current location
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
+      setIsDetectingLocation(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
@@ -423,25 +450,42 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
           const isChina = isChineseUser();
           if (isChina && MAP_CONFIG.AMAP_KEY !== 'YOUR_AMAP_KEY') {
             reverseGeocodeAMap(lat, lng);
-          } else if (MAP_CONFIG.GOOGLE_MAPS_KEY !== 'YOUR_GOOGLE_MAPS_KEY') {
-            reverseGeocodeGoogle(lat, lng);
           } else {
-            // Simple fallback - just set coordinates
-            const locationData: LocationData = {
-              latitude: lat.toString(),
-              longitude: lng.toString(),
-              county: '',
-              city: '',
-              province: '',
-              address: `${lat.toFixed(6)}, ${lng.toFixed(6)}`
-            };
-            setSelectedLocation(locationData);
+            // Use Firebase API for reverse geocoding
+            reverseGeocodeFirebase(lat, lng);
           }
+          setIsDetectingLocation(false);
         },
         (error) => {
           console.error('Error getting current location:', error);
+          setIsDetectingLocation(false);
+          
+          // Show user-friendly error message
+          let errorMessage = 'Unable to get your current location. ';
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage += 'Please allow location access and try again.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage += 'Location information is unavailable.';
+              break;
+            case error.TIMEOUT:
+              errorMessage += 'Location request timed out.';
+              break;
+            default:
+              errorMessage += 'An unknown error occurred.';
+              break;
+          }
+          console.log(errorMessage);
+        },
+        {
+          timeout: 10000,
+          enableHighAccuracy: true,
+          maximumAge: 300000 // 5 minutes
         }
       );
+    } else {
+      console.log('Geolocation is not supported by this browser.');
     }
   };
 
@@ -485,21 +529,24 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[400px] sm:h-[500px]">
               {/* Search Panel */}
-              <div className="space-y-3 sm:space-y-4">
+              <div className="space-y-3 sm:space-y-4" onClick={(e) => e.stopPropagation()}>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-gray-700">{t("locationPicker.searchLocation")}</label>
                   <div className="flex flex-col sm:flex-row gap-2">
                     <Input
                       placeholder={t("locationPicker.searchPlaceholder")}
                       value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onChange={(e) => handleSearchChange(e.target.value)}
                       onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                      className="flex-1"
+                      onClick={(e) => e.stopPropagation()}
+                      onFocus={(e) => e.stopPropagation()}
+                      className="flex-1 bg-white text-gray-900 border-gray-300 placeholder:text-gray-500 focus-visible:ring-blue-500"
+                      autoComplete="off"
                     />
                     <Button
                       type="button"
-                      onClick={handleSearch}
-                      disabled={isSearching}
+                      onClick={() => handleSearch(searchQuery)}
+                      disabled={isSearching || !searchQuery.trim()}
                       size="sm"
                       className="w-full sm:w-auto"
                     >
@@ -512,7 +559,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                   type="button"
                   variant="outline"
                   onClick={getCurrentLocation}
-                  className="w-full"
+                  className="w-full text-black hover:text-black"
                   disabled={isDetectingLocation}
                 >
                   {isDetectingLocation ? t("locationPicker.detecting") : t("locationPicker.useCurrentLocation")}
@@ -521,7 +568,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 {/* Search Results */}
                 {searchResults.length > 0 && (
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">{t("locationPicker.searchResults")}</label>
+                    <label className="text-sm font-medium text-gray-700">{t("locationPicker.searchResults")} ({searchResults.length})</label>
                     <div className="max-h-32 sm:max-h-48 overflow-y-auto space-y-1">
                       {searchResults.map((result, index) => (
                         <button
@@ -574,6 +621,10 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                               setMapMarker(prev => ({ ...prev, lat, lng: prev?.lng || 0 }));
                             }
                           }}
+                          onClick={(e) => e.stopPropagation()}
+                          onFocus={(e) => e.stopPropagation()}
+                          className="bg-white text-gray-900 border-gray-300 placeholder:text-gray-500 focus-visible:ring-blue-500"
+                          autoComplete="off"
                         />
                       </div>
                       <div>
@@ -589,6 +640,10 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                               setMapMarker(prev => ({ ...prev, lng, lat: prev?.lat || 0 }));
                             }
                           }}
+                          onClick={(e) => e.stopPropagation()}
+                          onFocus={(e) => e.stopPropagation()}
+                          className="bg-white text-gray-900 border-gray-300 placeholder:text-gray-500 focus-visible:ring-blue-500"
+                          autoComplete="off"
                         />
                       </div>
                     </div>
@@ -625,7 +680,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 type="button"
                 variant="outline"
                 onClick={() => setIsOpen(false)}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto text-black hover:text-black"
               >
                 {t("locationPicker.cancel")}
               </Button>
@@ -633,7 +688,7 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
                 type="button"
                 onClick={handleConfirm}
                 disabled={!selectedLocation}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto text-black hover:text-black"
               >
                 {t("locationPicker.confirmLocation")}
               </Button>
