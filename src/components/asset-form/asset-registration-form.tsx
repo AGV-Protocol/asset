@@ -18,11 +18,67 @@ import { useTranslations } from "../../hooks/useTranslations";
 import { toast } from "sonner";
 
 
+type BasicData = {
+  projectName: string;
+  landParcelId: string;
+  county: string;
+  city: string;
+  province: string;
+  latitude: string;
+  longitude: string;
+  landType: string;
+  leaseContractId: string;
+  duration: string;
+  owner: string;
+};
+
+type FinancialData = {
+  unitInvestmentCost: string;
+  annualCashFlowBreakdown: string;
+  otherSubsidiesFile?: File;
+  annualizedIRR: string;
+};
+
+type OperationsCompliance = {
+  companyName: string;
+  businessLicense: string;
+  epcContractorName: string;
+  governmentFiling: string;
+  operatingEntity: string;
+  tier: string;
+};
+
+type OrchardData = {
+  plantingArea: string;
+  numberOfTrees: string;
+  age: string;
+  variety: string;
+  rowSpacing: string;
+  treeDensity: string;
+  annualYield: string;
+  lastThreeYearsYield: string;
+  monitoringSystem: boolean;
+  deviceId?: string;
+  orchardProductSalesRevenueFile?: File;
+};
+
+type SolarData = {
+  installedCapacity: string;
+  pvModuleModel: string;
+  manufacturer: string;
+  installationDate: string;
+  gridConnectionPermitId: string;
+  gridCompany: string;
+  averageAnnualPowerGeneration: string;
+  tariffPpaContractId: string;
+  solarElectricitySalesRevenueFile?: File;
+};
+
 type FormData = {
-  basicData: Record<string, any>;
-  financialData: Record<string, any>;
-  operationsCompliance: Record<string, any>;
-  tierData: Record<string, any>;
+  basicData: BasicData;
+  financialData: FinancialData;
+  operationsCompliance: OperationsCompliance;
+  tierData: OrchardData | SolarData;
 };
 
 export function AssetRegistrationForm() {
@@ -143,32 +199,32 @@ export function AssetRegistrationForm() {
   const orchardForm = useForm<z.infer<typeof orchardDataSchema>>({
     resolver: zodResolver(orchardDataSchema),
     defaultValues: {
-      ...(formData.tierData as z.infer<typeof orchardDataSchema> || {}),
-      plantingArea: (formData.tierData as z.infer<typeof orchardDataSchema>)?.plantingArea || "",
-      numberOfTrees: (formData.tierData as z.infer<typeof orchardDataSchema>)?.numberOfTrees || "",
-      age: (formData.tierData as z.infer<typeof orchardDataSchema>)?.age || "",
-      variety: (formData.tierData as z.infer<typeof orchardDataSchema>)?.variety || "",
-      rowSpacing: (formData.tierData as z.infer<typeof orchardDataSchema>)?.rowSpacing || "",
-      treeDensity: (formData.tierData as z.infer<typeof orchardDataSchema>)?.treeDensity || "",
-      annualYield: (formData.tierData as z.infer<typeof orchardDataSchema>)?.annualYield || "",
-      lastThreeYearsYield: (formData.tierData as z.infer<typeof orchardDataSchema>)?.lastThreeYearsYield || "",
-      monitoringSystem: (formData.tierData as z.infer<typeof orchardDataSchema>)?.monitoringSystem || false,
-      deviceId: (formData.tierData as z.infer<typeof orchardDataSchema>)?.deviceId || "",
+      ...(formData.tierData as OrchardData || {}),
+      plantingArea: (formData.tierData as OrchardData)?.plantingArea || "",
+      numberOfTrees: (formData.tierData as OrchardData)?.numberOfTrees || "",
+      age: (formData.tierData as OrchardData)?.age || "",
+      variety: (formData.tierData as OrchardData)?.variety || "",
+      rowSpacing: (formData.tierData as OrchardData)?.rowSpacing || "",
+      treeDensity: (formData.tierData as OrchardData)?.treeDensity || "",
+      annualYield: (formData.tierData as OrchardData)?.annualYield || "",
+      lastThreeYearsYield: (formData.tierData as OrchardData)?.lastThreeYearsYield || "",
+      monitoringSystem: (formData.tierData as OrchardData)?.monitoringSystem || false,
+      deviceId: (formData.tierData as OrchardData)?.deviceId || "",
     },
   });
 
   const solarForm = useForm<z.infer<typeof solarDataSchema>>({
     resolver: zodResolver(solarDataSchema),
     defaultValues: {
-      ...(formData.tierData as z.infer<typeof solarDataSchema> || {}),
-      installedCapacity: (formData.tierData as z.infer<typeof solarDataSchema>)?.installedCapacity || "",
-      pvModuleModel: (formData.tierData as z.infer<typeof solarDataSchema>)?.pvModuleModel || "",
-      manufacturer: (formData.tierData as z.infer<typeof solarDataSchema>)?.manufacturer || "",
-      installationDate: (formData.tierData as z.infer<typeof solarDataSchema>)?.installationDate || "",
-      gridConnectionPermitId: (formData.tierData as z.infer<typeof solarDataSchema>)?.gridConnectionPermitId || "",
-      gridCompany: (formData.tierData as z.infer<typeof solarDataSchema>)?.gridCompany || "",
-      averageAnnualPowerGeneration: (formData.tierData as z.infer<typeof solarDataSchema>)?.averageAnnualPowerGeneration || "",
-      tariffPpaContractId: (formData.tierData as z.infer<typeof solarDataSchema>)?.tariffPpaContractId || "",
+      ...(formData.tierData as SolarData || {}),
+      installedCapacity: (formData.tierData as SolarData)?.installedCapacity || "",
+      pvModuleModel: (formData.tierData as SolarData)?.pvModuleModel || "",
+      manufacturer: (formData.tierData as SolarData)?.manufacturer || "",
+      installationDate: (formData.tierData as SolarData)?.installationDate || "",
+      gridConnectionPermitId: (formData.tierData as SolarData)?.gridConnectionPermitId || "",
+      gridCompany: (formData.tierData as SolarData)?.gridCompany || "",
+      averageAnnualPowerGeneration: (formData.tierData as SolarData)?.averageAnnualPowerGeneration || "",
+      tariffPpaContractId: (formData.tierData as SolarData)?.tariffPpaContractId || "",
     },
   });
 
