@@ -152,7 +152,7 @@ export default function LoginPage() {
             <Button
               onClick={signInWithGoogle}
               disabled={isSigningIn}
-              className="w-full text-black"
+              className="w-full text-black hover:text-gray-500"
               variant="outline"
             >
               {isSigningIn ? (
