@@ -272,8 +272,8 @@ export default function SubmissionsPage() {
           <CardTitle>Filters</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="relative sm:col-span-2 lg:col-span-1">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
               <Input
                 type="text"
@@ -307,7 +307,7 @@ export default function SubmissionsPage() {
               </SelectContent>
             </Select>
 
-            <Button variant="outline" className="justify-start">
+            <Button variant="outline" className="justify-start sm:col-span-2 lg:col-span-1">
               <Filter className="mr-2 h-4 w-4" />
               More Filters
             </Button>
@@ -326,60 +326,142 @@ export default function SubmissionsPage() {
          <CardContent>
            {filteredSubmissions.length > 0 ? (
              <div>
-               <table className="w-full">
-                 <thead>
-                   <tr className="border-b border-gray-200">
-                     <th className="text-left py-3 px-4 font-medium text-gray-700">Project Name</th>
-                     <th className="text-left py-3 px-4 font-medium text-gray-700">Company Name</th>
-                     <th className="text-left py-3 px-4 font-medium text-gray-700">Tier</th>
-                     <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
-                     <th className="text-left py-3 px-4 font-medium text-gray-700">Submitted</th>
-                     <th className="text-right py-3 px-4 font-medium text-gray-700">Actions</th>
-                   </tr>
-                 </thead>
-                 <tbody>
-                   {filteredSubmissions.map((submission) => (
-                     <tr key={submission.id} className="border-b border-gray-100 hover:bg-gray-50">
-                       <td className="py-4 px-4">
-                         <div className="flex items-center space-x-2">
-                           {getStatusIcon(submission.status)}
-                           <span className="font-medium text-gray-900">{submission.projectName}</span>
+               {/* Desktop Table View */}
+               <div className="hidden lg:block">
+                 <table className="w-full">
+                   <thead>
+                     <tr className="border-b border-gray-200">
+                       <th className="text-left py-3 px-4 font-medium text-gray-700">Project Name</th>
+                       <th className="text-left py-3 px-4 font-medium text-gray-700">Company Name</th>
+                       <th className="text-left py-3 px-4 font-medium text-gray-700">Tier</th>
+                       <th className="text-left py-3 px-4 font-medium text-gray-700">Status</th>
+                       <th className="text-left py-3 px-4 font-medium text-gray-700">Submitted</th>
+                       <th className="text-right py-3 px-4 font-medium text-gray-700">Actions</th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     {filteredSubmissions.map((submission) => (
+                       <tr key={submission.id} className="border-b border-gray-100 hover:bg-gray-50">
+                         <td className="py-4 px-4">
+                           <div className="flex items-center space-x-2">
+                             {getStatusIcon(submission.status)}
+                             <span className="font-medium text-gray-900">{submission.projectName}</span>
+                           </div>
+                         </td>
+                         <td className="py-4 px-4 text-gray-600">
+                           {submission.companyName}
+                         </td>
+                         <td className="py-4 px-4 text-gray-600">
+                           {submission.tier}
+                         </td>
+                         <td className="py-4 px-4">
+                           {getStatusBadge(submission.status)}
+                         </td>
+                         <td className="py-4 px-4 text-gray-500 text-sm">
+                           {formatDate(submission.submittedAt)}
+                         </td>
+                         <td className="py-4 px-4">
+                           <div className="flex items-center justify-start space-x-2">
+                             <Button variant="outline" size="sm" className="text-black" asChild>
+                               <Link href={`/admin/submissions/${submission.id}`} className="flex items-center hover:text-gray-600">
+                                 <Eye className="mr-1 h-4 w-4" />
+                                 View
+                               </Link>
+                             </Button>
+                             
+                             {submission.status === "pending" && (
+                               <>
+                                 <Button
+                                   variant="outline"
+                                   size="sm"
+                                   onClick={() => handleStatusChange(submission.id, "approved")}
+                                   disabled={loadingStates[`${submission.id}-approved`] || loadingStates[`${submission.id}-rejected`]}
+                                   className="text-green-600 hover:text-green-700 border-green-200 hover:border-green-300"
+                                 >
+                                   {loadingStates[`${submission.id}-approved`] ? (
+                                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-1"></div>
+                                   ) : (
+                                     <CheckCircle className="mr-1 h-4 w-4" />
+                                   )}
+                                   Approve
+                                 </Button>
+                                 <Button
+                                   variant="outline"
+                                   size="sm"
+                                   onClick={() => handleStatusChange(submission.id, "rejected")}
+                                   disabled={loadingStates[`${submission.id}-approved`] || loadingStates[`${submission.id}-rejected`]}
+                                   className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
+                                 >
+                                   {loadingStates[`${submission.id}-rejected`] ? (
+                                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 mr-1"></div>
+                                   ) : (
+                                     <XCircle className="mr-1 h-4 w-4" />
+                                   )}
+                                   Reject
+                                 </Button>
+                               </>
+                             )}
+                           </div>
+                         </td>
+                       </tr>
+                     ))}
+                   </tbody>
+                 </table>
+               </div>
+
+               {/* Mobile Card View */}
+               <div className="lg:hidden space-y-4">
+                 {filteredSubmissions.map((submission) => (
+                   <Card key={submission.id} className="border border-gray-200">
+                     <CardContent className="p-4">
+                       <div className="space-y-3">
+                         {/* Header with status icon and project name */}
+                         <div className="flex items-start justify-between">
+                           <div className="flex items-center space-x-2 flex-1 min-w-0">
+                             {getStatusIcon(submission.status)}
+                             <h3 className="font-medium text-gray-900 truncate">{submission.projectName}</h3>
+                           </div>
+                           {getStatusBadge(submission.status)}
                          </div>
-                       </td>
-                       <td className="py-4 px-4 text-gray-600">
-                         {submission.companyName}
-                       </td>
-                       <td className="py-4 px-4 text-gray-600">
-                         {submission.tier}
-                       </td>
-                       <td className="py-4 px-4">
-                         {getStatusBadge(submission.status)}
-                       </td>
-                       <td className="py-4 px-4 text-gray-500 text-sm">
-                         {formatDate(submission.submittedAt)}
-                       </td>
-                       <td className="py-4 px-4">
-                         <div className="flex items-center justify-start space-x-2">
-                           <Button variant="outline" size="sm" className="text-black" asChild>
-                             <Link href={`/admin/submissions/${submission.id}`} className="flex items-center hover:text-gray-600">
-                               <Eye className="mr-1 h-4 w-4" />
-                               View
+
+                         {/* Company and Tier */}
+                         <div className="space-y-2">
+                           <div className="flex justify-between items-center">
+                             <span className="text-sm text-gray-500">Company:</span>
+                             <span className="text-sm text-gray-900 font-medium">{submission.companyName}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                             <span className="text-sm text-gray-500">Tier:</span>
+                             <span className="text-sm text-gray-900 font-medium">{submission.tier}</span>
+                           </div>
+                           <div className="flex justify-between items-center">
+                             <span className="text-sm text-gray-500">Submitted:</span>
+                             <span className="text-sm text-gray-900 font-medium">{formatDate(submission.submittedAt)}</span>
+                           </div>
+                         </div>
+
+                         {/* Actions */}
+                         <div className="flex flex-col space-y-2 pt-2 border-t border-gray-100">
+                           <Button variant="outline" size="sm" className="text-black w-full" asChild>
+                             <Link href={`/admin/submissions/${submission.id}`} className="flex items-center justify-center hover:text-gray-600">
+                               <Eye className="mr-2 h-4 w-4" />
+                               View Details
                              </Link>
                            </Button>
                            
                            {submission.status === "pending" && (
-                             <>
+                             <div className="flex space-x-2">
                                <Button
                                  variant="outline"
                                  size="sm"
                                  onClick={() => handleStatusChange(submission.id, "approved")}
                                  disabled={loadingStates[`${submission.id}-approved`] || loadingStates[`${submission.id}-rejected`]}
-                                 className="text-green-600 hover:text-green-700 border-green-200 hover:border-green-300"
+                                 className="text-green-600 hover:text-green-700 border-green-200 hover:border-green-300 flex-1"
                                >
                                  {loadingStates[`${submission.id}-approved`] ? (
-                                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-1"></div>
+                                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 mr-2"></div>
                                  ) : (
-                                   <CheckCircle className="mr-1 h-4 w-4" />
+                                   <CheckCircle className="mr-2 h-4 w-4" />
                                  )}
                                  Approve
                                </Button>
@@ -388,23 +470,23 @@ export default function SubmissionsPage() {
                                  size="sm"
                                  onClick={() => handleStatusChange(submission.id, "rejected")}
                                  disabled={loadingStates[`${submission.id}-approved`] || loadingStates[`${submission.id}-rejected`]}
-                                 className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
+                                 className="text-red-600 hover:text-red-700 border-red-200 hover:border-red-300 flex-1"
                                >
                                  {loadingStates[`${submission.id}-rejected`] ? (
-                                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 mr-1"></div>
+                                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-red-600 mr-2"></div>
                                  ) : (
-                                   <XCircle className="mr-1 h-4 w-4" />
+                                   <XCircle className="mr-2 h-4 w-4" />
                                  )}
                                  Reject
                                </Button>
-                             </>
+                             </div>
                            )}
                          </div>
-                       </td>
-                     </tr>
-                   ))}
-                 </tbody>
-               </table>
+                       </div>
+                     </CardContent>
+                   </Card>
+                 ))}
+               </div>
              </div>
            ) : (
              <div className="text-center py-8">
