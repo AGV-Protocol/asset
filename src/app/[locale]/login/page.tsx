@@ -11,14 +11,25 @@ import { Label } from '@/components/ui/label';
 import { Loader2, Mail, ArrowLeft } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 
-export default function LoginPage() {
+interface LoginPageProps {
+  params: Promise<{ locale: string }>;
+}
+
+export default function LoginPage({ params }: LoginPageProps) {
   const [, setUser] = useState<{ email: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [sendingLink, setSendingLink] = useState(false);
   const [linkSentTo, setLinkSentTo] = useState('');
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [locale, setLocale] = useState('en');
   const router = useRouter();
+
+  useEffect(() => {
+    params.then(({ locale: paramLocale }) => {
+      setLocale(paramLocale);
+    });
+  }, [params]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -105,7 +116,7 @@ export default function LoginPage() {
   };
 
   const goBack = () => {
-    router.push('/');
+    router.push(`/${locale}`);
   };
 
   // Show loading state
