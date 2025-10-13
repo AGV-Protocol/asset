@@ -12,7 +12,7 @@ import { Loader2, Mail, ArrowLeft } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 
 export default function LoginPage() {
-  const [user, setUser] = useState<any>(null);
+  const [, setUser] = useState<{ email: string | null } | null>(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState('');
   const [sendingLink, setSendingLink] = useState(false);
@@ -97,7 +97,7 @@ export default function LoginPage() {
       });
       
       await signInWithPopup(auth, provider);
-    } catch (e: any) {
+    } catch (e: unknown) {
       console.error('Google sign-in error:', e);
     } finally {
       setIsSigningIn(false);

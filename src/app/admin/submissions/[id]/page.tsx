@@ -20,12 +20,46 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { auth } from "@/lib/firebase";
 
+interface BasicData {
+  projectName?: string;
+  landParcelId?: string;
+  landType?: string;
+  owner?: string;
+  county?: string;
+  city?: string;
+  province?: string;
+  latitude?: string;
+  longitude?: string;
+  leaseContractId?: string;
+  duration?: string;
+}
+
+interface FinancialData {
+  unitInvestmentCost?: string;
+  annualCashFlowBreakdown?: string;
+  annualizedIRR?: string;
+  [key: string]: string | undefined;
+}
+
+interface OperationsCompliance {
+  companyName?: string;
+  businessLicense?: string;
+  epcContractorName?: string;
+  governmentFiling?: string;
+  operatingEntity?: string;
+  tier?: string;
+}
+
+interface TierData {
+  [key: string]: string | undefined;
+}
+
 interface SubmissionData {
   id: string;
-  basicData: any;
-  financialData: any;
-  operationsCompliance: any;
-  tierData: any;
+  basicData: BasicData;
+  financialData: FinancialData;
+  operationsCompliance: OperationsCompliance;
+  tierData: TierData;
   status: string;
   submittedAt: string;
   attachments?: {

@@ -18,6 +18,29 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { auth } from "@/lib/firebase";
 
+interface BasicData {
+  projectName?: string;
+  landParcelId?: string;
+  landType?: string;
+  owner?: string;
+  county?: string;
+  city?: string;
+  province?: string;
+  latitude?: string;
+  longitude?: string;
+  leaseContractId?: string;
+  duration?: string;
+}
+
+interface OperationsCompliance {
+  companyName?: string;
+  businessLicense?: string;
+  epcContractorName?: string;
+  governmentFiling?: string;
+  operatingEntity?: string;
+  tier?: string;
+}
+
 interface Submission {
   id: string;
   projectName: string;
@@ -25,8 +48,8 @@ interface Submission {
   status: string;
   submittedAt: string;
   tier: string;
-  basicData: any;
-  operationsCompliance: any;
+  basicData: BasicData;
+  operationsCompliance: OperationsCompliance;
 }
 
 export default function SubmissionsPage() {
@@ -63,7 +86,13 @@ export default function SubmissionsPage() {
         const data = await response.json();
         const assets = data.assets || [];
         
-        const formattedSubmissions = assets.map((asset: any) => ({
+        const formattedSubmissions = assets.map((asset: {
+          id: string;
+          basicData?: BasicData;
+          operationsCompliance?: OperationsCompliance;
+          status?: string;
+          submittedAt: string | { _seconds: number };
+        }) => ({
           id: asset.id,
           projectName: asset.basicData?.projectName || "N/A",
           companyName: asset.operationsCompliance?.companyName || "N/A",
@@ -138,11 +167,11 @@ export default function SubmissionsPage() {
     }
   };
 
-  const formatDate = (dateInput: any) => {
+  const formatDate = (dateInput: string | { _seconds: number } | Date) => {
     let date: Date;
     
     // Handle Firebase Timestamp object
-    if (dateInput && typeof dateInput === 'object' && dateInput._seconds) {
+    if (dateInput && typeof dateInput === 'object' && '_seconds' in dateInput && dateInput._seconds) {
       date = new Date(dateInput._seconds * 1000);
     }
     // Handle regular Date string

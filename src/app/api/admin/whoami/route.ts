@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/firebase-admin";
 import { isAdminClaim, isAuthorizedAdminEmail, isSuperAdminEmail } from "@/lib/auth";
 
+interface DecodedTokenWithClaims {
+  email?: string;
+  role?: string;
+  roles?: string[];
+  admin?: boolean;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get("authorization");
@@ -25,7 +32,7 @@ export async function GET(request: NextRequest) {
       // Check if user is authorized admin using the new system
       const isAuthorized = await isAuthorizedAdminEmail(email);
       const isSuperAdmin = isSuperAdminEmail(email);
-      const isAdmin = isAuthorized || isSuperAdmin || isAdminClaim(decodedToken);
+      const isAdmin = isAuthorized || isSuperAdmin || isAdminClaim(decodedToken as DecodedTokenWithClaims);
       
       return NextResponse.json({
         authed: true,
@@ -33,9 +40,9 @@ export async function GET(request: NextRequest) {
         isAdmin: isAdmin,
         isSuperAdmin: isSuperAdmin,
         claims: {
-          role: decodedToken.role || null,
-          roles: decodedToken.roles || [],
-          admin: decodedToken.admin || false
+          role: (decodedToken as DecodedTokenWithClaims).role || null,
+          roles: (decodedToken as DecodedTokenWithClaims).roles || [],
+          admin: (decodedToken as DecodedTokenWithClaims).admin || false
         }
       });
     } catch (error) {

@@ -61,13 +61,19 @@ export default function AdminDashboard() {
         const assets = data.assets || [];
         
         const totalSubmissions = assets.length;
-        const pendingSubmissions = assets.filter((asset: any) => asset.status === "pending").length;
-        const approvedSubmissions = assets.filter((asset: any) => asset.status === "approved").length;
-        const rejectedSubmissions = assets.filter((asset: any) => asset.status === "rejected").length;
+        const pendingSubmissions = assets.filter((asset: { status: string }) => asset.status === "pending").length;
+        const approvedSubmissions = assets.filter((asset: { status: string }) => asset.status === "approved").length;
+        const rejectedSubmissions = assets.filter((asset: { status: string }) => asset.status === "rejected").length;
         
         const recentSubmissions = assets
           .slice(0, 5)
-          .map((asset: any) => ({
+          .map((asset: { 
+            id: string; 
+            basicData?: { projectName?: string }; 
+            operationsCompliance?: { companyName?: string; tier?: string }; 
+            status?: string; 
+            submittedAt?: string 
+          }) => ({
             id: asset.id,
             projectName: asset.basicData?.projectName || "N/A",
             companyName: asset.operationsCompliance?.companyName || "N/A",

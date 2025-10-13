@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, Bell, Search, User, LogOut } from "lucide-react";
+import { Menu, Search, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { auth } from "@/lib/firebase";
@@ -13,8 +13,8 @@ interface AdminHeaderProps {
 }
 
 export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
-  const [user, setUser] = useState<any>(null);
-  const [who, setWho] = useState<any>(null);
+  const [user, setUser] = useState<{ email: string | null } | null>(null);
+  const [who, setWho] = useState<{ email?: string; isSuperAdmin?: boolean } | null>(null);
   const router = useRouter();
 
   useEffect(() => {
