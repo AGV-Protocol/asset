@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-import { FloatingInput } from "@/components/ui/floating-input";
+import { DurationInput } from "@/components/ui/duration-input";
+import { ValidatedInput } from "@/components/ui/validated-input";
 import { YesNoToggle } from "@/components/ui/yes-no-toggle";
 import { FileUpload } from "@/components/ui/file-upload";
 import { LocationPicker } from "@/components/ui/location-picker";
@@ -21,11 +22,11 @@ import { toast } from "sonner";
 type BasicData = {
   projectName: string;
   landParcelId: string;
-  county: string;
-  city: string;
-  province: string;
-  latitude: string;
-  longitude: string;
+  county?: string;
+  city?: string;
+  province?: string;
+  latitude?: string;
+  longitude?: string;
   landType: string;
   leaseContractId: string;
   duration: string;
@@ -95,15 +96,39 @@ export function AssetRegistrationForm() {
   const basicDataSchema = z.object({
     projectName: z.string().min(1, t("form.validation.fieldRequired")),
     landParcelId: z.string().min(1, t("form.validation.fieldRequired")),
-    county: z.string().min(1, t("form.validation.fieldRequired")),
-    city: z.string().min(1, t("form.validation.fieldRequired")),
-    province: z.string().min(1, t("form.validation.fieldRequired")),
-    latitude: z.string().min(1, t("form.validation.fieldRequired")),
-    longitude: z.string().min(1, t("form.validation.fieldRequired")),
+    county: z.string().optional(),
+    city: z.string().optional(),
+    province: z.string().optional(),
+    latitude: z.string().optional(),
+    longitude: z.string().optional(),
     landType: z.string().min(1, t("form.validation.fieldRequired")),
     leaseContractId: z.string().min(1, t("form.validation.fieldRequired")),
-    duration: z.string().min(1, t("form.validation.fieldRequired")),
+    duration: z.string()
+      .min(1, t("form.validation.fieldRequired"))
+      .refine((val) => {
+        // Extract the numeric part from "X years" or "X months" format
+        const match = val.match(/^(\d+(?:\.\d+)?)\s+(years|months)$/);
+        if (!match) return false;
+        const numValue = parseFloat(match[1]);
+        return numValue > 0;
+      }, "Duration must be a positive number"),
     owner: z.string().min(1, t("form.validation.fieldRequired")),
+  }).refine((data) => {
+    // Custom validation: ensure location is properly selected
+    const lat = parseFloat(data.latitude || "");
+    const lng = parseFloat(data.longitude || "");
+    
+    // Check if coordinates are valid numbers and within reasonable ranges
+    const hasValidCoordinates = !isNaN(lat) && !isNaN(lng) && 
+      lat >= -90 && lat <= 90 && 
+      lng >= -180 && lng <= 180 &&
+      (data.latitude || "") !== "" && (data.longitude || "") !== "";
+    
+    
+    return hasValidCoordinates;
+  }, {
+    message: "Please select a valid location",
+    path: ["latitude"] // This will show the error on the location picker
   });
 
   const financialDataSchema = z.object({
@@ -375,6 +400,8 @@ export function AssetRegistrationForm() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div><strong>Project Name:</strong> {formData.basicData?.projectName}</div>
                 <div><strong>Land Parcel ID:</strong> {formData.basicData?.landParcelId}</div>
+                <div><strong>Lease Contract ID:</strong> {formData.basicData?.leaseContractId}</div>
+                <div><strong>Duration:</strong> {formData.basicData?.duration}</div>
                 <div className="sm:col-span-2"><strong>Location:</strong> {formData.basicData?.county}, {formData.basicData?.city}, {formData.basicData?.province}</div>
                 <div className="sm:col-span-2"><strong>GPS:</strong> {formData.basicData?.latitude}, {formData.basicData?.longitude}</div>
                 <div><strong>Land Type:</strong> {formData.basicData?.landType}</div>
@@ -482,25 +509,42 @@ export function AssetRegistrationForm() {
             <form className="space-y-6">
               {/* Project Name and Land Parcel ID */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.basicData.projectName")}
                   error={basicForm.formState.errors.projectName?.message}
-                  {...basicForm.register("projectName")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={basicForm.watch("projectName") || ""}
+                  onChange={(e) => basicForm.setValue("projectName", e.target.value)}
                 />
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.basicData.landParcelId")}
                   error={basicForm.formState.errors.landParcelId?.message}
-                  {...basicForm.register("landParcelId")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={basicForm.watch("landParcelId") || ""}
+                  onChange={(e) => basicForm.setValue("landParcelId", e.target.value)}
                 />
               </div>
               {/* Location Selection */}
               <LocationPicker
+                label="Location"
                 onLocationSelect={(location) => {
-                  basicForm.setValue("latitude", location.latitude);
-                  basicForm.setValue("longitude", location.longitude);
-                  basicForm.setValue("county", location.county);
-                  basicForm.setValue("city", location.city);
-                  basicForm.setValue("province", location.province);
+                  // Set all location values with fallbacks for empty fields
+                  const latitude = location.latitude || "";
+                  const longitude = location.longitude || "";
+                  const county = location.county || location.city || "Unknown";
+                  const city = location.city || location.province || "Unknown";
+                  const province = location.province || "Unknown";
+                  
+                  // Ensure no empty strings - replace with fallbacks
+                  const finalCounty = county.trim() === "" ? "Unknown" : county;
+                  const finalCity = city.trim() === "" ? (location.province || "Unknown") : city;
+                  const finalProvince = province.trim() === "" ? "Unknown" : province;
+                  
+                  basicForm.setValue("latitude", latitude, { shouldValidate: true });
+                  basicForm.setValue("longitude", longitude, { shouldValidate: true });
+                  basicForm.setValue("county", finalCounty, { shouldValidate: true });
+                  basicForm.setValue("city", finalCity, { shouldValidate: true });
+                  basicForm.setValue("province", finalProvince, { shouldValidate: true });
                 }}
                 initialLocation={{
                   latitude: basicForm.watch("latitude"),
@@ -509,6 +553,13 @@ export function AssetRegistrationForm() {
                   city: basicForm.watch("city"),
                   province: basicForm.watch("province"),
                 }}
+                error={
+                  basicForm.formState.errors.latitude?.message ||
+                  basicForm.formState.errors.longitude?.message ||
+                  basicForm.formState.errors.county?.message ||
+                  basicForm.formState.errors.city?.message ||
+                  basicForm.formState.errors.province?.message
+                }
               />
               
 
@@ -528,20 +579,25 @@ export function AssetRegistrationForm() {
 
               {/* Land Ownership Proof */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.basicData.leaseContractId")}
                   error={basicForm.formState.errors.leaseContractId?.message}
-                  {...basicForm.register("leaseContractId")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={basicForm.watch("leaseContractId") || ""}
+                  onChange={(e) => basicForm.setValue("leaseContractId", e.target.value)}
                 />
-                <FloatingInput
+                <DurationInput
                   label={t("form.basicData.duration")}
                   error={basicForm.formState.errors.duration?.message}
-                  {...basicForm.register("duration")}
+                  value={basicForm.watch("duration") || ""}
+                  onChange={(value) => basicForm.setValue("duration", value)}
                 />
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.basicData.owner")}
                   error={basicForm.formState.errors.owner?.message}
-                  {...basicForm.register("owner")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={basicForm.watch("owner") || ""}
+                  onChange={(e) => basicForm.setValue("owner", e.target.value)}
                 />
               </div>
 
@@ -572,15 +628,19 @@ export function AssetRegistrationForm() {
         return (
           <FormSection title={t("form.financialData.title")}>
             <form className="space-y-6">
-              <FloatingInput
+              <ValidatedInput
                 label={t("form.financialData.unitInvestmentCost")}
                 error={financialForm.formState.errors.unitInvestmentCost?.message}
-                {...financialForm.register("unitInvestmentCost")}
+                validationRules={{ required: true, minLength: 1 }}
+                value={financialForm.watch("unitInvestmentCost") || ""}
+                onChange={(e) => financialForm.setValue("unitInvestmentCost", e.target.value)}
               />
-              <FloatingInput
+              <ValidatedInput
                 label={t("form.financialData.annualCashFlowBreakdown")}
                 error={financialForm.formState.errors.annualCashFlowBreakdown?.message}
-                {...financialForm.register("annualCashFlowBreakdown")}
+                validationRules={{ required: true, minLength: 1 }}
+                value={financialForm.watch("annualCashFlowBreakdown") || ""}
+                onChange={(e) => financialForm.setValue("annualCashFlowBreakdown", e.target.value)}
               />
               <FileUpload
                 label=""
@@ -589,10 +649,12 @@ export function AssetRegistrationForm() {
                 accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                 placeholder={t("form.financialData.otherSubsidies")}
               />
-              <FloatingInput
+              <ValidatedInput
                 label={t("form.financialData.annualizedIRR")}
                 error={financialForm.formState.errors.annualizedIRR?.message}
-                {...financialForm.register("annualizedIRR")}
+                validationRules={{ required: true, minLength: 1 }}
+                value={financialForm.watch("annualizedIRR") || ""}
+                onChange={(e) => financialForm.setValue("annualizedIRR", e.target.value)}
               />
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -624,22 +686,28 @@ export function AssetRegistrationForm() {
             <form className="space-y-6">
               {/* Company Name and Business License */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.operationsCompliance.companyName")}
                   error={operationsForm.formState.errors.companyName?.message}
-                  {...operationsForm.register("companyName")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={operationsForm.watch("companyName") || ""}
+                  onChange={(e) => operationsForm.setValue("companyName", e.target.value)}
                 />
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.operationsCompliance.businessLicense")}
                   error={operationsForm.formState.errors.businessLicense?.message}
-                  {...operationsForm.register("businessLicense")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={operationsForm.watch("businessLicense") || ""}
+                  onChange={(e) => operationsForm.setValue("businessLicense", e.target.value)}
                 />
               </div>
 
-              <FloatingInput
+              <ValidatedInput
                 label={t("form.operationsCompliance.epcContractorName")}
                 error={operationsForm.formState.errors.epcContractorName?.message}
-                {...operationsForm.register("epcContractorName")}
+                validationRules={{ required: true, minLength: 1 }}
+                value={operationsForm.watch("epcContractorName") || ""}
+                onChange={(e) => operationsForm.setValue("epcContractorName", e.target.value)}
               />
 
               {/* Government Filing */}
@@ -712,28 +780,36 @@ export function AssetRegistrationForm() {
           return (
             <FormSection title={t("form.orchardData.title")}>
               <form className="space-y-6">
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.orchardData.plantingArea")}
                   error={orchardForm.formState.errors.plantingArea?.message}
-                  {...orchardForm.register("plantingArea")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={orchardForm.watch("plantingArea") || ""}
+                  onChange={(e) => orchardForm.setValue("plantingArea", e.target.value)}
                 />
 
                 {/* Number of Trees, Age, Variety */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.orchardData.numberOfTrees")}
                     error={orchardForm.formState.errors.numberOfTrees?.message}
-                    {...orchardForm.register("numberOfTrees")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={orchardForm.watch("numberOfTrees") || ""}
+                    onChange={(e) => orchardForm.setValue("numberOfTrees", e.target.value)}
                   />
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.orchardData.age")}
                     error={orchardForm.formState.errors.age?.message}
-                    {...orchardForm.register("age")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={orchardForm.watch("age") || ""}
+                    onChange={(e) => orchardForm.setValue("age", e.target.value)}
                   />
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.orchardData.variety")}
                     error={orchardForm.formState.errors.variety?.message}
-                    {...orchardForm.register("variety")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={orchardForm.watch("variety") || ""}
+                    onChange={(e) => orchardForm.setValue("variety", e.target.value)}
                   />
                 </div>
 
@@ -741,27 +817,35 @@ export function AssetRegistrationForm() {
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-white">{t("form.orchardData.plantingDensity")}</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FloatingInput
+                    <ValidatedInput
                       label={t("form.orchardData.rowSpacing")}
                       error={orchardForm.formState.errors.rowSpacing?.message}
-                      {...orchardForm.register("rowSpacing")}
+                      validationRules={{ required: true, minLength: 1 }}
+                      value={orchardForm.watch("rowSpacing") || ""}
+                      onChange={(e) => orchardForm.setValue("rowSpacing", e.target.value)}
                     />
-                    <FloatingInput
+                    <ValidatedInput
                       label={t("form.orchardData.treeDensity")}
                       error={orchardForm.formState.errors.treeDensity?.message}
-                      {...orchardForm.register("treeDensity")}
+                      validationRules={{ required: true, minLength: 1 }}
+                      value={orchardForm.watch("treeDensity") || ""}
+                      onChange={(e) => orchardForm.setValue("treeDensity", e.target.value)}
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <FloatingInput
+                    <ValidatedInput
                       label={t("form.orchardData.annualYield")}
                       error={orchardForm.formState.errors.annualYield?.message}
-                      {...orchardForm.register("annualYield")}
+                      validationRules={{ required: true, minLength: 1 }}
+                      value={orchardForm.watch("annualYield") || ""}
+                      onChange={(e) => orchardForm.setValue("annualYield", e.target.value)}
                     />
-                    <FloatingInput
+                    <ValidatedInput
                       label={t("form.orchardData.lastThreeYearsYield")}
                       error={orchardForm.formState.errors.lastThreeYearsYield?.message}
-                      {...orchardForm.register("lastThreeYearsYield")}
+                      validationRules={{ required: true, minLength: 1 }}
+                      value={orchardForm.watch("lastThreeYearsYield") || ""}
+                      onChange={(e) => orchardForm.setValue("lastThreeYearsYield", e.target.value)}
                     />
                   </div>
                 </div>
@@ -774,9 +858,11 @@ export function AssetRegistrationForm() {
                     onChange={(value) => orchardForm.setValue("monitoringSystem", value)}
                   />
                   {orchardForm.watch("monitoringSystem") && (
-                    <FloatingInput
+                    <ValidatedInput
                       label={t("form.orchardData.deviceId")}
-                      {...orchardForm.register("deviceId")}
+                      validationRules={{ required: false }}
+                      value={orchardForm.watch("deviceId") || ""}
+                      onChange={(e) => orchardForm.setValue("deviceId", e.target.value)}
                     />
                   )}
                 </div>
@@ -815,55 +901,71 @@ export function AssetRegistrationForm() {
           return (
             <FormSection title={t("form.solarData.title")}>
               <form className="space-y-6">
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.solarData.installedCapacity")}
                   error={solarForm.formState.errors.installedCapacity?.message}
-                  {...solarForm.register("installedCapacity")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={solarForm.watch("installedCapacity") || ""}
+                  onChange={(e) => solarForm.setValue("installedCapacity", e.target.value)}
                 />
 
                 {/* PV Module Model, Manufacturer, Installation Date */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.solarData.pvModuleModel")}
                     error={solarForm.formState.errors.pvModuleModel?.message}
-                    {...solarForm.register("pvModuleModel")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={solarForm.watch("pvModuleModel") || ""}
+                    onChange={(e) => solarForm.setValue("pvModuleModel", e.target.value)}
                   />
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.solarData.manufacturer")}
                     error={solarForm.formState.errors.manufacturer?.message}
-                    {...solarForm.register("manufacturer")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={solarForm.watch("manufacturer") || ""}
+                    onChange={(e) => solarForm.setValue("manufacturer", e.target.value)}
                   />
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.solarData.installationDate")}
                     error={solarForm.formState.errors.installationDate?.message}
-                    {...solarForm.register("installationDate")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={solarForm.watch("installationDate") || ""}
+                    onChange={(e) => solarForm.setValue("installationDate", e.target.value)}
                   />
                 </div>
 
                 {/* Grid Connection */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.solarData.gridConnectionPermitId")}
                     error={solarForm.formState.errors.gridConnectionPermitId?.message}
-                    {...solarForm.register("gridConnectionPermitId")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={solarForm.watch("gridConnectionPermitId") || ""}
+                    onChange={(e) => solarForm.setValue("gridConnectionPermitId", e.target.value)}
                   />
-                  <FloatingInput
+                  <ValidatedInput
                     label={t("form.solarData.gridCompany")}
                     error={solarForm.formState.errors.gridCompany?.message}
-                    {...solarForm.register("gridCompany")}
+                    validationRules={{ required: true, minLength: 1 }}
+                    value={solarForm.watch("gridCompany") || ""}
+                    onChange={(e) => solarForm.setValue("gridCompany", e.target.value)}
                   />
                 </div>
 
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.solarData.averageAnnualPowerGeneration")}
                   error={solarForm.formState.errors.averageAnnualPowerGeneration?.message}
-                  {...solarForm.register("averageAnnualPowerGeneration")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={solarForm.watch("averageAnnualPowerGeneration") || ""}
+                  onChange={(e) => solarForm.setValue("averageAnnualPowerGeneration", e.target.value)}
                 />
 
-                <FloatingInput
+                <ValidatedInput
                   label={t("form.solarData.tariffPpaContractId")}
                   error={solarForm.formState.errors.tariffPpaContractId?.message}
-                  {...solarForm.register("tariffPpaContractId")}
+                  validationRules={{ required: true, minLength: 1 }}
+                  value={solarForm.watch("tariffPpaContractId") || ""}
+                  onChange={(e) => solarForm.setValue("tariffPpaContractId", e.target.value)}
                 />
 
                 <FileUpload
