@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/firebase-admin";
+import { isAdminClaim, isAuthorizedAdminEmail, isSuperAdminEmail } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,6 +12,7 @@ export async function GET(request: NextRequest) {
         email: null,
         isAdmin: false,
         isSuperAdmin: false,
+        claims: { role: null, roles: [], admin: false }
       });
     }
 
@@ -20,22 +22,21 @@ export async function GET(request: NextRequest) {
       const decodedToken = await auth.verifyIdToken(idToken);
       const email = decodedToken.email;
       
-      // For now, we'll use a simple email-based admin check
-      // In production, you might want to store admin roles in a database
-      const adminEmails = [
-        "admin@agvprotocol.com",
-        "superadmin@agvprotocol.com",
-        // Add more admin emails as needed
-      ];
-      
-      const isAdmin = adminEmails.includes(email || "");
-      const isSuperAdmin = email === "superadmin@agvprotocol.com";
+      // Check if user is authorized admin using the new system
+      const isAuthorized = await isAuthorizedAdminEmail(email);
+      const isSuperAdmin = isSuperAdminEmail(email);
+      const isAdmin = isAuthorized || isSuperAdmin || isAdminClaim(decodedToken);
       
       return NextResponse.json({
         authed: true,
         email: email,
         isAdmin: isAdmin,
         isSuperAdmin: isSuperAdmin,
+        claims: {
+          role: decodedToken.role || null,
+          roles: decodedToken.roles || [],
+          admin: decodedToken.admin || false
+        }
       });
     } catch (error) {
       console.error("Error verifying token:", error);
@@ -44,6 +45,7 @@ export async function GET(request: NextRequest) {
         email: null,
         isAdmin: false,
         isSuperAdmin: false,
+        claims: { role: null, roles: [], admin: false }
       });
     }
   } catch (error) {
@@ -53,6 +55,7 @@ export async function GET(request: NextRequest) {
       email: null,
       isAdmin: false,
       isSuperAdmin: false,
+      claims: { role: null, roles: [], admin: false }
     });
   }
 }

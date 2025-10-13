@@ -1,14 +1,57 @@
 "use client";
 
-import { Menu, Bell, Search, User } from "lucide-react";
+import { Menu, Bell, Search, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface AdminHeaderProps {
   onMenuClick: () => void;
 }
 
 export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
+  const [user, setUser] = useState<any>(null);
+  const [who, setWho] = useState<any>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      setUser(user);
+      
+      if (user) {
+        try {
+          const idToken = await user.getIdToken(true);
+          const res = await fetch("/api/admin/whoami", {
+            headers: { Authorization: `Bearer ${idToken}` },
+            cache: "no-store",
+          });
+          const data = await res.json().catch(() => null);
+          if (data) {
+            setWho(data);
+          }
+        } catch {
+          setWho(null);
+        }
+      } else {
+        setWho(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <header className="fixed top-0 right-0 left-0 lg:left-64 z-40 bg-white shadow-sm border-b border-gray-200">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -41,11 +84,21 @@ export function AdminHeader({ onMenuClick }: AdminHeaderProps) {
           {/* User menu */}
           <div className="flex items-center space-x-3">
             <div className="hidden sm:block text-right">
-              <p className="text-sm font-medium text-gray-900">Admin User</p>
-              <p className="text-xs text-gray-500">admin@agvprotocol.com</p>
+              <p className="text-sm font-medium text-gray-900">
+                {who?.email || user?.email || "Admin User"}
+              </p>
+              <p className="text-xs text-gray-500">
+                {who?.isSuperAdmin ? 'Super Admin' : 'Admin'}
+              </p>
             </div>
-            <Button variant="ghost" size="icon" className="rounded-full">
-              <User className="h-5 w-5" />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="rounded-full"
+              onClick={handleLogout}
+              title="Sign Out"
+            >
+              <LogOut className="h-5 w-5" />
             </Button>
           </div>
         </div>

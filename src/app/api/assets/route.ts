@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { adminDb, adminStorage } from '@/lib/firebase-admin';
 import { Query, CollectionReference } from 'firebase-admin/firestore';
+import { requireAdmin } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -213,6 +214,12 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
+    // Check if the requester is authorized for admin access
+    const decoded = await requireAdmin(request);
+    if (!decoded) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     

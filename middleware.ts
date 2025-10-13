@@ -21,6 +21,20 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Check for admin routes that need authentication
+  const isAdminRoute = pathname.includes('/admin');
+  
+  if (isAdminRoute) {
+    // Check if user has authentication token
+    const authToken = request.cookies.get('auth-token')?.value;
+    
+    if (!authToken) {
+      // Redirect to login page (we'll create this)
+      const loginUrl = new URL('/login', request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+  }
+
   // Check if pathname already has a locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`

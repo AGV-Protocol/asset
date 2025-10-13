@@ -8,6 +8,7 @@ import {
   CheckCircle,
   XCircle,
 } from "lucide-react";
+import { auth } from "@/lib/firebase";
 
 interface DashboardStats {
   totalSubmissions: number;
@@ -40,7 +41,21 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("/api/assets");
+      // Get the current user's ID token for authentication
+      const user = auth.currentUser;
+      if (!user) {
+        console.error("No authenticated user found");
+        setLoading(false);
+        return;
+      }
+
+      const idToken = await user.getIdToken();
+      const response = await fetch("/api/assets", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+      
       if (response.ok) {
         const data = await response.json();
         const assets = data.assets || [];
@@ -68,6 +83,10 @@ export default function AdminDashboard() {
           rejectedSubmissions,
           recentSubmissions,
         });
+      } else if (response.status === 401) {
+        console.error("Unauthorized access - user may not have admin privileges");
+      } else {
+        console.error("Failed to fetch dashboard data:", response.statusText);
       }
     } catch (error) {
       console.error("Error fetching dashboard data:", error);

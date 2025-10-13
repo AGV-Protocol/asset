@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { auth } from "@/lib/firebase";
 
 interface Submission {
   id: string;
@@ -43,7 +44,21 @@ export default function SubmissionsPage() {
 
   const fetchSubmissions = async () => {
     try {
-      const response = await fetch("/api/assets");
+      // Get the current user's ID token for authentication
+      const user = auth.currentUser;
+      if (!user) {
+        console.error("No authenticated user found");
+        setLoading(false);
+        return;
+      }
+
+      const idToken = await user.getIdToken();
+      const response = await fetch("/api/assets", {
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
+      });
+      
       if (response.ok) {
         const data = await response.json();
         const assets = data.assets || [];
@@ -60,6 +75,10 @@ export default function SubmissionsPage() {
         }));
 
         setSubmissions(formattedSubmissions);
+      } else if (response.status === 401) {
+        console.error("Unauthorized access - user may not have admin privileges");
+      } else {
+        console.error("Failed to fetch submissions:", response.statusText);
       }
     } catch (error) {
       console.error("Error fetching submissions:", error);
@@ -153,11 +172,21 @@ export default function SubmissionsPage() {
       // Set loading state
       setLoadingStates(prev => ({ ...prev, [loadingKey]: true }));
       
+      // Get the current user's ID token for authentication
+      const user = auth.currentUser;
+      if (!user) {
+        toast.error('No authenticated user found');
+        return;
+      }
+
+      const idToken = await user.getIdToken();
+      
       // Make API call to update the status in Firebase
       const response = await fetch(`/api/assets/${submissionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${idToken}`,
         },
         body: JSON.stringify({
           status: newStatus,
@@ -177,6 +206,8 @@ export default function SubmissionsPage() {
         
         // Show success message
         toast.success(`Submission ${newStatus} successfully`);
+      } else if (response.status === 401) {
+        toast.error('Unauthorized access - user may not have admin privileges');
       } else {
         toast.error('Failed to update submission status');
         console.error('Failed to update status:', response.statusText);

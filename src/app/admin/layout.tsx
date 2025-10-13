@@ -6,6 +6,7 @@ import "../globals.css";
 import { Toaster } from "../../components/ui/toaster";
 import { AdminSidebar } from "../../components/admin/admin-sidebar";
 import { AdminHeader } from "../../components/admin/admin-header";
+import { AdminAuthWrapper } from "../../components/admin/AdminAuthWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,23 +20,25 @@ export default function AdminLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen bg-gray-50">
-          {/* Sidebar */}
-          <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-          
-          {/* Main Content */}
-          <div className="lg:ml-64">
-            {/* Header */}
-            <AdminHeader onMenuClick={() => setSidebarOpen(true)} />
+        <AdminAuthWrapper>
+          <div className="min-h-screen bg-gray-50">
+            {/* Sidebar */}
+            <AdminSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
             
-            {/* Page Content */}
-            <main className="pt-20 pb-6">
-              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                {children}
-              </div>
-            </main>
+            {/* Main Content */}
+            <div className="lg:ml-64">
+              {/* Header */}
+              <AdminHeader onMenuClick={() => setSidebarOpen(true)} />
+              
+              {/* Page Content */}
+              <main className="pt-20 pb-6">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                  {children}
+                </div>
+              </main>
+            </div>
           </div>
-        </div>
+        </AdminAuthWrapper>
         <Toaster />
       </body>
     </html>
