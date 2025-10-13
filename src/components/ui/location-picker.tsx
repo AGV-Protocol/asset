@@ -51,9 +51,11 @@ interface LocationData {
 interface LocationPickerProps {
   onLocationSelect: (location: LocationData) => void;
   initialLocation?: Partial<LocationData>;
+  error?: string;
+  label?: string;
 }
 
-export function LocationPicker({ onLocationSelect, initialLocation }: LocationPickerProps) {
+export function LocationPicker({ onLocationSelect, initialLocation, error, label }: LocationPickerProps) {
   const { t } = useTranslations();
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -491,24 +493,44 @@ export function LocationPicker({ onLocationSelect, initialLocation }: LocationPi
 
   return (
     <div className="space-y-4">
+      {/* Label */}
+      {label && (
+        <label className={`text-sm font-medium ${error ? "text-red-300" : "text-white"}`}>
+          {label}
+        </label>
+      )}
+      
       {/* Location Display */}
-      <div className="flex items-center gap-2">
-        <MapPin className="h-4 w-4 text-white" />
-        <span className="text-white text-sm">
-          {selectedLocation 
-            ? `${selectedLocation.address || `${selectedLocation.city}, ${selectedLocation.province}`}`
-            : t("locationPicker.noLocationSelected")
-          }
-        </span>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={() => setIsOpen(true)}
-          className="ml-auto"
-        >
-          {selectedLocation ? t("locationPicker.changeLocation") : t("locationPicker.selectLocation")}
-        </Button>
+      <div className="space-y-2">
+        <div className={`flex items-center gap-2 p-3 rounded-md border ${
+          error 
+            ? "border-red-500 bg-red-50/10" 
+            : "border-white/20 bg-white/5"
+        }`}>
+          <MapPin className={`h-4 w-4 ${error ? "text-red-400" : "text-white"}`} />
+          <span className={`text-sm ${error ? "text-red-300" : "text-white"}`}>
+            {selectedLocation 
+              ? `${selectedLocation.address || `${selectedLocation.city}, ${selectedLocation.province}`}`
+              : t("locationPicker.noLocationSelected")
+            }
+          </span>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setIsOpen(true)}
+            className={`ml-auto ${
+              error 
+                ? "border-red-500 text-red-300 hover:bg-red-500/10 hover:text-red-200" 
+                : "border-white text-white hover:bg-white/10"
+            }`}
+          >
+            {selectedLocation ? t("locationPicker.changeLocation") : t("locationPicker.selectLocation")}
+          </Button>
+        </div>
+        {error && (
+          <p className="text-xs text-red-500">{error}</p>
+        )}
       </div>
 
       {/* Location Picker Modal */}
