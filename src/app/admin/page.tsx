@@ -25,6 +25,17 @@ interface DashboardStats {
   }>;
 }
 
+interface DocumentFile {
+  name: string;
+  url: string;
+  size: number;
+  type: string;
+  uploadedAt: string;
+  field: string;
+  submissionId: string;
+  projectName: string;
+}
+
 export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     totalSubmissions: 0,
@@ -33,11 +44,28 @@ export default function AdminDashboard() {
     rejectedSubmissions: 0,
     recentSubmissions: [],
   });
+  const [documents, setDocuments] = useState<DocumentFile[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchDashboardData();
   }, []);
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
 
   const fetchDashboardData = async () => {
     try {
@@ -82,6 +110,31 @@ export default function AdminDashboard() {
             tier: asset.operationsCompliance?.tier || "N/A",
           }));
 
+        // Collect all documents from all submissions
+        const allDocuments: DocumentFile[] = [];
+        assets.forEach((asset: {
+          id: string;
+          basicData?: { projectName?: string };
+          attachments?: { files?: Array<{
+            name: string;
+            url: string;
+            size: number;
+            type: string;
+            uploadedAt: string;
+            field: string;
+          }> };
+        }) => {
+          if (asset.attachments?.files) {
+            asset.attachments.files.forEach((file) => {
+              allDocuments.push({
+                ...file,
+                submissionId: asset.id,
+                projectName: asset.basicData?.projectName || "N/A",
+              });
+            });
+          }
+        });
+
         setStats({
           totalSubmissions,
           pendingSubmissions,
@@ -89,6 +142,8 @@ export default function AdminDashboard() {
           rejectedSubmissions,
           recentSubmissions,
         });
+        
+        setDocuments(allDocuments);
       } else if (response.status === 401) {
         console.error("Unauthorized access - user may not have admin privileges");
       } else {
@@ -172,7 +227,6 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
       </div>
-
     </div>
   );
 }
