@@ -19,6 +19,9 @@ export default function AdminLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="robots" content="noindex, nofollow" />
+      </head>
       <body className={inter.className}>
         <AdminAuthWrapper>
           <div className="min-h-screen bg-gray-50">
