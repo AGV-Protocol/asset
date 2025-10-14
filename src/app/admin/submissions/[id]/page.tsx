@@ -10,7 +10,7 @@ import {
   CheckCircle,
   XCircle,
   Clock,
-  Download,
+  ExternalLink,
   FileText,
   Building,
   DollarSign,
@@ -364,8 +364,8 @@ export default function SubmissionDetailPage() {
                       <div className="mt-1">
                         <Button variant="outline" size="sm" asChild className="bg-blue-600 hover:bg-blue-700">
                           <a href={value} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                            <Download className="mr-2 h-4 w-4" />
-                            Download File
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            View Document
                           </a>
                         </Button>
                       </div>
@@ -452,8 +452,8 @@ export default function SubmissionDetailPage() {
                       <div className="mt-1">
                         <Button variant="outline" size="sm" asChild className="bg-blue-600 hover:bg-blue-700">
                           <a href={value} target="_blank" rel="noopener noreferrer" className="flex items-center">
-                            <Download className="mr-2 h-4 w-4" />
-                            Download File
+                            <ExternalLink className="mr-2 h-4 w-4" />
+                            View Document
                           </a>
                         </Button>
                       </div>
@@ -467,7 +467,6 @@ export default function SubmissionDetailPage() {
           </CardContent>
         </Card>
       )}
-
     </div>
   );
 }
