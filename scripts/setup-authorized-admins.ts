@@ -1,3 +1,5 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
@@ -41,14 +43,14 @@ async function setupAuthorizedAdmins() {
         createdAt: new Date(),
         createdBy: 'setup-script'
       });
-      console.log(`✓ Authorized admin: ${email}`);
+      console.log(`? Authorized admin: ${email}`);
     }
 
-    console.log(`\n✅ Successfully set up ${authorizedEmails.length} authorized admin emails`);
+    console.log(`\n? Successfully set up ${authorizedEmails.length} authorized admin emails`);
     console.log('You can now sign in with any of these emails to access the admin dashboard.');
 
   } catch (error) {
-    console.error('❌ Error setting up authorized admins:', error);
+    console.error('? Error setting up authorized admins:', error);
     process.exit(1);
   }
 }
